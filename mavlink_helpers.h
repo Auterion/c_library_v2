@@ -69,7 +69,7 @@ MAVLINK_HELPER void mavlink_reset_channel_status(uint8_t chan)
 /**
  * @brief create a signature block for a packet
  */
-MAVLINK_HELPER uint8_t mavlink_sign_packet(mavlink_signing_t *signing,
+MAVLINK_HELPER void mavlink_sign_packet(mavlink_signing_t *signing,
 					   uint8_t signature[MAVLINK_SIGNATURE_BLOCK_LEN],
 					   const uint8_t *header, uint8_t header_len,
 					   const uint8_t *packet, uint8_t packet_len,
@@ -77,11 +77,11 @@ MAVLINK_HELPER uint8_t mavlink_sign_packet(mavlink_signing_t *signing,
 {
 	mavlink_sha256_ctx ctx;
 	union {
-	    uint64_t t64;
-	    uint8_t t8[8];
+		uint64_t t64;
+		uint8_t t8[8];
 	} tstamp;
 	if (signing == NULL || !(signing->flags & MAVLINK_SIGNING_FLAG_SIGN_OUTGOING)) {
-	    return 0;
+		return;
 	}
 	signature[0] = signing->link_id;
 	tstamp.t64 = signing->timestamp;
@@ -95,8 +95,6 @@ MAVLINK_HELPER uint8_t mavlink_sign_packet(mavlink_signing_t *signing,
 	mavlink_sha256_update(&ctx, crc, 2);
 	mavlink_sha256_update(&ctx, signature, 7);
 	mavlink_sha256_final_48(&ctx, &signature[7]);
-
-	return MAVLINK_SIGNATURE_BLOCK_LEN;
 }
 
 /**
@@ -304,26 +302,30 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
 						    uint8_t min_length, uint8_t length, uint8_t crc_extra)
 {
 	mavlink_status_t *status = mavlink_get_channel_status(chan);
-	uint8_t header_len = 0;
-	uint8_t signature_len = 0;
-	uint8_t signature[MAVLINK_SIGNATURE_BLOCK_LEN];
 	bool mavlink1 = (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) != 0;
 	bool signing = (!mavlink1) && status->signing && (status->signing->flags & MAVLINK_SIGNING_FLAG_SIGN_OUTGOING);
 
+	// determine message length
+	uint8_t header_len = 0;
+	uint8_t signature_len = 0;
 	if (mavlink1) {
 		if (msgid > 255) {
 			// can't send 16 bit messages
 			_mav_parse_error(status);
 			return;
 		}
-		header_len = MAVLINK_CORE_HEADER_MAVLINK1_LEN;
+		header_len = MAVLINK_NUM_HEADER_BYTES_MAVLINK1;
 		length = min_length;
 	} else {
-		header_len = MAVLINK_CORE_HEADER_LEN;
+		header_len = MAVLINK_NUM_HEADER_BYTES;
 		length = _mav_trim_payload(packet, length);
+		if (signing) {
+			signature_len = MAVLINK_SIGNATURE_BLOCK_LEN;
+		}
 	}
 
-	uint8_t buf[(header_len + 1) + length + 2];
+	uint8_t buf[header_len + length + 2 + signature_len];
+	uint8_t signature[MAVLINK_SIGNATURE_BLOCK_LEN];
 
         if (mavlink1) {
             buf[0] = MAVLINK_STX_MAVLINK1;
@@ -350,25 +352,26 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
         }
 	status->current_tx_seq++;
 
-	memcpy(&buf[header_len + 1], packet, length);
+	memcpy(&buf[header_len], packet, length);
 
-	uint16_t checksum = crc_calculate((const uint8_t*)&buf[1], header_len + length);
+	// calculate checksum without the magic stx byte
+	uint16_t checksum = crc_calculate((const uint8_t*)&buf[1], (header_len - 1) + length);
 	crc_accumulate(crc_extra, &checksum);
-	buf[(header_len + 1) + length] = (uint8_t)(checksum & 0xFF);
-	buf[(header_len + 1) + length + 1] = (uint8_t)(checksum >> 8);
+	buf[header_len + length] = (uint8_t)(checksum & 0xFF);
+	buf[header_len + length + 1] = (uint8_t)(checksum >> 8);
 
 	if (signing) {
 		// possibly add a signature
-		signature_len = mavlink_sign_packet(status->signing, signature, buf, header_len+1,
-						    (const uint8_t *)packet, length, &buf[(header_len + 1) + length]);
+		mavlink_sign_packet(status->signing, signature, buf, header_len+1,
+				   (const uint8_t *)packet, length, &buf[(header_len + 1) + length]);
 	}
 
-	MAVLINK_START_UART_SEND(chan, header_len + 3 + (uint16_t)length + (uint16_t)signature_len);
-	_mavlink_send_uart(chan, (const char *)buf, (header_len + 1) + length + 2);
+	MAVLINK_START_UART_SEND(chan, header_len + 2 + (uint16_t)length + (uint16_t)signature_len);
+	_mavlink_send_uart(chan, (const char *)buf, header_len + length + 2);
 	if (signature_len != 0) {
 		_mavlink_send_uart(chan, (const char *)signature, signature_len);
 	}
-	MAVLINK_END_UART_SEND(chan, header_len + 3 + (uint16_t)length + (uint16_t)signature_len);
+	MAVLINK_END_UART_SEND(chan, header_len + 2 + (uint16_t)length + (uint16_t)signature_len);
 }
 
 /**
