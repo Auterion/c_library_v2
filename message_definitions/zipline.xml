@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>common.xml</include>
+  <!-- Note that custom messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
+  <!-- <enums>
+    <enum name="MOOD">
+      <entry value="1" name="HAPPY"/>
+      <entry value="2" name="SAD"/>
+      <entry value="3" name="NOT_SURE"/>
+    </enum>
+  </enums> -->
+  <messages>
+    <message id="7001" name="ZIP_GUIDANCE">
+      <description>Message containing the mood of the source</description>
+      <field type="float" name="x" units="m">X Position in NED Frame</field>
+      <field type="float" name="y" units="m">Y Position in NED Frame</field>
+      <field type="float" name="z" units="m">Z Position in NED Frame</field>
+      <field type="float" name="vx" units="m/s">X Velocity in NED Frame</field>
+      <field type="float" name="vy" units="m/s">X Velocity in NED Frame</field>
+      <field type="float" name="vz" units="m/s">X Velocity in NED Frame</field>
+    </message>
+  </messages>
+</mavlink>
