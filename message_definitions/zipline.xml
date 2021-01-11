@@ -10,8 +10,8 @@
     </enum>
   </enums> -->
   <messages>
-    <message id="7001" name="ZIP_GUIDANCE">
-      <description>Message containing the mood of the source</description>
+    <message id="7001" name="CARRIER_GUIDANCE">
+      <description>Message containing carrier guidance for use in the package controller</description>
       <field type="float" name="x" units="m">X Position in NED Frame</field>
       <field type="float" name="y" units="m">Y Position in NED Frame</field>
       <field type="float" name="z" units="m">Z Position in NED Frame</field>
