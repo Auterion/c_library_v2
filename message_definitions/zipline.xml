@@ -19,5 +19,11 @@
       <field type="float" name="vy" units="m/s">X Velocity in NED Frame</field>
       <field type="float" name="vz" units="m/s">X Velocity in NED Frame</field>
     </message>
+    <message id="7002" name="WINCH_CORRECTION">
+      <description>Message containing correction data to correct for winch payout error</description>
+      <field type="float" name="position" units="m">Position</field>
+      <field type="float" name="velocity" units="m">Velocity (unused)</field>
+      <field type="float" name="acceleration" units="m">Acceleration (unused)</field>
+    </message>
   </messages>
 </mavlink>
