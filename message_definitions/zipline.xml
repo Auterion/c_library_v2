@@ -2,13 +2,13 @@
 <mavlink>
   <include>common.xml</include>
   <!-- Note that custom messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
-  <!-- <enums>
-    <enum name="MOOD">
-      <entry value="1" name="HAPPY"/>
-      <entry value="2" name="SAD"/>
-      <entry value="3" name="NOT_SURE"/>
+  <enums>
+    <enum name="WINCH_CONTROL_MODE">
+      <entry value="0" name="POSITION"/>
+      <entry value="1" name="VELOCITY"/>
+      <entry value="2" name="IDLE"/>
     </enum>
-  </enums> -->
+  </enums>
   <messages>
     <message id="7001" name="CARRIER_GUIDANCE">
       <description>Message containing carrier guidance for use in the package controller</description>
@@ -19,11 +19,21 @@
       <field type="float" name="vy" units="m/s">X Velocity in NED Frame</field>
       <field type="float" name="vz" units="m/s">X Velocity in NED Frame</field>
     </message>
-    <message id="7002" name="WINCH_CORRECTION">
-      <description>Message containing correction data to correct for winch payout error</description>
-      <field type="float" name="position" units="m">Position</field>
-      <field type="float" name="velocity" units="m">Velocity (unused)</field>
-      <field type="float" name="acceleration" units="m">Acceleration (unused)</field>
+    <message id="7002" name="WINCH_DEBUG_DATA">
+      <description>Collection of debug data fields for logging on the fmu</description>
+      <field type="float" name="spool_x" units="m">Position of the winch motor (spool)</field>
+      <field type="float" name="spool_v" units="m/s">Velocity of the winch motor (spool)</field>
+      <field type="float" name="spool_x_setpoint" units="m">Commanded position of the winch motor (spool)</field>
+      <field type="float" name="spool_v_setpoint" units="m/s">Commanded velocity of the winch motor (spool)</field>
+      <field type="float" name="payout_x" units="m">Payout position of the winch encoder (roller)</field>
+      <field type="float" name="payout_v" units="m/s">Payout velocity of the winch encoder (roller)</field>
+      <field type="float" name="payout_x_setpoint" units="m">Commanded payout position of the winch encoder (roller)</field>
+      <field type="float" name="payout_v_setpoint" units="m/s">Commanded payout velocity of the winch encoder (roller)</field>
+      <field type="float" name="correction" units="m">Applied correction to the winch (from package.py)</field>
+      <field type="float" name="datum" units="m">Zero datum for the winch (payout)</field>
+      <field type="float" name="force" units="N">Line force on the winch (motor)</field>
+      <field type="float" name="disparity" units="m">Disparity between spool and payout positions of the winch</field>
+      <field type="uint8_t" name="mode" enum="WINCH_CONTROL_MODE">Winch control mode</field>
     </message>
   </messages>
 </mavlink>
