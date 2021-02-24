@@ -11,15 +11,18 @@ typedef struct __mavlink_carrier_guidance_t {
  float vx; /*< [m/s] X Velocity in NED Frame*/
  float vy; /*< [m/s] X Velocity in NED Frame*/
  float vz; /*< [m/s] X Velocity in NED Frame*/
+ float ax; /*< [m/s^2] X Acceleration in NED Frame*/
+ float ay; /*< [m/s^2] X Acceleration in NED Frame*/
+ float az; /*< [m/s^2] X Acceleration in NED Frame*/
 } mavlink_carrier_guidance_t;
 
-#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN 24
-#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN 24
-#define MAVLINK_MSG_ID_7001_LEN 24
-#define MAVLINK_MSG_ID_7001_MIN_LEN 24
+#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN 36
+#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN 36
+#define MAVLINK_MSG_ID_7001_LEN 36
+#define MAVLINK_MSG_ID_7001_MIN_LEN 36
 
-#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC 55
-#define MAVLINK_MSG_ID_7001_CRC 55
+#define MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC 244
+#define MAVLINK_MSG_ID_7001_CRC 244
 
 
 
@@ -27,25 +30,31 @@ typedef struct __mavlink_carrier_guidance_t {
 #define MAVLINK_MESSAGE_INFO_CARRIER_GUIDANCE { \
     7001, \
     "CARRIER_GUIDANCE", \
-    6, \
+    9, \
     {  { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_carrier_guidance_t, x) }, \
          { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_carrier_guidance_t, y) }, \
          { "z", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_carrier_guidance_t, z) }, \
          { "vx", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_carrier_guidance_t, vx) }, \
          { "vy", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_carrier_guidance_t, vy) }, \
          { "vz", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_carrier_guidance_t, vz) }, \
+         { "ax", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_carrier_guidance_t, ax) }, \
+         { "ay", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_carrier_guidance_t, ay) }, \
+         { "az", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_carrier_guidance_t, az) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_CARRIER_GUIDANCE { \
     "CARRIER_GUIDANCE", \
-    6, \
+    9, \
     {  { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_carrier_guidance_t, x) }, \
          { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_carrier_guidance_t, y) }, \
          { "z", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_carrier_guidance_t, z) }, \
          { "vx", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_carrier_guidance_t, vx) }, \
          { "vy", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_carrier_guidance_t, vy) }, \
          { "vz", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_carrier_guidance_t, vz) }, \
+         { "ax", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_carrier_guidance_t, ax) }, \
+         { "ay", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_carrier_guidance_t, ay) }, \
+         { "az", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_carrier_guidance_t, az) }, \
          } \
 }
 #endif
@@ -62,10 +71,13 @@ typedef struct __mavlink_carrier_guidance_t {
  * @param vx [m/s] X Velocity in NED Frame
  * @param vy [m/s] X Velocity in NED Frame
  * @param vz [m/s] X Velocity in NED Frame
+ * @param ax [m/s^2] X Acceleration in NED Frame
+ * @param ay [m/s^2] X Acceleration in NED Frame
+ * @param az [m/s^2] X Acceleration in NED Frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_carrier_guidance_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float x, float y, float z, float vx, float vy, float vz)
+                               float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN];
@@ -75,6 +87,9 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack(uint8_t system_id, uint
     _mav_put_float(buf, 12, vx);
     _mav_put_float(buf, 16, vy);
     _mav_put_float(buf, 20, vz);
+    _mav_put_float(buf, 24, ax);
+    _mav_put_float(buf, 28, ay);
+    _mav_put_float(buf, 32, az);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN);
 #else
@@ -85,6 +100,9 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack(uint8_t system_id, uint
     packet.vx = vx;
     packet.vy = vy;
     packet.vz = vz;
+    packet.ax = ax;
+    packet.ay = ay;
+    packet.az = az;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN);
 #endif
@@ -105,11 +123,14 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack(uint8_t system_id, uint
  * @param vx [m/s] X Velocity in NED Frame
  * @param vy [m/s] X Velocity in NED Frame
  * @param vz [m/s] X Velocity in NED Frame
+ * @param ax [m/s^2] X Acceleration in NED Frame
+ * @param ay [m/s^2] X Acceleration in NED Frame
+ * @param az [m/s^2] X Acceleration in NED Frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_carrier_guidance_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float x,float y,float z,float vx,float vy,float vz)
+                                   float x,float y,float z,float vx,float vy,float vz,float ax,float ay,float az)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN];
@@ -119,6 +140,9 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack_chan(uint8_t system_id,
     _mav_put_float(buf, 12, vx);
     _mav_put_float(buf, 16, vy);
     _mav_put_float(buf, 20, vz);
+    _mav_put_float(buf, 24, ax);
+    _mav_put_float(buf, 28, ay);
+    _mav_put_float(buf, 32, az);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN);
 #else
@@ -129,6 +153,9 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack_chan(uint8_t system_id,
     packet.vx = vx;
     packet.vy = vy;
     packet.vz = vz;
+    packet.ax = ax;
+    packet.ay = ay;
+    packet.az = az;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN);
 #endif
@@ -147,7 +174,7 @@ static inline uint16_t mavlink_msg_carrier_guidance_pack_chan(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_carrier_guidance_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_carrier_guidance_t* carrier_guidance)
 {
-    return mavlink_msg_carrier_guidance_pack(system_id, component_id, msg, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz);
+    return mavlink_msg_carrier_guidance_pack(system_id, component_id, msg, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz, carrier_guidance->ax, carrier_guidance->ay, carrier_guidance->az);
 }
 
 /**
@@ -161,7 +188,7 @@ static inline uint16_t mavlink_msg_carrier_guidance_encode(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_carrier_guidance_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_carrier_guidance_t* carrier_guidance)
 {
-    return mavlink_msg_carrier_guidance_pack_chan(system_id, component_id, chan, msg, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz);
+    return mavlink_msg_carrier_guidance_pack_chan(system_id, component_id, chan, msg, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz, carrier_guidance->ax, carrier_guidance->ay, carrier_guidance->az);
 }
 
 /**
@@ -174,10 +201,13 @@ static inline uint16_t mavlink_msg_carrier_guidance_encode_chan(uint8_t system_i
  * @param vx [m/s] X Velocity in NED Frame
  * @param vy [m/s] X Velocity in NED Frame
  * @param vz [m/s] X Velocity in NED Frame
+ * @param ax [m/s^2] X Acceleration in NED Frame
+ * @param ay [m/s^2] X Acceleration in NED Frame
+ * @param az [m/s^2] X Acceleration in NED Frame
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_carrier_guidance_send(mavlink_channel_t chan, float x, float y, float z, float vx, float vy, float vz)
+static inline void mavlink_msg_carrier_guidance_send(mavlink_channel_t chan, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN];
@@ -187,6 +217,9 @@ static inline void mavlink_msg_carrier_guidance_send(mavlink_channel_t chan, flo
     _mav_put_float(buf, 12, vx);
     _mav_put_float(buf, 16, vy);
     _mav_put_float(buf, 20, vz);
+    _mav_put_float(buf, 24, ax);
+    _mav_put_float(buf, 28, ay);
+    _mav_put_float(buf, 32, az);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_CARRIER_GUIDANCE, buf, MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC);
 #else
@@ -197,6 +230,9 @@ static inline void mavlink_msg_carrier_guidance_send(mavlink_channel_t chan, flo
     packet.vx = vx;
     packet.vy = vy;
     packet.vz = vz;
+    packet.ax = ax;
+    packet.ay = ay;
+    packet.az = az;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_CARRIER_GUIDANCE, (const char *)&packet, MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC);
 #endif
@@ -210,7 +246,7 @@ static inline void mavlink_msg_carrier_guidance_send(mavlink_channel_t chan, flo
 static inline void mavlink_msg_carrier_guidance_send_struct(mavlink_channel_t chan, const mavlink_carrier_guidance_t* carrier_guidance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_carrier_guidance_send(chan, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz);
+    mavlink_msg_carrier_guidance_send(chan, carrier_guidance->x, carrier_guidance->y, carrier_guidance->z, carrier_guidance->vx, carrier_guidance->vy, carrier_guidance->vz, carrier_guidance->ax, carrier_guidance->ay, carrier_guidance->az);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_CARRIER_GUIDANCE, (const char *)carrier_guidance, MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC);
 #endif
@@ -224,7 +260,7 @@ static inline void mavlink_msg_carrier_guidance_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_carrier_guidance_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float x, float y, float z, float vx, float vy, float vz)
+static inline void mavlink_msg_carrier_guidance_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -234,6 +270,9 @@ static inline void mavlink_msg_carrier_guidance_send_buf(mavlink_message_t *msgb
     _mav_put_float(buf, 12, vx);
     _mav_put_float(buf, 16, vy);
     _mav_put_float(buf, 20, vz);
+    _mav_put_float(buf, 24, ax);
+    _mav_put_float(buf, 28, ay);
+    _mav_put_float(buf, 32, az);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_CARRIER_GUIDANCE, buf, MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC);
 #else
@@ -244,6 +283,9 @@ static inline void mavlink_msg_carrier_guidance_send_buf(mavlink_message_t *msgb
     packet->vx = vx;
     packet->vy = vy;
     packet->vz = vz;
+    packet->ax = ax;
+    packet->ay = ay;
+    packet->az = az;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_CARRIER_GUIDANCE, (const char *)packet, MAVLINK_MSG_ID_CARRIER_GUIDANCE_MIN_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN, MAVLINK_MSG_ID_CARRIER_GUIDANCE_CRC);
 #endif
@@ -316,6 +358,36 @@ static inline float mavlink_msg_carrier_guidance_get_vz(const mavlink_message_t*
 }
 
 /**
+ * @brief Get field ax from carrier_guidance message
+ *
+ * @return [m/s^2] X Acceleration in NED Frame
+ */
+static inline float mavlink_msg_carrier_guidance_get_ax(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  24);
+}
+
+/**
+ * @brief Get field ay from carrier_guidance message
+ *
+ * @return [m/s^2] X Acceleration in NED Frame
+ */
+static inline float mavlink_msg_carrier_guidance_get_ay(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  28);
+}
+
+/**
+ * @brief Get field az from carrier_guidance message
+ *
+ * @return [m/s^2] X Acceleration in NED Frame
+ */
+static inline float mavlink_msg_carrier_guidance_get_az(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  32);
+}
+
+/**
  * @brief Decode a carrier_guidance message into a struct
  *
  * @param msg The message to decode
@@ -330,6 +402,9 @@ static inline void mavlink_msg_carrier_guidance_decode(const mavlink_message_t* 
     carrier_guidance->vx = mavlink_msg_carrier_guidance_get_vx(msg);
     carrier_guidance->vy = mavlink_msg_carrier_guidance_get_vy(msg);
     carrier_guidance->vz = mavlink_msg_carrier_guidance_get_vz(msg);
+    carrier_guidance->ax = mavlink_msg_carrier_guidance_get_ax(msg);
+    carrier_guidance->ay = mavlink_msg_carrier_guidance_get_ay(msg);
+    carrier_guidance->az = mavlink_msg_carrier_guidance_get_az(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN? msg->len : MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN;
         memset(carrier_guidance, 0, MAVLINK_MSG_ID_CARRIER_GUIDANCE_LEN);

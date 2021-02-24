@@ -37,7 +37,7 @@ static void mavlink_test_carrier_guidance(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_carrier_guidance_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0
     };
     mavlink_carrier_guidance_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -47,6 +47,9 @@ static void mavlink_test_carrier_guidance(uint8_t system_id, uint8_t component_i
         packet1.vx = packet_in.vx;
         packet1.vy = packet_in.vy;
         packet1.vz = packet_in.vz;
+        packet1.ax = packet_in.ax;
+        packet1.ay = packet_in.ay;
+        packet1.az = packet_in.az;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -61,12 +64,12 @@ static void mavlink_test_carrier_guidance(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_carrier_guidance_pack(system_id, component_id, &msg , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz );
+    mavlink_msg_carrier_guidance_pack(system_id, component_id, &msg , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz , packet1.ax , packet1.ay , packet1.az );
     mavlink_msg_carrier_guidance_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_carrier_guidance_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz );
+    mavlink_msg_carrier_guidance_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz , packet1.ax , packet1.ay , packet1.az );
     mavlink_msg_carrier_guidance_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -79,7 +82,7 @@ static void mavlink_test_carrier_guidance(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_carrier_guidance_send(MAVLINK_COMM_1 , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz );
+    mavlink_msg_carrier_guidance_send(MAVLINK_COMM_1 , packet1.x , packet1.y , packet1.z , packet1.vx , packet1.vy , packet1.vz , packet1.ax , packet1.ay , packet1.az );
     mavlink_msg_carrier_guidance_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

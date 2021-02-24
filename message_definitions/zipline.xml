@@ -18,6 +18,9 @@
       <field type="float" name="vx" units="m/s">X Velocity in NED Frame</field>
       <field type="float" name="vy" units="m/s">X Velocity in NED Frame</field>
       <field type="float" name="vz" units="m/s">X Velocity in NED Frame</field>
+      <field type="float" name="ax" units="m/s^2">X Acceleration in NED Frame</field>
+      <field type="float" name="ay" units="m/s^2">X Acceleration in NED Frame</field>
+      <field type="float" name="az" units="m/s^2">X Acceleration in NED Frame</field>
     </message>
     <message id="7002" name="WINCH_DEBUG_DATA">
       <description>Collection of debug data fields for logging on the fmu</description>
