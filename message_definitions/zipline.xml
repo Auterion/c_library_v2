@@ -9,18 +9,18 @@
       <entry value="2" name="IDLE"/>
     </enum>
     <enum name="ODRIVE_STATES">
-      <entry value="0" name="UNDEFINED"/>
-      <entry value="1" name="IDLE"/>
-      <entry value="2" name="STARTUP_SEQUENCE"/>
-      <entry value="3" name="FULL_CALIBRATION_SEQUENCE"/>
-      <entry value="4" name="MOTOR_CALIBRATION"/>
-      <entry value="5" name="SENSORLESS_CONTROL"/>
-      <entry value="6" name="ENCODER_INDEX_SEARCH"/>
-      <entry value="7" name="ENCODER_OFFSET_CALIBRATION"/>
-      <entry value="8" name="CLOSED_LOOP_CONTROL"/>
-      <entry value="9" name="LOCKIN_SPIN"/>
-      <entry value="10" name="ENCODER_DIR_FIND"/>
-      <entry value="11" name="HOMING"/>
+      <entry value="0" name="AXIS_STATE_UNDEFINED"/>
+      <entry value="1" name="AXIS_STATE_IDLE"/>
+      <entry value="2" name="AXIS_STATE_STARTUP_SEQUENCE"/>
+      <entry value="3" name="AXIS_STATE_FULL_CALIBRATION_SEQUENCE"/>
+      <entry value="4" name="AXIS_STATE_MOTOR_CALIBRATION"/>
+      <entry value="5" name="AXIS_STATE_SENSORLESS_CONTROL"/>
+      <entry value="6" name="AXIS_STATE_ENCODER_INDEX_SEARCH"/>
+      <entry value="7" name="AXIS_STATE_ENCODER_OFFSET_CALIBRATION"/>
+      <entry value="8" name="AXIS_STATE_CLOSED_LOOP_CONTROL"/>
+      <entry value="9" name="AXIS_STATE_LOCKIN_SPIN"/>
+      <entry value="10" name="AXIS_STATE_ENCODER_DIR_FIND"/>
+      <entry value="11" name="AXIS_STATE_HOMING"/>
     </enum>
   </enums>
   <messages>
