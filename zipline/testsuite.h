@@ -99,7 +99,7 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_winch_debug_data_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,149
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,173,240,51,118,185
     };
     mavlink_winch_debug_data_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -115,7 +115,13 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         packet1.datum = packet_in.datum;
         packet1.force = packet_in.force;
         packet1.disparity = packet_in.disparity;
+        packet1.current = packet_in.current;
+        packet1.voltage = packet_in.voltage;
         packet1.mode = packet_in.mode;
+        packet1.err = packet_in.err;
+        packet1.motor_err = packet_in.motor_err;
+        packet1.encoder_err = packet_in.encoder_err;
+        packet1.state = packet_in.state;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -130,12 +136,12 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_winch_debug_data_pack(system_id, component_id, &msg , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode );
+    mavlink_msg_winch_debug_data_pack(system_id, component_id, &msg , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
     mavlink_msg_winch_debug_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_winch_debug_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode );
+    mavlink_msg_winch_debug_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
     mavlink_msg_winch_debug_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -148,8 +154,69 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_winch_debug_data_send(MAVLINK_COMM_1 , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode );
+    mavlink_msg_winch_debug_data_send(MAVLINK_COMM_1 , packet1.spool_x , packet1.spool_v , packet1.spool_x_setpoint , packet1.spool_v_setpoint , packet1.payout_x , packet1.payout_v , packet1.payout_x_setpoint , packet1.payout_v_setpoint , packet1.correction , packet1.datum , packet1.force , packet1.disparity , packet1.mode , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
     mavlink_msg_winch_debug_data_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
+static void mavlink_test_reaction_wheel_telemetry(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_reaction_wheel_telemetry_t packet_in = {
+        17.0,45.0,73.0,101.0,53,120,187,254
+    };
+    mavlink_reaction_wheel_telemetry_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.velocity = packet_in.velocity;
+        packet1.torque = packet_in.torque;
+        packet1.current = packet_in.current;
+        packet1.voltage = packet_in.voltage;
+        packet1.err = packet_in.err;
+        packet1.motor_err = packet_in.motor_err;
+        packet1.encoder_err = packet_in.encoder_err;
+        packet1.state = packet_in.state;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_reaction_wheel_telemetry_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_reaction_wheel_telemetry_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_reaction_wheel_telemetry_pack(system_id, component_id, &msg , packet1.velocity , packet1.torque , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
+    mavlink_msg_reaction_wheel_telemetry_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_reaction_wheel_telemetry_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.velocity , packet1.torque , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
+    mavlink_msg_reaction_wheel_telemetry_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_reaction_wheel_telemetry_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_reaction_wheel_telemetry_send(MAVLINK_COMM_1 , packet1.velocity , packet1.torque , packet1.current , packet1.voltage , packet1.err , packet1.motor_err , packet1.encoder_err , packet1.state );
+    mavlink_msg_reaction_wheel_telemetry_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
@@ -157,6 +224,7 @@ static void mavlink_test_zipline(uint8_t system_id, uint8_t component_id, mavlin
 {
     mavlink_test_carrier_guidance(system_id, component_id, last_msg);
     mavlink_test_winch_debug_data(system_id, component_id, last_msg);
+    mavlink_test_reaction_wheel_telemetry(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus

@@ -8,6 +8,20 @@
       <entry value="1" name="VELOCITY"/>
       <entry value="2" name="IDLE"/>
     </enum>
+    <enum name="ODRIVE_STATES">
+      <entry value="0" name="UNDEFINED"/>
+      <entry value="1" name="IDLE"/>
+      <entry value="2" name="STARTUP_SEQUENCE"/>
+      <entry value="3" name="FULL_CALIBRATION_SEQUENCE"/>
+      <entry value="4" name="MOTOR_CALIBRATION"/>
+      <entry value="5" name="SENSORLESS_CONTROL"/>
+      <entry value="6" name="ENCODER_INDEX_SEARCH"/>
+      <entry value="7" name="ENCODER_OFFSET_CALIBRATION"/>
+      <entry value="8" name="CLOSED_LOOP_CONTROL"/>
+      <entry value="9" name="LOCKIN_SPIN"/>
+      <entry value="10" name="ENCODER_DIR_FIND"/>
+      <entry value="11" name="HOMING"/>
+    </enum>
   </enums>
   <messages>
     <message id="7001" name="CARRIER_GUIDANCE">
@@ -37,6 +51,23 @@
       <field type="float" name="force" units="N">Line force on the winch (motor)</field>
       <field type="float" name="disparity" units="m">Disparity between spool and payout positions of the winch</field>
       <field type="uint8_t" name="mode" enum="WINCH_CONTROL_MODE">Winch control mode</field>
+      <field type="float" name="current" units="A">Winch Current Draw</field>
+      <field type="float" name="voltage" units="V">Winch Supply voltage</field>
+      <field type="uint8_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
+    </message>
+    <message id="7003" name="REACTION_WHEEL_TELEMETRY">
+      <description>telemetry data for the reaction wheel on the package, if present.</description>
+      <field type="float" name="velocity" units="rad/s">Velocity of the wheel</field>
+      <field type="float" name="torque" units="Nm">Torque</field>
+      <field type="float" name="current" units="A">Current</field>
+      <field type="float" name="voltage" units="V">Voltage</field>
+      <field type="uint8_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
+      <field type="uint8_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
     </message>
   </messages>
 </mavlink>
