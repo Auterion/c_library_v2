@@ -69,5 +69,16 @@
       <field type="uint8_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
       <field type="uint8_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
     </message>
+    <message id="7004" name="ALARM_REPORT">
+      <description>Alarm report including bitmask of all set alarms and all conclusions.</description>
+      <field type="uint64_t[10]" name="alarm_mask" units="mask">Active alarm bitmask</field>
+      <field type="uint8_t" name="blocking_preflight" units="boolean">An exception is currently blocking preflight</field>
+      <field type="uint8_t" name="should_abort" units="boolean">An exception is indicating that we should probably abort any missions</field>
+    </message>
+    <message id="7005" name="SET_ALARM">
+      <description>Message to set/unset an alarm on the mission computer.</description>
+      <field type="uint32_t" name="alarm_id" units="id">ID of the alarm to set/clear</field>
+      <field type="uint8_t" name="set" units="boolean">True to set, False to clear</field>
+    </message>
   </messages>
 </mavlink>
