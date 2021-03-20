@@ -22,6 +22,12 @@
       <entry value="10" name="AXIS_STATE_ENCODER_DIR_FIND"/>
       <entry value="11" name="AXIS_STATE_HOMING"/>
     </enum>
+    <enum name="FAILURE_LEVEL">
+      <entry value="0" name="NO_FAILURE"/>
+      <entry value="1" name="PREVENT_PREFLIGHT"/>
+      <entry value="2" name="MISSION_FAILURE"/>
+      <entry value="3" name="FLIGHT_FAILURE"/>
+    </enum>
   </enums>
   <messages>
     <message id="7001" name="CARRIER_GUIDANCE">
@@ -72,9 +78,7 @@
     <message id="7004" name="ALARM_REPORT">
       <description>Alarm report including bitmask of all set alarms and all conclusions.</description>
       <field type="uint64_t[10]" name="alarm_mask" units="mask">Active alarm bitmask</field>
-      <field type="uint8_t" name="blocking_preflight" units="boolean">An exception is currently blocking preflight</field>
-      <field type="uint8_t" name="should_abort" units="boolean">An exception is indicating that we should probably abort any missions</field>
-      <field type="uint8_t" name="should_terminate" units="boolean">An exception is indicating that we should terminate flight (parachute)</field>
+      <field type="uint8_t" name="failure_level" enum="FAILURE_LEVEL">An exception is currently blocking preflight</field>
     </message>
     <message id="7005" name="SET_ALARM">
       <description>Message to set/unset an alarm on the mission computer.</description>

@@ -6,18 +6,16 @@
 
 typedef struct __mavlink_alarm_report_t {
  uint64_t alarm_mask[10]; /*< [mask] Active alarm bitmask*/
- uint8_t blocking_preflight; /*< [boolean] An exception is currently blocking preflight*/
- uint8_t should_abort; /*< [boolean] An exception is indicating that we should probably abort any missions*/
- uint8_t should_terminate; /*< [boolean] An exception is indicating that we should terminate flight (parachute)*/
+ uint8_t failure_level; /*<  An exception is currently blocking preflight*/
 } mavlink_alarm_report_t;
 
-#define MAVLINK_MSG_ID_ALARM_REPORT_LEN 83
-#define MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN 83
-#define MAVLINK_MSG_ID_7004_LEN 83
-#define MAVLINK_MSG_ID_7004_MIN_LEN 83
+#define MAVLINK_MSG_ID_ALARM_REPORT_LEN 81
+#define MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN 81
+#define MAVLINK_MSG_ID_7004_LEN 81
+#define MAVLINK_MSG_ID_7004_MIN_LEN 81
 
-#define MAVLINK_MSG_ID_ALARM_REPORT_CRC 193
-#define MAVLINK_MSG_ID_7004_CRC 193
+#define MAVLINK_MSG_ID_ALARM_REPORT_CRC 135
+#define MAVLINK_MSG_ID_7004_CRC 135
 
 #define MAVLINK_MSG_ALARM_REPORT_FIELD_ALARM_MASK_LEN 10
 
@@ -25,21 +23,17 @@ typedef struct __mavlink_alarm_report_t {
 #define MAVLINK_MESSAGE_INFO_ALARM_REPORT { \
     7004, \
     "ALARM_REPORT", \
-    4, \
+    2, \
     {  { "alarm_mask", NULL, MAVLINK_TYPE_UINT64_T, 10, 0, offsetof(mavlink_alarm_report_t, alarm_mask) }, \
-         { "blocking_preflight", NULL, MAVLINK_TYPE_UINT8_T, 0, 80, offsetof(mavlink_alarm_report_t, blocking_preflight) }, \
-         { "should_abort", NULL, MAVLINK_TYPE_UINT8_T, 0, 81, offsetof(mavlink_alarm_report_t, should_abort) }, \
-         { "should_terminate", NULL, MAVLINK_TYPE_UINT8_T, 0, 82, offsetof(mavlink_alarm_report_t, should_terminate) }, \
+         { "failure_level", NULL, MAVLINK_TYPE_UINT8_T, 0, 80, offsetof(mavlink_alarm_report_t, failure_level) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_ALARM_REPORT { \
     "ALARM_REPORT", \
-    4, \
+    2, \
     {  { "alarm_mask", NULL, MAVLINK_TYPE_UINT64_T, 10, 0, offsetof(mavlink_alarm_report_t, alarm_mask) }, \
-         { "blocking_preflight", NULL, MAVLINK_TYPE_UINT8_T, 0, 80, offsetof(mavlink_alarm_report_t, blocking_preflight) }, \
-         { "should_abort", NULL, MAVLINK_TYPE_UINT8_T, 0, 81, offsetof(mavlink_alarm_report_t, should_abort) }, \
-         { "should_terminate", NULL, MAVLINK_TYPE_UINT8_T, 0, 82, offsetof(mavlink_alarm_report_t, should_terminate) }, \
+         { "failure_level", NULL, MAVLINK_TYPE_UINT8_T, 0, 80, offsetof(mavlink_alarm_report_t, failure_level) }, \
          } \
 }
 #endif
@@ -51,26 +45,20 @@ typedef struct __mavlink_alarm_report_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param alarm_mask [mask] Active alarm bitmask
- * @param blocking_preflight [boolean] An exception is currently blocking preflight
- * @param should_abort [boolean] An exception is indicating that we should probably abort any missions
- * @param should_terminate [boolean] An exception is indicating that we should terminate flight (parachute)
+ * @param failure_level  An exception is currently blocking preflight
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_alarm_report_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const uint64_t *alarm_mask, uint8_t blocking_preflight, uint8_t should_abort, uint8_t should_terminate)
+                               const uint64_t *alarm_mask, uint8_t failure_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ALARM_REPORT_LEN];
-    _mav_put_uint8_t(buf, 80, blocking_preflight);
-    _mav_put_uint8_t(buf, 81, should_abort);
-    _mav_put_uint8_t(buf, 82, should_terminate);
+    _mav_put_uint8_t(buf, 80, failure_level);
     _mav_put_uint64_t_array(buf, 0, alarm_mask, 10);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ALARM_REPORT_LEN);
 #else
     mavlink_alarm_report_t packet;
-    packet.blocking_preflight = blocking_preflight;
-    packet.should_abort = should_abort;
-    packet.should_terminate = should_terminate;
+    packet.failure_level = failure_level;
     mav_array_memcpy(packet.alarm_mask, alarm_mask, sizeof(uint64_t)*10);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ALARM_REPORT_LEN);
 #endif
@@ -86,27 +74,21 @@ static inline uint16_t mavlink_msg_alarm_report_pack(uint8_t system_id, uint8_t 
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param alarm_mask [mask] Active alarm bitmask
- * @param blocking_preflight [boolean] An exception is currently blocking preflight
- * @param should_abort [boolean] An exception is indicating that we should probably abort any missions
- * @param should_terminate [boolean] An exception is indicating that we should terminate flight (parachute)
+ * @param failure_level  An exception is currently blocking preflight
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_alarm_report_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   const uint64_t *alarm_mask,uint8_t blocking_preflight,uint8_t should_abort,uint8_t should_terminate)
+                                   const uint64_t *alarm_mask,uint8_t failure_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ALARM_REPORT_LEN];
-    _mav_put_uint8_t(buf, 80, blocking_preflight);
-    _mav_put_uint8_t(buf, 81, should_abort);
-    _mav_put_uint8_t(buf, 82, should_terminate);
+    _mav_put_uint8_t(buf, 80, failure_level);
     _mav_put_uint64_t_array(buf, 0, alarm_mask, 10);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ALARM_REPORT_LEN);
 #else
     mavlink_alarm_report_t packet;
-    packet.blocking_preflight = blocking_preflight;
-    packet.should_abort = should_abort;
-    packet.should_terminate = should_terminate;
+    packet.failure_level = failure_level;
     mav_array_memcpy(packet.alarm_mask, alarm_mask, sizeof(uint64_t)*10);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ALARM_REPORT_LEN);
 #endif
@@ -125,7 +107,7 @@ static inline uint16_t mavlink_msg_alarm_report_pack_chan(uint8_t system_id, uin
  */
 static inline uint16_t mavlink_msg_alarm_report_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_alarm_report_t* alarm_report)
 {
-    return mavlink_msg_alarm_report_pack(system_id, component_id, msg, alarm_report->alarm_mask, alarm_report->blocking_preflight, alarm_report->should_abort, alarm_report->should_terminate);
+    return mavlink_msg_alarm_report_pack(system_id, component_id, msg, alarm_report->alarm_mask, alarm_report->failure_level);
 }
 
 /**
@@ -139,7 +121,7 @@ static inline uint16_t mavlink_msg_alarm_report_encode(uint8_t system_id, uint8_
  */
 static inline uint16_t mavlink_msg_alarm_report_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_alarm_report_t* alarm_report)
 {
-    return mavlink_msg_alarm_report_pack_chan(system_id, component_id, chan, msg, alarm_report->alarm_mask, alarm_report->blocking_preflight, alarm_report->should_abort, alarm_report->should_terminate);
+    return mavlink_msg_alarm_report_pack_chan(system_id, component_id, chan, msg, alarm_report->alarm_mask, alarm_report->failure_level);
 }
 
 /**
@@ -147,26 +129,20 @@ static inline uint16_t mavlink_msg_alarm_report_encode_chan(uint8_t system_id, u
  * @param chan MAVLink channel to send the message
  *
  * @param alarm_mask [mask] Active alarm bitmask
- * @param blocking_preflight [boolean] An exception is currently blocking preflight
- * @param should_abort [boolean] An exception is indicating that we should probably abort any missions
- * @param should_terminate [boolean] An exception is indicating that we should terminate flight (parachute)
+ * @param failure_level  An exception is currently blocking preflight
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_alarm_report_send(mavlink_channel_t chan, const uint64_t *alarm_mask, uint8_t blocking_preflight, uint8_t should_abort, uint8_t should_terminate)
+static inline void mavlink_msg_alarm_report_send(mavlink_channel_t chan, const uint64_t *alarm_mask, uint8_t failure_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ALARM_REPORT_LEN];
-    _mav_put_uint8_t(buf, 80, blocking_preflight);
-    _mav_put_uint8_t(buf, 81, should_abort);
-    _mav_put_uint8_t(buf, 82, should_terminate);
+    _mav_put_uint8_t(buf, 80, failure_level);
     _mav_put_uint64_t_array(buf, 0, alarm_mask, 10);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ALARM_REPORT, buf, MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN, MAVLINK_MSG_ID_ALARM_REPORT_LEN, MAVLINK_MSG_ID_ALARM_REPORT_CRC);
 #else
     mavlink_alarm_report_t packet;
-    packet.blocking_preflight = blocking_preflight;
-    packet.should_abort = should_abort;
-    packet.should_terminate = should_terminate;
+    packet.failure_level = failure_level;
     mav_array_memcpy(packet.alarm_mask, alarm_mask, sizeof(uint64_t)*10);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ALARM_REPORT, (const char *)&packet, MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN, MAVLINK_MSG_ID_ALARM_REPORT_LEN, MAVLINK_MSG_ID_ALARM_REPORT_CRC);
 #endif
@@ -180,7 +156,7 @@ static inline void mavlink_msg_alarm_report_send(mavlink_channel_t chan, const u
 static inline void mavlink_msg_alarm_report_send_struct(mavlink_channel_t chan, const mavlink_alarm_report_t* alarm_report)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_alarm_report_send(chan, alarm_report->alarm_mask, alarm_report->blocking_preflight, alarm_report->should_abort, alarm_report->should_terminate);
+    mavlink_msg_alarm_report_send(chan, alarm_report->alarm_mask, alarm_report->failure_level);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ALARM_REPORT, (const char *)alarm_report, MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN, MAVLINK_MSG_ID_ALARM_REPORT_LEN, MAVLINK_MSG_ID_ALARM_REPORT_CRC);
 #endif
@@ -194,20 +170,16 @@ static inline void mavlink_msg_alarm_report_send_struct(mavlink_channel_t chan, 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_alarm_report_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const uint64_t *alarm_mask, uint8_t blocking_preflight, uint8_t should_abort, uint8_t should_terminate)
+static inline void mavlink_msg_alarm_report_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const uint64_t *alarm_mask, uint8_t failure_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint8_t(buf, 80, blocking_preflight);
-    _mav_put_uint8_t(buf, 81, should_abort);
-    _mav_put_uint8_t(buf, 82, should_terminate);
+    _mav_put_uint8_t(buf, 80, failure_level);
     _mav_put_uint64_t_array(buf, 0, alarm_mask, 10);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ALARM_REPORT, buf, MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN, MAVLINK_MSG_ID_ALARM_REPORT_LEN, MAVLINK_MSG_ID_ALARM_REPORT_CRC);
 #else
     mavlink_alarm_report_t *packet = (mavlink_alarm_report_t *)msgbuf;
-    packet->blocking_preflight = blocking_preflight;
-    packet->should_abort = should_abort;
-    packet->should_terminate = should_terminate;
+    packet->failure_level = failure_level;
     mav_array_memcpy(packet->alarm_mask, alarm_mask, sizeof(uint64_t)*10);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ALARM_REPORT, (const char *)packet, MAVLINK_MSG_ID_ALARM_REPORT_MIN_LEN, MAVLINK_MSG_ID_ALARM_REPORT_LEN, MAVLINK_MSG_ID_ALARM_REPORT_CRC);
 #endif
@@ -230,33 +202,13 @@ static inline uint16_t mavlink_msg_alarm_report_get_alarm_mask(const mavlink_mes
 }
 
 /**
- * @brief Get field blocking_preflight from alarm_report message
+ * @brief Get field failure_level from alarm_report message
  *
- * @return [boolean] An exception is currently blocking preflight
+ * @return  An exception is currently blocking preflight
  */
-static inline uint8_t mavlink_msg_alarm_report_get_blocking_preflight(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_alarm_report_get_failure_level(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  80);
-}
-
-/**
- * @brief Get field should_abort from alarm_report message
- *
- * @return [boolean] An exception is indicating that we should probably abort any missions
- */
-static inline uint8_t mavlink_msg_alarm_report_get_should_abort(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint8_t(msg,  81);
-}
-
-/**
- * @brief Get field should_terminate from alarm_report message
- *
- * @return [boolean] An exception is indicating that we should terminate flight (parachute)
- */
-static inline uint8_t mavlink_msg_alarm_report_get_should_terminate(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint8_t(msg,  82);
 }
 
 /**
@@ -269,9 +221,7 @@ static inline void mavlink_msg_alarm_report_decode(const mavlink_message_t* msg,
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_alarm_report_get_alarm_mask(msg, alarm_report->alarm_mask);
-    alarm_report->blocking_preflight = mavlink_msg_alarm_report_get_blocking_preflight(msg);
-    alarm_report->should_abort = mavlink_msg_alarm_report_get_should_abort(msg);
-    alarm_report->should_terminate = mavlink_msg_alarm_report_get_should_terminate(msg);
+    alarm_report->failure_level = mavlink_msg_alarm_report_get_failure_level(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_ALARM_REPORT_LEN? msg->len : MAVLINK_MSG_ID_ALARM_REPORT_LEN;
         memset(alarm_report, 0, MAVLINK_MSG_ID_ALARM_REPORT_LEN);
