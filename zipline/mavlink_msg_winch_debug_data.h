@@ -19,20 +19,20 @@ typedef struct __mavlink_winch_debug_data_t {
  float disparity; /*< [m] Disparity between spool and payout positions of the winch*/
  float current; /*< [A] Winch Current Draw*/
  float voltage; /*< [V] Winch Supply voltage*/
+ uint16_t err; /*< [mask] Error code (see odrive docs to interpret)*/
+ uint16_t motor_err; /*< [mask] Motor error code (see odrive docs to interpret)*/
+ uint16_t encoder_err; /*< [mask] Encoder error code (see odrive docs to interpret)*/
+ uint16_t state; /*<  Motor controller state*/
  uint8_t mode; /*<  Winch control mode*/
- uint8_t err; /*< [mask] Error code (see odrive docs to interpret)*/
- uint8_t motor_err; /*< [mask] Motor error code (see odrive docs to interpret)*/
- uint8_t encoder_err; /*< [mask] Encoder error code (see odrive docs to interpret)*/
- uint8_t state; /*<  Motor controller state*/
 } mavlink_winch_debug_data_t;
 
-#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN 61
-#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN 61
-#define MAVLINK_MSG_ID_7002_LEN 61
-#define MAVLINK_MSG_ID_7002_MIN_LEN 61
+#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN 65
+#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN 65
+#define MAVLINK_MSG_ID_7002_LEN 65
+#define MAVLINK_MSG_ID_7002_MIN_LEN 65
 
-#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC 206
-#define MAVLINK_MSG_ID_7002_CRC 206
+#define MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC 62
+#define MAVLINK_MSG_ID_7002_CRC 62
 
 
 
@@ -53,13 +53,13 @@ typedef struct __mavlink_winch_debug_data_t {
          { "datum", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_winch_debug_data_t, datum) }, \
          { "force", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_winch_debug_data_t, force) }, \
          { "disparity", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_winch_debug_data_t, disparity) }, \
-         { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 56, offsetof(mavlink_winch_debug_data_t, mode) }, \
+         { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 64, offsetof(mavlink_winch_debug_data_t, mode) }, \
          { "current", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_winch_debug_data_t, current) }, \
          { "voltage", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_winch_debug_data_t, voltage) }, \
-         { "err", NULL, MAVLINK_TYPE_UINT8_T, 0, 57, offsetof(mavlink_winch_debug_data_t, err) }, \
-         { "motor_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 58, offsetof(mavlink_winch_debug_data_t, motor_err) }, \
-         { "encoder_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 59, offsetof(mavlink_winch_debug_data_t, encoder_err) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 60, offsetof(mavlink_winch_debug_data_t, state) }, \
+         { "err", NULL, MAVLINK_TYPE_UINT16_T, 0, 56, offsetof(mavlink_winch_debug_data_t, err) }, \
+         { "motor_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 58, offsetof(mavlink_winch_debug_data_t, motor_err) }, \
+         { "encoder_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 60, offsetof(mavlink_winch_debug_data_t, encoder_err) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT16_T, 0, 62, offsetof(mavlink_winch_debug_data_t, state) }, \
          } \
 }
 #else
@@ -78,13 +78,13 @@ typedef struct __mavlink_winch_debug_data_t {
          { "datum", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_winch_debug_data_t, datum) }, \
          { "force", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_winch_debug_data_t, force) }, \
          { "disparity", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_winch_debug_data_t, disparity) }, \
-         { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 56, offsetof(mavlink_winch_debug_data_t, mode) }, \
+         { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 64, offsetof(mavlink_winch_debug_data_t, mode) }, \
          { "current", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_winch_debug_data_t, current) }, \
          { "voltage", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_winch_debug_data_t, voltage) }, \
-         { "err", NULL, MAVLINK_TYPE_UINT8_T, 0, 57, offsetof(mavlink_winch_debug_data_t, err) }, \
-         { "motor_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 58, offsetof(mavlink_winch_debug_data_t, motor_err) }, \
-         { "encoder_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 59, offsetof(mavlink_winch_debug_data_t, encoder_err) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 60, offsetof(mavlink_winch_debug_data_t, state) }, \
+         { "err", NULL, MAVLINK_TYPE_UINT16_T, 0, 56, offsetof(mavlink_winch_debug_data_t, err) }, \
+         { "motor_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 58, offsetof(mavlink_winch_debug_data_t, motor_err) }, \
+         { "encoder_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 60, offsetof(mavlink_winch_debug_data_t, encoder_err) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT16_T, 0, 62, offsetof(mavlink_winch_debug_data_t, state) }, \
          } \
 }
 #endif
@@ -117,7 +117,7 @@ typedef struct __mavlink_winch_debug_data_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_winch_debug_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+                               float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN];
@@ -135,11 +135,11 @@ static inline uint16_t mavlink_msg_winch_debug_data_pack(uint8_t system_id, uint
     _mav_put_float(buf, 44, disparity);
     _mav_put_float(buf, 48, current);
     _mav_put_float(buf, 52, voltage);
-    _mav_put_uint8_t(buf, 56, mode);
-    _mav_put_uint8_t(buf, 57, err);
-    _mav_put_uint8_t(buf, 58, motor_err);
-    _mav_put_uint8_t(buf, 59, encoder_err);
-    _mav_put_uint8_t(buf, 60, state);
+    _mav_put_uint16_t(buf, 56, err);
+    _mav_put_uint16_t(buf, 58, motor_err);
+    _mav_put_uint16_t(buf, 60, encoder_err);
+    _mav_put_uint16_t(buf, 62, state);
+    _mav_put_uint8_t(buf, 64, mode);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN);
 #else
@@ -158,11 +158,11 @@ static inline uint16_t mavlink_msg_winch_debug_data_pack(uint8_t system_id, uint
     packet.disparity = disparity;
     packet.current = current;
     packet.voltage = voltage;
-    packet.mode = mode;
     packet.err = err;
     packet.motor_err = motor_err;
     packet.encoder_err = encoder_err;
     packet.state = state;
+    packet.mode = mode;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN);
 #endif
@@ -200,7 +200,7 @@ static inline uint16_t mavlink_msg_winch_debug_data_pack(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_winch_debug_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float spool_x,float spool_v,float spool_x_setpoint,float spool_v_setpoint,float payout_x,float payout_v,float payout_x_setpoint,float payout_v_setpoint,float correction,float datum,float force,float disparity,uint8_t mode,float current,float voltage,uint8_t err,uint8_t motor_err,uint8_t encoder_err,uint8_t state)
+                                   float spool_x,float spool_v,float spool_x_setpoint,float spool_v_setpoint,float payout_x,float payout_v,float payout_x_setpoint,float payout_v_setpoint,float correction,float datum,float force,float disparity,uint8_t mode,float current,float voltage,uint16_t err,uint16_t motor_err,uint16_t encoder_err,uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN];
@@ -218,11 +218,11 @@ static inline uint16_t mavlink_msg_winch_debug_data_pack_chan(uint8_t system_id,
     _mav_put_float(buf, 44, disparity);
     _mav_put_float(buf, 48, current);
     _mav_put_float(buf, 52, voltage);
-    _mav_put_uint8_t(buf, 56, mode);
-    _mav_put_uint8_t(buf, 57, err);
-    _mav_put_uint8_t(buf, 58, motor_err);
-    _mav_put_uint8_t(buf, 59, encoder_err);
-    _mav_put_uint8_t(buf, 60, state);
+    _mav_put_uint16_t(buf, 56, err);
+    _mav_put_uint16_t(buf, 58, motor_err);
+    _mav_put_uint16_t(buf, 60, encoder_err);
+    _mav_put_uint16_t(buf, 62, state);
+    _mav_put_uint8_t(buf, 64, mode);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN);
 #else
@@ -241,11 +241,11 @@ static inline uint16_t mavlink_msg_winch_debug_data_pack_chan(uint8_t system_id,
     packet.disparity = disparity;
     packet.current = current;
     packet.voltage = voltage;
-    packet.mode = mode;
     packet.err = err;
     packet.motor_err = motor_err;
     packet.encoder_err = encoder_err;
     packet.state = state;
+    packet.mode = mode;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN);
 #endif
@@ -307,7 +307,7 @@ static inline uint16_t mavlink_msg_winch_debug_data_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_winch_debug_data_send(mavlink_channel_t chan, float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+static inline void mavlink_msg_winch_debug_data_send(mavlink_channel_t chan, float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN];
@@ -325,11 +325,11 @@ static inline void mavlink_msg_winch_debug_data_send(mavlink_channel_t chan, flo
     _mav_put_float(buf, 44, disparity);
     _mav_put_float(buf, 48, current);
     _mav_put_float(buf, 52, voltage);
-    _mav_put_uint8_t(buf, 56, mode);
-    _mav_put_uint8_t(buf, 57, err);
-    _mav_put_uint8_t(buf, 58, motor_err);
-    _mav_put_uint8_t(buf, 59, encoder_err);
-    _mav_put_uint8_t(buf, 60, state);
+    _mav_put_uint16_t(buf, 56, err);
+    _mav_put_uint16_t(buf, 58, motor_err);
+    _mav_put_uint16_t(buf, 60, encoder_err);
+    _mav_put_uint16_t(buf, 62, state);
+    _mav_put_uint8_t(buf, 64, mode);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_WINCH_DEBUG_DATA, buf, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC);
 #else
@@ -348,11 +348,11 @@ static inline void mavlink_msg_winch_debug_data_send(mavlink_channel_t chan, flo
     packet.disparity = disparity;
     packet.current = current;
     packet.voltage = voltage;
-    packet.mode = mode;
     packet.err = err;
     packet.motor_err = motor_err;
     packet.encoder_err = encoder_err;
     packet.state = state;
+    packet.mode = mode;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_WINCH_DEBUG_DATA, (const char *)&packet, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC);
 #endif
@@ -380,7 +380,7 @@ static inline void mavlink_msg_winch_debug_data_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_winch_debug_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+static inline void mavlink_msg_winch_debug_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float spool_x, float spool_v, float spool_x_setpoint, float spool_v_setpoint, float payout_x, float payout_v, float payout_x_setpoint, float payout_v_setpoint, float correction, float datum, float force, float disparity, uint8_t mode, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -398,11 +398,11 @@ static inline void mavlink_msg_winch_debug_data_send_buf(mavlink_message_t *msgb
     _mav_put_float(buf, 44, disparity);
     _mav_put_float(buf, 48, current);
     _mav_put_float(buf, 52, voltage);
-    _mav_put_uint8_t(buf, 56, mode);
-    _mav_put_uint8_t(buf, 57, err);
-    _mav_put_uint8_t(buf, 58, motor_err);
-    _mav_put_uint8_t(buf, 59, encoder_err);
-    _mav_put_uint8_t(buf, 60, state);
+    _mav_put_uint16_t(buf, 56, err);
+    _mav_put_uint16_t(buf, 58, motor_err);
+    _mav_put_uint16_t(buf, 60, encoder_err);
+    _mav_put_uint16_t(buf, 62, state);
+    _mav_put_uint8_t(buf, 64, mode);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_WINCH_DEBUG_DATA, buf, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC);
 #else
@@ -421,11 +421,11 @@ static inline void mavlink_msg_winch_debug_data_send_buf(mavlink_message_t *msgb
     packet->disparity = disparity;
     packet->current = current;
     packet->voltage = voltage;
-    packet->mode = mode;
     packet->err = err;
     packet->motor_err = motor_err;
     packet->encoder_err = encoder_err;
     packet->state = state;
+    packet->mode = mode;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_WINCH_DEBUG_DATA, (const char *)packet, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_MIN_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_CRC);
 #endif
@@ -564,7 +564,7 @@ static inline float mavlink_msg_winch_debug_data_get_disparity(const mavlink_mes
  */
 static inline uint8_t mavlink_msg_winch_debug_data_get_mode(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  56);
+    return _MAV_RETURN_uint8_t(msg,  64);
 }
 
 /**
@@ -592,9 +592,9 @@ static inline float mavlink_msg_winch_debug_data_get_voltage(const mavlink_messa
  *
  * @return [mask] Error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_winch_debug_data_get_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_winch_debug_data_get_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  57);
+    return _MAV_RETURN_uint16_t(msg,  56);
 }
 
 /**
@@ -602,9 +602,9 @@ static inline uint8_t mavlink_msg_winch_debug_data_get_err(const mavlink_message
  *
  * @return [mask] Motor error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_winch_debug_data_get_motor_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_winch_debug_data_get_motor_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  58);
+    return _MAV_RETURN_uint16_t(msg,  58);
 }
 
 /**
@@ -612,9 +612,9 @@ static inline uint8_t mavlink_msg_winch_debug_data_get_motor_err(const mavlink_m
  *
  * @return [mask] Encoder error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_winch_debug_data_get_encoder_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_winch_debug_data_get_encoder_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  59);
+    return _MAV_RETURN_uint16_t(msg,  60);
 }
 
 /**
@@ -622,9 +622,9 @@ static inline uint8_t mavlink_msg_winch_debug_data_get_encoder_err(const mavlink
  *
  * @return  Motor controller state
  */
-static inline uint8_t mavlink_msg_winch_debug_data_get_state(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_winch_debug_data_get_state(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  60);
+    return _MAV_RETURN_uint16_t(msg,  62);
 }
 
 /**
@@ -650,11 +650,11 @@ static inline void mavlink_msg_winch_debug_data_decode(const mavlink_message_t* 
     winch_debug_data->disparity = mavlink_msg_winch_debug_data_get_disparity(msg);
     winch_debug_data->current = mavlink_msg_winch_debug_data_get_current(msg);
     winch_debug_data->voltage = mavlink_msg_winch_debug_data_get_voltage(msg);
-    winch_debug_data->mode = mavlink_msg_winch_debug_data_get_mode(msg);
     winch_debug_data->err = mavlink_msg_winch_debug_data_get_err(msg);
     winch_debug_data->motor_err = mavlink_msg_winch_debug_data_get_motor_err(msg);
     winch_debug_data->encoder_err = mavlink_msg_winch_debug_data_get_encoder_err(msg);
     winch_debug_data->state = mavlink_msg_winch_debug_data_get_state(msg);
+    winch_debug_data->mode = mavlink_msg_winch_debug_data_get_mode(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN? msg->len : MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN;
         memset(winch_debug_data, 0, MAVLINK_MSG_ID_WINCH_DEBUG_DATA_LEN);

@@ -9,19 +9,19 @@ typedef struct __mavlink_reaction_wheel_telemetry_t {
  float torque; /*< [Nm] Torque*/
  float current; /*< [A] Current*/
  float voltage; /*< [V] Voltage*/
- uint8_t err; /*< [mask] Error code (see odrive docs to interpret)*/
- uint8_t motor_err; /*< [mask] Motor error code (see odrive docs to interpret)*/
- uint8_t encoder_err; /*< [mask] Encoder error code (see odrive docs to interpret)*/
- uint8_t state; /*<  Motor controller state*/
+ uint16_t err; /*< [mask] Error code (see odrive docs to interpret)*/
+ uint16_t motor_err; /*< [mask] Motor error code (see odrive docs to interpret)*/
+ uint16_t encoder_err; /*< [mask] Encoder error code (see odrive docs to interpret)*/
+ uint16_t state; /*<  Motor controller state*/
 } mavlink_reaction_wheel_telemetry_t;
 
-#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN 20
-#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN 20
-#define MAVLINK_MSG_ID_7003_LEN 20
-#define MAVLINK_MSG_ID_7003_MIN_LEN 20
+#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN 24
+#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN 24
+#define MAVLINK_MSG_ID_7003_LEN 24
+#define MAVLINK_MSG_ID_7003_MIN_LEN 24
 
-#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_CRC 185
-#define MAVLINK_MSG_ID_7003_CRC 185
+#define MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_CRC 28
+#define MAVLINK_MSG_ID_7003_CRC 28
 
 
 
@@ -34,10 +34,10 @@ typedef struct __mavlink_reaction_wheel_telemetry_t {
          { "torque", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_reaction_wheel_telemetry_t, torque) }, \
          { "current", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_reaction_wheel_telemetry_t, current) }, \
          { "voltage", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_reaction_wheel_telemetry_t, voltage) }, \
-         { "err", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_reaction_wheel_telemetry_t, err) }, \
-         { "motor_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_reaction_wheel_telemetry_t, motor_err) }, \
-         { "encoder_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_reaction_wheel_telemetry_t, encoder_err) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 19, offsetof(mavlink_reaction_wheel_telemetry_t, state) }, \
+         { "err", NULL, MAVLINK_TYPE_UINT16_T, 0, 16, offsetof(mavlink_reaction_wheel_telemetry_t, err) }, \
+         { "motor_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 18, offsetof(mavlink_reaction_wheel_telemetry_t, motor_err) }, \
+         { "encoder_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 20, offsetof(mavlink_reaction_wheel_telemetry_t, encoder_err) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT16_T, 0, 22, offsetof(mavlink_reaction_wheel_telemetry_t, state) }, \
          } \
 }
 #else
@@ -48,10 +48,10 @@ typedef struct __mavlink_reaction_wheel_telemetry_t {
          { "torque", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_reaction_wheel_telemetry_t, torque) }, \
          { "current", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_reaction_wheel_telemetry_t, current) }, \
          { "voltage", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_reaction_wheel_telemetry_t, voltage) }, \
-         { "err", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_reaction_wheel_telemetry_t, err) }, \
-         { "motor_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_reaction_wheel_telemetry_t, motor_err) }, \
-         { "encoder_err", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_reaction_wheel_telemetry_t, encoder_err) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 19, offsetof(mavlink_reaction_wheel_telemetry_t, state) }, \
+         { "err", NULL, MAVLINK_TYPE_UINT16_T, 0, 16, offsetof(mavlink_reaction_wheel_telemetry_t, err) }, \
+         { "motor_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 18, offsetof(mavlink_reaction_wheel_telemetry_t, motor_err) }, \
+         { "encoder_err", NULL, MAVLINK_TYPE_UINT16_T, 0, 20, offsetof(mavlink_reaction_wheel_telemetry_t, encoder_err) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT16_T, 0, 22, offsetof(mavlink_reaction_wheel_telemetry_t, state) }, \
          } \
 }
 #endif
@@ -73,7 +73,7 @@ typedef struct __mavlink_reaction_wheel_telemetry_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_reaction_wheel_telemetry_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float velocity, float torque, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+                               float velocity, float torque, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN];
@@ -81,10 +81,10 @@ static inline uint16_t mavlink_msg_reaction_wheel_telemetry_pack(uint8_t system_
     _mav_put_float(buf, 4, torque);
     _mav_put_float(buf, 8, current);
     _mav_put_float(buf, 12, voltage);
-    _mav_put_uint8_t(buf, 16, err);
-    _mav_put_uint8_t(buf, 17, motor_err);
-    _mav_put_uint8_t(buf, 18, encoder_err);
-    _mav_put_uint8_t(buf, 19, state);
+    _mav_put_uint16_t(buf, 16, err);
+    _mav_put_uint16_t(buf, 18, motor_err);
+    _mav_put_uint16_t(buf, 20, encoder_err);
+    _mav_put_uint16_t(buf, 22, state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN);
 #else
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_reaction_wheel_telemetry_pack(uint8_t system_
  */
 static inline uint16_t mavlink_msg_reaction_wheel_telemetry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float velocity,float torque,float current,float voltage,uint8_t err,uint8_t motor_err,uint8_t encoder_err,uint8_t state)
+                                   float velocity,float torque,float current,float voltage,uint16_t err,uint16_t motor_err,uint16_t encoder_err,uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN];
@@ -131,10 +131,10 @@ static inline uint16_t mavlink_msg_reaction_wheel_telemetry_pack_chan(uint8_t sy
     _mav_put_float(buf, 4, torque);
     _mav_put_float(buf, 8, current);
     _mav_put_float(buf, 12, voltage);
-    _mav_put_uint8_t(buf, 16, err);
-    _mav_put_uint8_t(buf, 17, motor_err);
-    _mav_put_uint8_t(buf, 18, encoder_err);
-    _mav_put_uint8_t(buf, 19, state);
+    _mav_put_uint16_t(buf, 16, err);
+    _mav_put_uint16_t(buf, 18, motor_err);
+    _mav_put_uint16_t(buf, 20, encoder_err);
+    _mav_put_uint16_t(buf, 22, state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN);
 #else
@@ -197,7 +197,7 @@ static inline uint16_t mavlink_msg_reaction_wheel_telemetry_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_reaction_wheel_telemetry_send(mavlink_channel_t chan, float velocity, float torque, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+static inline void mavlink_msg_reaction_wheel_telemetry_send(mavlink_channel_t chan, float velocity, float torque, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN];
@@ -205,10 +205,10 @@ static inline void mavlink_msg_reaction_wheel_telemetry_send(mavlink_channel_t c
     _mav_put_float(buf, 4, torque);
     _mav_put_float(buf, 8, current);
     _mav_put_float(buf, 12, voltage);
-    _mav_put_uint8_t(buf, 16, err);
-    _mav_put_uint8_t(buf, 17, motor_err);
-    _mav_put_uint8_t(buf, 18, encoder_err);
-    _mav_put_uint8_t(buf, 19, state);
+    _mav_put_uint16_t(buf, 16, err);
+    _mav_put_uint16_t(buf, 18, motor_err);
+    _mav_put_uint16_t(buf, 20, encoder_err);
+    _mav_put_uint16_t(buf, 22, state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY, buf, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_CRC);
 #else
@@ -248,7 +248,7 @@ static inline void mavlink_msg_reaction_wheel_telemetry_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_reaction_wheel_telemetry_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float velocity, float torque, float current, float voltage, uint8_t err, uint8_t motor_err, uint8_t encoder_err, uint8_t state)
+static inline void mavlink_msg_reaction_wheel_telemetry_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float velocity, float torque, float current, float voltage, uint16_t err, uint16_t motor_err, uint16_t encoder_err, uint16_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -256,10 +256,10 @@ static inline void mavlink_msg_reaction_wheel_telemetry_send_buf(mavlink_message
     _mav_put_float(buf, 4, torque);
     _mav_put_float(buf, 8, current);
     _mav_put_float(buf, 12, voltage);
-    _mav_put_uint8_t(buf, 16, err);
-    _mav_put_uint8_t(buf, 17, motor_err);
-    _mav_put_uint8_t(buf, 18, encoder_err);
-    _mav_put_uint8_t(buf, 19, state);
+    _mav_put_uint16_t(buf, 16, err);
+    _mav_put_uint16_t(buf, 18, motor_err);
+    _mav_put_uint16_t(buf, 20, encoder_err);
+    _mav_put_uint16_t(buf, 22, state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY, buf, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_LEN, MAVLINK_MSG_ID_REACTION_WHEEL_TELEMETRY_CRC);
 #else
@@ -328,9 +328,9 @@ static inline float mavlink_msg_reaction_wheel_telemetry_get_voltage(const mavli
  *
  * @return [mask] Error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_reaction_wheel_telemetry_get_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  16);
+    return _MAV_RETURN_uint16_t(msg,  16);
 }
 
 /**
@@ -338,9 +338,9 @@ static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_err(const mavlink
  *
  * @return [mask] Motor error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_motor_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_reaction_wheel_telemetry_get_motor_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  17);
+    return _MAV_RETURN_uint16_t(msg,  18);
 }
 
 /**
@@ -348,9 +348,9 @@ static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_motor_err(const m
  *
  * @return [mask] Encoder error code (see odrive docs to interpret)
  */
-static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_encoder_err(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_reaction_wheel_telemetry_get_encoder_err(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  18);
+    return _MAV_RETURN_uint16_t(msg,  20);
 }
 
 /**
@@ -358,9 +358,9 @@ static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_encoder_err(const
  *
  * @return  Motor controller state
  */
-static inline uint8_t mavlink_msg_reaction_wheel_telemetry_get_state(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_reaction_wheel_telemetry_get_state(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  19);
+    return _MAV_RETURN_uint16_t(msg,  22);
 }
 
 /**

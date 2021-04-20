@@ -99,7 +99,7 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_winch_debug_data_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,173,240,51,118,185
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,20147,20251,20355,20459,197
     };
     mavlink_winch_debug_data_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -117,11 +117,11 @@ static void mavlink_test_winch_debug_data(uint8_t system_id, uint8_t component_i
         packet1.disparity = packet_in.disparity;
         packet1.current = packet_in.current;
         packet1.voltage = packet_in.voltage;
-        packet1.mode = packet_in.mode;
         packet1.err = packet_in.err;
         packet1.motor_err = packet_in.motor_err;
         packet1.encoder_err = packet_in.encoder_err;
         packet1.state = packet_in.state;
+        packet1.mode = packet_in.mode;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -171,7 +171,7 @@ static void mavlink_test_reaction_wheel_telemetry(uint8_t system_id, uint8_t com
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_reaction_wheel_telemetry_t packet_in = {
-        17.0,45.0,73.0,101.0,53,120,187,254
+        17.0,45.0,73.0,101.0,18067,18171,18275,18379
     };
     mavlink_reaction_wheel_telemetry_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));

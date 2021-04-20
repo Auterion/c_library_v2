@@ -59,10 +59,10 @@
       <field type="uint8_t" name="mode" enum="WINCH_CONTROL_MODE">Winch control mode</field>
       <field type="float" name="current" units="A">Winch Current Draw</field>
       <field type="float" name="voltage" units="V">Winch Supply voltage</field>
-      <field type="uint8_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
+      <field type="uint16_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
     </message>
     <message id="7003" name="REACTION_WHEEL_TELEMETRY">
       <description>telemetry data for the reaction wheel on the package, if present.</description>
@@ -70,10 +70,10 @@
       <field type="float" name="torque" units="Nm">Torque</field>
       <field type="float" name="current" units="A">Current</field>
       <field type="float" name="voltage" units="V">Voltage</field>
-      <field type="uint8_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
-      <field type="uint8_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
+      <field type="uint16_t" name="err" units="mask">Error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="motor_err" units="mask">Motor error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="encoder_err" units="mask">Encoder error code (see odrive docs to interpret)</field>
+      <field type="uint16_t" name="state" enum="ODRIVE_STATES">Motor controller state</field>
     </message>
     <message id="7004" name="ALARM_REPORT">
       <description>Alarm report including bitmask of all set alarms and all conclusions.</description>
