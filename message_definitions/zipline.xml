@@ -85,8 +85,19 @@
       <field type="uint32_t" name="alarm_id" units="id">ID of the alarm to set/clear</field>
       <field type="uint8_t" name="set" units="boolean">True to set, False to clear</field>
     </message>
-    <message id="7006" name="TRISONICA_WIND">
+    <message id="7006" name="WIND_SENSOR_GROUND">
       <description>Message for ground-based trisonica sensor.</description>
+      <field type="float" name="wind_n" units="m/s">Velocity of air w.r.t ground in north</field>
+      <field type="float" name="wind_e" units="m/s">Velocity of air w.r.t ground in east</field>
+      <field type="float" name="wind_d" units="m/s">Velocity of air w.r.t ground in down</field>
+      <field type="float" name="temperature" units="C">Temperature</field>
+      <field type="float" name="humidity" units="percent">Humidity</field>
+      <field type="float" name="pressure" units="Pa">Pressure</field>
+      <field type="float" name="wind_speed" units="m/s">Absolute lateral wind speed</field>
+      <field type="float" name="wind_heading" units="deg">Heading from north about down</field>
+    </message>
+    <message id="7007" name="WIND_SENSOR_BODY">
+      <description>Message for body-fixed wind sensor.</description>
       <field type="float" name="wind_n" units="m/s">Velocity of air w.r.t ground in north</field>
       <field type="float" name="wind_e" units="m/s">Velocity of air w.r.t ground in east</field>
       <field type="float" name="wind_d" units="m/s">Velocity of air w.r.t ground in down</field>
