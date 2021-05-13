@@ -121,6 +121,10 @@
       <field type="float" name="target_impact_pos_x" units="m/s">Position to retract from, x. (Trajectory can ignore)</field>
       <field type="float" name="target_impact_pos_y" units="m/s">Position to retract from, y. (Trajectory can ignore)</field>
       <field type="float" name="target_impact_pos_z" units="m/s">Position to retract from, z. (Trajectory can ignore)</field>
+      <field type="float" name="xy_error" units="m"> XY position error in meters.</field>
+      <field type="float" name="z_error" units="m"> XY position error in meters.</field>
+      <field type="float" name="xy_error_touchdown" units="m"> XY position error in meters at the touchdown moment</field>
+      <field type="float" name="z_error_touchdown" units="m"> XY position error in meters at the touchdown moment</field>
     </message>
   </messages>
 </mavlink>

@@ -464,7 +464,7 @@ static void mavlink_test_package_commander_status(uint8_t system_id, uint8_t com
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_package_commander_status_t packet_in = {
-        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,101,168,235,46,113
+        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,149,216,27,94,161
     };
     mavlink_package_commander_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -475,6 +475,10 @@ static void mavlink_test_package_commander_status(uint8_t system_id, uint8_t com
         packet1.target_impact_pos_x = packet_in.target_impact_pos_x;
         packet1.target_impact_pos_y = packet_in.target_impact_pos_y;
         packet1.target_impact_pos_z = packet_in.target_impact_pos_z;
+        packet1.xy_error = packet_in.xy_error;
+        packet1.z_error = packet_in.z_error;
+        packet1.xy_error_touchdown = packet_in.xy_error_touchdown;
+        packet1.z_error_touchdown = packet_in.z_error_touchdown;
         packet1.is_active = packet_in.is_active;
         packet1.on_ground = packet_in.on_ground;
         packet1.autoretract_allowed = packet_in.autoretract_allowed;
@@ -494,12 +498,12 @@ static void mavlink_test_package_commander_status(uint8_t system_id, uint8_t com
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_package_commander_status_pack(system_id, component_id, &msg , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z );
+    mavlink_msg_package_commander_status_pack(system_id, component_id, &msg , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z , packet1.xy_error , packet1.z_error , packet1.xy_error_touchdown , packet1.z_error_touchdown );
     mavlink_msg_package_commander_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_package_commander_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z );
+    mavlink_msg_package_commander_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z , packet1.xy_error , packet1.z_error , packet1.xy_error_touchdown , packet1.z_error_touchdown );
     mavlink_msg_package_commander_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -512,7 +516,7 @@ static void mavlink_test_package_commander_status(uint8_t system_id, uint8_t com
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_package_commander_status_send(MAVLINK_COMM_1 , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z );
+    mavlink_msg_package_commander_status_send(MAVLINK_COMM_1 , packet1.is_active , packet1.on_ground , packet1.autoretract_allowed , packet1.autoretract_enabed , packet1.autoretract_time_utc , packet1.ready_for_autoretract , packet1.impact_pos_x , packet1.impact_pos_y , packet1.impact_pos_z , packet1.target_impact_pos_x , packet1.target_impact_pos_y , packet1.target_impact_pos_z , packet1.xy_error , packet1.z_error , packet1.xy_error_touchdown , packet1.z_error_touchdown );
     mavlink_msg_package_commander_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
