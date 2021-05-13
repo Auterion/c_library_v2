@@ -107,5 +107,20 @@
       <field type="float" name="wind_speed" units="m/s">Absolute lateral wind speed</field>
       <field type="float" name="wind_heading" units="deg">Heading from north about down</field>
     </message>
+    <message id="7008" name="PACKAGE_COMMANDER_STATUS">
+      <description>Package commander status, from package.py.</description>
+      <field type="uint8_t" name="is_active" units="boolean"> Actively following a trajectory</field>
+      <field type="uint8_t" name="on_ground" units="boolean"> On the ground</field>
+      <field type="uint8_t" name="autoretract_allowed" units="boolean"> autoretract currently allowed by the trajectory</field>
+      <field type="uint8_t" name="autoretract_enabed" units="boolean"> Mission node enabled autoretraction</field>
+      <field type="uint64_t" name="autoretract_time_utc" units="ms"> Time when retract will be initialized. If nonzero.</field> 
+      <field type="uint8_t" name="ready_for_autoretract" units="boolean"> Mission node enabled autoretraction</field>
+      <field type="float" name="impact_pos_x" units="m/s">Position to retract from, x. (Trajectory can ignore)</field>
+      <field type="float" name="impact_pos_y" units="m/s">Position to retract from, y. (Trajectory can ignore)</field>
+      <field type="float" name="impact_pos_z" units="m/s">Position to retract from, z. (Trajectory can ignore)</field>
+      <field type="float" name="target_impact_pos_x" units="m/s">Position to retract from, x. (Trajectory can ignore)</field>
+      <field type="float" name="target_impact_pos_y" units="m/s">Position to retract from, y. (Trajectory can ignore)</field>
+      <field type="float" name="target_impact_pos_z" units="m/s">Position to retract from, z. (Trajectory can ignore)</field>
+    </message>
   </messages>
 </mavlink>
