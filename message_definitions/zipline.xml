@@ -126,5 +126,13 @@
       <field type="float" name="xy_error_touchdown" units="m"> XY position error in meters at the touchdown moment</field>
       <field type="float" name="z_error_touchdown" units="m"> XY position error in meters at the touchdown moment</field>
     </message>
+    <message id="7009" name="FILE_LOG_CHUNK">
+      <description>Part of a logged file.</description>
+      <field type="uint8_t[20]" name="filename" units="string">Name of the file, as a string. Not necessarily null terminated.</field>
+      <field type="uint16_t" name="chunks" units="chunks">Number of chunks in this file.</field>
+      <field type="uint16_t" name="chunk_index" units="chunks">Current chunk (zero-indexed.)</field>
+      <field type="uint8_t" name="len" units="bytes">Number of bytes in this chunk. Should be max (200) unless this is the last chunk.</field>
+      <field type="uint8_t[200]" name="data" units="binary">Data.</field>
+    </message>
   </messages>
 </mavlink>
