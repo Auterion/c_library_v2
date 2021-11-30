@@ -11,7 +11,7 @@
 #endif
 
 #undef MAVLINK_THIS_XML_IDX
-#define MAVLINK_THIS_XML_IDX 3
+#define MAVLINK_THIS_XML_IDX 5
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,7 +59,8 @@ typedef enum MAV_AUTOPILOT
    MAV_AUTOPILOT_ASLUAV=17, /* ASLUAV autopilot -- http://www.asl.ethz.ch | */
    MAV_AUTOPILOT_SMARTAP=18, /* SmartAP Autopilot - http://sky-drones.com | */
    MAV_AUTOPILOT_AIRRAILS=19, /* AirRails - http://uaventure.com | */
-   MAV_AUTOPILOT_ENUM_END=20, /*  | */
+   MAV_AUTOPILOT_REFLEX=20, /* Fusion Reflex - https://fusion.engineering | */
+   MAV_AUTOPILOT_ENUM_END=21, /*  | */
 } MAV_AUTOPILOT;
 #endif
 
@@ -106,7 +107,11 @@ typedef enum MAV_TYPE
    MAV_TYPE_DECAROTOR=35, /* Decarotor | */
    MAV_TYPE_BATTERY=36, /* Battery | */
    MAV_TYPE_PARACHUTE=37, /* Parachute | */
-   MAV_TYPE_ENUM_END=38, /*  | */
+   MAV_TYPE_LOG=38, /* Log | */
+   MAV_TYPE_OSD=39, /* OSD | */
+   MAV_TYPE_IMU=40, /* IMU | */
+   MAV_TYPE_GPS=41, /* GPS | */
+   MAV_TYPE_ENUM_END=42, /*  | */
 } MAV_TYPE;
 #endif
 
@@ -325,7 +330,7 @@ typedef enum MAV_COMPONENT
 
 
 #undef MAVLINK_THIS_XML_IDX
-#define MAVLINK_THIS_XML_IDX 3
+#define MAVLINK_THIS_XML_IDX 5
 
 #if MAVLINK_THIS_XML_IDX == MAVLINK_PRIMARY_XML_IDX
 # define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_HEARTBEAT, MAVLINK_MESSAGE_INFO_PROTOCOL_VERSION}
