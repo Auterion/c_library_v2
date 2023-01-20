@@ -12169,18 +12169,27 @@ static void mavlink_test_cellular_status(uint8_t system_id, uint8_t component_id
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_cellular_status_t packet_in = {
-        17235,17339,17443,151,218,29,96
+        963497464,45.0,73.0,17859,17963,18067,187,254,65,132,199,10,77,144,211,"BCDEFGHI"
     };
     mavlink_cellular_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        packet1.arfcn = packet_in.arfcn;
+        packet1.download_rate = packet_in.download_rate;
+        packet1.upload_rate = packet_in.upload_rate;
         packet1.mcc = packet_in.mcc;
         packet1.mnc = packet_in.mnc;
         packet1.lac = packet_in.lac;
+        packet1.id = packet_in.id;
         packet1.status = packet_in.status;
         packet1.failure_reason = packet_in.failure_reason;
         packet1.type = packet_in.type;
         packet1.quality = packet_in.quality;
+        packet1.slot_number = packet_in.slot_number;
+        packet1.rx_level = packet_in.rx_level;
+        packet1.signal_to_noise = packet_in.signal_to_noise;
+        packet1.band_number = packet_in.band_number;
         
+        mav_array_memcpy(packet1.cell_id, packet_in.cell_id, sizeof(char)*9);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
@@ -12194,12 +12203,12 @@ static void mavlink_test_cellular_status(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_status_pack(system_id, component_id, &msg , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac );
+    mavlink_msg_cellular_status_pack(system_id, component_id, &msg , packet1.id , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac , packet1.slot_number , packet1.rx_level , packet1.signal_to_noise , packet1.band_number , packet1.arfcn , packet1.cell_id , packet1.download_rate , packet1.upload_rate );
     mavlink_msg_cellular_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac );
+    mavlink_msg_cellular_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac , packet1.slot_number , packet1.rx_level , packet1.signal_to_noise , packet1.band_number , packet1.arfcn , packet1.cell_id , packet1.download_rate , packet1.upload_rate );
     mavlink_msg_cellular_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -12212,7 +12221,7 @@ static void mavlink_test_cellular_status(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_status_send(MAVLINK_COMM_1 , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac );
+    mavlink_msg_cellular_status_send(MAVLINK_COMM_1 , packet1.id , packet1.status , packet1.failure_reason , packet1.type , packet1.quality , packet1.mcc , packet1.mnc , packet1.lac , packet1.slot_number , packet1.rx_level , packet1.signal_to_noise , packet1.band_number , packet1.arfcn , packet1.cell_id , packet1.download_rate , packet1.upload_rate );
     mavlink_msg_cellular_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
