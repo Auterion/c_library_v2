@@ -10,8 +10,7 @@
     #error Wrong include order: MAVLINK_MINIMAL.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#undef MAVLINK_THIS_XML_HASH
-#define MAVLINK_THIS_XML_HASH 1049218268149972025
+#define MAVLINK_MINIMAL_XML_HASH -1460829913126702741
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,36 +32,6 @@ extern "C" {
 
 // ENUM DEFINITIONS
 
-
-/** @brief Micro air vehicle / autopilot classes. This identifies the individual model. */
-#ifndef HAVE_ENUM_MAV_AUTOPILOT
-#define HAVE_ENUM_MAV_AUTOPILOT
-typedef enum MAV_AUTOPILOT
-{
-   MAV_AUTOPILOT_GENERIC=0, /* Generic autopilot, full support for everything | */
-   MAV_AUTOPILOT_RESERVED=1, /* Reserved for future use. | */
-   MAV_AUTOPILOT_SLUGS=2, /* SLUGS autopilot, http://slugsuav.soe.ucsc.edu | */
-   MAV_AUTOPILOT_ARDUPILOTMEGA=3, /* ArduPilot - Plane/Copter/Rover/Sub/Tracker, https://ardupilot.org | */
-   MAV_AUTOPILOT_OPENPILOT=4, /* OpenPilot, http://openpilot.org | */
-   MAV_AUTOPILOT_GENERIC_WAYPOINTS_ONLY=5, /* Generic autopilot only supporting simple waypoints | */
-   MAV_AUTOPILOT_GENERIC_WAYPOINTS_AND_SIMPLE_NAVIGATION_ONLY=6, /* Generic autopilot supporting waypoints and other simple navigation commands | */
-   MAV_AUTOPILOT_GENERIC_MISSION_FULL=7, /* Generic autopilot supporting the full mission command set | */
-   MAV_AUTOPILOT_INVALID=8, /* No valid autopilot, e.g. a GCS or other MAVLink component | */
-   MAV_AUTOPILOT_PPZ=9, /* PPZ UAV - http://nongnu.org/paparazzi | */
-   MAV_AUTOPILOT_UDB=10, /* UAV Dev Board | */
-   MAV_AUTOPILOT_FP=11, /* FlexiPilot | */
-   MAV_AUTOPILOT_PX4=12, /* PX4 Autopilot - http://px4.io/ | */
-   MAV_AUTOPILOT_SMACCMPILOT=13, /* SMACCMPilot - http://smaccmpilot.org | */
-   MAV_AUTOPILOT_AUTOQUAD=14, /* AutoQuad -- http://autoquad.org | */
-   MAV_AUTOPILOT_ARMAZILA=15, /* Armazila -- http://armazila.com | */
-   MAV_AUTOPILOT_AEROB=16, /* Aerob -- http://aerob.ru | */
-   MAV_AUTOPILOT_ASLUAV=17, /* ASLUAV autopilot -- http://www.asl.ethz.ch | */
-   MAV_AUTOPILOT_SMARTAP=18, /* SmartAP Autopilot - http://sky-drones.com | */
-   MAV_AUTOPILOT_AIRRAILS=19, /* AirRails - http://uaventure.com | */
-   MAV_AUTOPILOT_REFLEX=20, /* Fusion Reflex - https://fusion.engineering | */
-   MAV_AUTOPILOT_ENUM_END=21, /*  | */
-} MAV_AUTOPILOT;
-#endif
 
 /** @brief MAVLINK component type reported in HEARTBEAT message. Flight controllers must report the type of the vehicle on which they are mounted (e.g. MAV_TYPE_OCTOROTOR). All other components must report a value appropriate for their type (e.g. a camera must use MAV_TYPE_CAMERA). */
 #ifndef HAVE_ENUM_MAV_TYPE
@@ -112,7 +81,8 @@ typedef enum MAV_TYPE
    MAV_TYPE_IMU=40, /* IMU | */
    MAV_TYPE_GPS=41, /* GPS | */
    MAV_TYPE_WINCH=42, /* Winch | */
-   MAV_TYPE_ENUM_END=43, /*  | */
+   MAV_TYPE_JOYSTICK=43, /* Joystick | */
+   MAV_TYPE_ENUM_END=44, /*  | */
 } MAV_TYPE;
 #endif
 
@@ -258,6 +228,12 @@ typedef enum MAV_COMPONENT
    MAV_COMP_ID_CAMERA4=103, /* Camera #4. | */
    MAV_COMP_ID_CAMERA5=104, /* Camera #5. | */
    MAV_COMP_ID_CAMERA6=105, /* Camera #6. | */
+   MAV_COMP_ID_TRACKER=110, /* Tracker #1. | */
+   MAV_COMP_ID_TRACKER2=111, /* Tracker #2. | */
+   MAV_COMP_ID_TRACKER3=112, /* Tracker #3. | */
+   MAV_COMP_ID_TRACKER4=113, /* Tracker #4. | */
+   MAV_COMP_ID_TRACKER5=114, /* Tracker #5. | */
+   MAV_COMP_ID_TRACKER6=115, /* Tracker #6. | */
    MAV_COMP_ID_SERVO1=140, /* Servo #1. | */
    MAV_COMP_ID_SERVO2=141, /* Servo #2. | */
    MAV_COMP_ID_SERVO3=142, /* Servo #3. | */
@@ -280,6 +256,7 @@ typedef enum MAV_COMPONENT
    MAV_COMP_ID_QX1_GIMBAL=159, /* Gimbal ID for QX1. | */
    MAV_COMP_ID_FLARM=160, /* FLARM collision alert component. | */
    MAV_COMP_ID_PARACHUTE=161, /* Parachute component. | */
+   MAV_COMP_ID_WINCH=169, /* Winch component. | */
    MAV_COMP_ID_GIMBAL2=171, /* Gimbal #2. | */
    MAV_COMP_ID_GIMBAL3=172, /* Gimbal #3. | */
    MAV_COMP_ID_GIMBAL4=173, /* Gimbal #4 | */
@@ -308,7 +285,7 @@ typedef enum MAV_COMPONENT
    MAV_COMP_ID_UDP_BRIDGE=240, /* Component to bridge MAVLink to UDP (i.e. from a UART). | */
    MAV_COMP_ID_UART_BRIDGE=241, /* Component to bridge to UART (i.e. from UDP). | */
    MAV_COMP_ID_TUNNEL_NODE=242, /* Component handling TUNNEL messages (e.g. vendor specific GUI of a component). | */
-   MAV_COMP_ID_SYSTEM_CONTROL=250, /* Component for handling system messages (e.g. to ARM, takeoff, etc.). | */
+   MAV_COMP_ID_SYSTEM_CONTROL=250, /* Deprecated, don't use. Component for handling system messages (e.g. to ARM, takeoff, etc.). | */
    MAV_COMPONENT_ENUM_END=251, /*  | */
 } MAV_COMPONENT;
 #endif
@@ -331,10 +308,8 @@ typedef enum MAV_COMPONENT
 // base include
 
 
-#undef MAVLINK_THIS_XML_HASH
-#define MAVLINK_THIS_XML_HASH 1049218268149972025
 
-#if MAVLINK_THIS_XML_HASH == MAVLINK_PRIMARY_XML_HASH
+#if MAVLINK_MINIMAL_XML_HASH == MAVLINK_PRIMARY_XML_HASH
 # define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_HEARTBEAT, MAVLINK_MESSAGE_INFO_PROTOCOL_VERSION}
 # define MAVLINK_MESSAGE_NAMES {{ "HEARTBEAT", 0 }, { "PROTOCOL_VERSION", 300 }}
 # if MAVLINK_COMMAND_24BIT
