@@ -287,16 +287,16 @@ static void mavlink_test_cellular_modem_information(uint8_t system_id, uint8_t c
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_cellular_modem_information_t packet_in = {
-        93372036854775807ULL,93372036854776311ULL,93372036854776815ULL,77,"ZABCDEFGH","JKLMNOPQRSTUVWXYZABCDEF","HIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCD"
+        93372036854775807ULL,93372036854776311ULL,53,"RSTUVWXYZ","BCDEFGHIJKLMNOPQRST","VWXYZABCDEFGHIJKLMNOPQR","TUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOP"
     };
     mavlink_cellular_modem_information_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.imei = packet_in.imei;
-        packet1.iccid = packet_in.iccid;
         packet1.imsi = packet_in.imsi;
         packet1.id = packet_in.id;
         
         mav_array_memcpy(packet1.modem_id, packet_in.modem_id, sizeof(char)*10);
+        mav_array_memcpy(packet1.iccid, packet_in.iccid, sizeof(char)*20);
         mav_array_memcpy(packet1.firmware, packet_in.firmware, sizeof(char)*24);
         mav_array_memcpy(packet1.modem_model, packet_in.modem_model, sizeof(char)*50);
         
@@ -312,12 +312,12 @@ static void mavlink_test_cellular_modem_information(uint8_t system_id, uint8_t c
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_modem_information_pack(system_id, component_id, &msg , packet1.id , packet1.imei , packet1.iccid , packet1.imsi , packet1.modem_id , packet1.firmware , packet1.modem_model );
+    mavlink_msg_cellular_modem_information_pack(system_id, component_id, &msg , packet1.id , packet1.imei , packet1.imsi , packet1.modem_id , packet1.iccid , packet1.firmware , packet1.modem_model );
     mavlink_msg_cellular_modem_information_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_modem_information_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.imei , packet1.iccid , packet1.imsi , packet1.modem_id , packet1.firmware , packet1.modem_model );
+    mavlink_msg_cellular_modem_information_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.imei , packet1.imsi , packet1.modem_id , packet1.iccid , packet1.firmware , packet1.modem_model );
     mavlink_msg_cellular_modem_information_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -330,7 +330,7 @@ static void mavlink_test_cellular_modem_information(uint8_t system_id, uint8_t c
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_cellular_modem_information_send(MAVLINK_COMM_1 , packet1.id , packet1.imei , packet1.iccid , packet1.imsi , packet1.modem_id , packet1.firmware , packet1.modem_model );
+    mavlink_msg_cellular_modem_information_send(MAVLINK_COMM_1 , packet1.id , packet1.imei , packet1.imsi , packet1.modem_id , packet1.iccid , packet1.firmware , packet1.modem_model );
     mavlink_msg_cellular_modem_information_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
