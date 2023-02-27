@@ -8,10 +8,10 @@ typedef struct __mavlink_cellular_modem_information_t {
  uint64_t imei; /*<  Unique Modem International Mobile Equipment Identity Number.*/
  uint64_t imsi; /*<  Current SIM International mobile subscriber identity.*/
  uint8_t id; /*<  Modem instance number. Indexed from 1. Matches index in corresponding CELLULAR_STATUS message.*/
- char modem_id[10]; /*<  Unique id for modem. Zero-fill unused characters at the end of the array if the string is less than 10 chars.*/
- char iccid[20]; /*<  Integrated Circuit Card Identification Number of SIM Card.*/
- char firmware[24]; /*<  The firmware version installed on the modem. Zero-fill unused characters at the end of the array if the string is less than 24 chars. The format is not intended for display.*/
- char modem_model[50]; /*<  Modem model name. Zero-fill unused characters at the end of the array if the string is less than 50 chars.*/
+ char modem_id[10]; /*<  Unique id for modem. This must be NULL terminated if the length is less than 10 human-readable chars, and without the null termination (NULL) byte if the length is exactly 10 chars.*/
+ char iccid[20]; /*<  Integrated Circuit Card Identification Number of SIM Card.  This must be NULL terminated if the length is less than 20 human-readable chars, and without the null termination (NULL) byte if the length is exactly 20 chars.*/
+ char firmware[24]; /*<  The firmware version installed on the modem. This must be NULL terminated if the length is less than 24 human-readable chars, and without the null termination (NULL) byte if the length is exactly 24 chars. The format is not intended for display.*/
+ char modem_model[50]; /*<  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.*/
 } mavlink_cellular_modem_information_t;
 
 #define MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_LEN 121
@@ -65,10 +65,10 @@ typedef struct __mavlink_cellular_modem_information_t {
  * @param id  Modem instance number. Indexed from 1. Matches index in corresponding CELLULAR_STATUS message.
  * @param imei  Unique Modem International Mobile Equipment Identity Number.
  * @param imsi  Current SIM International mobile subscriber identity.
- * @param modem_id  Unique id for modem. Zero-fill unused characters at the end of the array if the string is less than 10 chars.
- * @param iccid  Integrated Circuit Card Identification Number of SIM Card.
- * @param firmware  The firmware version installed on the modem. Zero-fill unused characters at the end of the array if the string is less than 24 chars. The format is not intended for display.
- * @param modem_model  Modem model name. Zero-fill unused characters at the end of the array if the string is less than 50 chars.
+ * @param modem_id  Unique id for modem. This must be NULL terminated if the length is less than 10 human-readable chars, and without the null termination (NULL) byte if the length is exactly 10 chars.
+ * @param iccid  Integrated Circuit Card Identification Number of SIM Card.  This must be NULL terminated if the length is less than 20 human-readable chars, and without the null termination (NULL) byte if the length is exactly 20 chars.
+ * @param firmware  The firmware version installed on the modem. This must be NULL terminated if the length is less than 24 human-readable chars, and without the null termination (NULL) byte if the length is exactly 24 chars. The format is not intended for display.
+ * @param modem_model  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -109,10 +109,10 @@ static inline uint16_t mavlink_msg_cellular_modem_information_pack(uint8_t syste
  * @param id  Modem instance number. Indexed from 1. Matches index in corresponding CELLULAR_STATUS message.
  * @param imei  Unique Modem International Mobile Equipment Identity Number.
  * @param imsi  Current SIM International mobile subscriber identity.
- * @param modem_id  Unique id for modem. Zero-fill unused characters at the end of the array if the string is less than 10 chars.
- * @param iccid  Integrated Circuit Card Identification Number of SIM Card.
- * @param firmware  The firmware version installed on the modem. Zero-fill unused characters at the end of the array if the string is less than 24 chars. The format is not intended for display.
- * @param modem_model  Modem model name. Zero-fill unused characters at the end of the array if the string is less than 50 chars.
+ * @param modem_id  Unique id for modem. This must be NULL terminated if the length is less than 10 human-readable chars, and without the null termination (NULL) byte if the length is exactly 10 chars.
+ * @param iccid  Integrated Circuit Card Identification Number of SIM Card.  This must be NULL terminated if the length is less than 20 human-readable chars, and without the null termination (NULL) byte if the length is exactly 20 chars.
+ * @param firmware  The firmware version installed on the modem. This must be NULL terminated if the length is less than 24 human-readable chars, and without the null termination (NULL) byte if the length is exactly 24 chars. The format is not intended for display.
+ * @param modem_model  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -179,10 +179,10 @@ static inline uint16_t mavlink_msg_cellular_modem_information_encode_chan(uint8_
  * @param id  Modem instance number. Indexed from 1. Matches index in corresponding CELLULAR_STATUS message.
  * @param imei  Unique Modem International Mobile Equipment Identity Number.
  * @param imsi  Current SIM International mobile subscriber identity.
- * @param modem_id  Unique id for modem. Zero-fill unused characters at the end of the array if the string is less than 10 chars.
- * @param iccid  Integrated Circuit Card Identification Number of SIM Card.
- * @param firmware  The firmware version installed on the modem. Zero-fill unused characters at the end of the array if the string is less than 24 chars. The format is not intended for display.
- * @param modem_model  Modem model name. Zero-fill unused characters at the end of the array if the string is less than 50 chars.
+ * @param modem_id  Unique id for modem. This must be NULL terminated if the length is less than 10 human-readable chars, and without the null termination (NULL) byte if the length is exactly 10 chars.
+ * @param iccid  Integrated Circuit Card Identification Number of SIM Card.  This must be NULL terminated if the length is less than 20 human-readable chars, and without the null termination (NULL) byte if the length is exactly 20 chars.
+ * @param firmware  The firmware version installed on the modem. This must be NULL terminated if the length is less than 24 human-readable chars, and without the null termination (NULL) byte if the length is exactly 24 chars. The format is not intended for display.
+ * @param modem_model  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -297,7 +297,7 @@ static inline uint64_t mavlink_msg_cellular_modem_information_get_imsi(const mav
 /**
  * @brief Get field modem_id from cellular_modem_information message
  *
- * @return  Unique id for modem. Zero-fill unused characters at the end of the array if the string is less than 10 chars.
+ * @return  Unique id for modem. This must be NULL terminated if the length is less than 10 human-readable chars, and without the null termination (NULL) byte if the length is exactly 10 chars.
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_get_modem_id(const mavlink_message_t* msg, char *modem_id)
 {
@@ -307,7 +307,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_get_modem_id(const
 /**
  * @brief Get field iccid from cellular_modem_information message
  *
- * @return  Integrated Circuit Card Identification Number of SIM Card.
+ * @return  Integrated Circuit Card Identification Number of SIM Card.  This must be NULL terminated if the length is less than 20 human-readable chars, and without the null termination (NULL) byte if the length is exactly 20 chars.
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_get_iccid(const mavlink_message_t* msg, char *iccid)
 {
@@ -317,7 +317,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_get_iccid(const ma
 /**
  * @brief Get field firmware from cellular_modem_information message
  *
- * @return  The firmware version installed on the modem. Zero-fill unused characters at the end of the array if the string is less than 24 chars. The format is not intended for display.
+ * @return  The firmware version installed on the modem. This must be NULL terminated if the length is less than 24 human-readable chars, and without the null termination (NULL) byte if the length is exactly 24 chars. The format is not intended for display.
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_get_firmware(const mavlink_message_t* msg, char *firmware)
 {
@@ -327,7 +327,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_get_firmware(const
 /**
  * @brief Get field modem_model from cellular_modem_information message
  *
- * @return  Modem model name. Zero-fill unused characters at the end of the array if the string is less than 50 chars.
+ * @return  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.
  */
 static inline uint16_t mavlink_msg_cellular_modem_information_get_modem_model(const mavlink_message_t* msg, char *modem_model)
 {

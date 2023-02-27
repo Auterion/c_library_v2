@@ -22,7 +22,7 @@ typedef struct __mavlink_cellular_status_t {
  uint32_t link_rx_rate; /*< [KiB/s] Upload rate.*/
  uint16_t ber; /*<  The bit error rate (BER) is determined by comparing the erroneous bits received with the total number of bits received. It is a ratio.*/
  uint8_t id; /*<  Cellular instance number. Indexed from 1. Matches index in corresponding CELLULAR_MODEM_INFORMATION message.*/
- char cell_tower_id[9]; /*<  ID of the currently connected cell tower. Zero-fill the unused characters at the end of the array if the ID string is less than 9 chars.*/
+ char cell_tower_id[9]; /*<  ID of the currently connected cell tower. This must be NULL terminated if the length is less than 9 human-readable chars, and without the null termination (NULL) byte if the length is exactly 9 chars.*/
 }) mavlink_cellular_status_t;
 
 #define MAVLINK_MSG_ID_CELLULAR_STATUS_LEN 49
@@ -109,7 +109,7 @@ typedef struct __mavlink_cellular_status_t {
  * @param link_rx_rate [KiB/s] Upload rate.
  * @param ber  The bit error rate (BER) is determined by comparing the erroneous bits received with the total number of bits received. It is a ratio.
  * @param id  Cellular instance number. Indexed from 1. Matches index in corresponding CELLULAR_MODEM_INFORMATION message.
- * @param cell_tower_id  ID of the currently connected cell tower. Zero-fill the unused characters at the end of the array if the ID string is less than 9 chars.
+ * @param cell_tower_id  ID of the currently connected cell tower. This must be NULL terminated if the length is less than 9 human-readable chars, and without the null termination (NULL) byte if the length is exactly 9 chars.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_cellular_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -186,7 +186,7 @@ static inline uint16_t mavlink_msg_cellular_status_pack(uint8_t system_id, uint8
  * @param link_rx_rate [KiB/s] Upload rate.
  * @param ber  The bit error rate (BER) is determined by comparing the erroneous bits received with the total number of bits received. It is a ratio.
  * @param id  Cellular instance number. Indexed from 1. Matches index in corresponding CELLULAR_MODEM_INFORMATION message.
- * @param cell_tower_id  ID of the currently connected cell tower. Zero-fill the unused characters at the end of the array if the ID string is less than 9 chars.
+ * @param cell_tower_id  ID of the currently connected cell tower. This must be NULL terminated if the length is less than 9 human-readable chars, and without the null termination (NULL) byte if the length is exactly 9 chars.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_cellular_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -289,7 +289,7 @@ static inline uint16_t mavlink_msg_cellular_status_encode_chan(uint8_t system_id
  * @param link_rx_rate [KiB/s] Upload rate.
  * @param ber  The bit error rate (BER) is determined by comparing the erroneous bits received with the total number of bits received. It is a ratio.
  * @param id  Cellular instance number. Indexed from 1. Matches index in corresponding CELLULAR_MODEM_INFORMATION message.
- * @param cell_tower_id  ID of the currently connected cell tower. Zero-fill the unused characters at the end of the array if the ID string is less than 9 chars.
+ * @param cell_tower_id  ID of the currently connected cell tower. This must be NULL terminated if the length is less than 9 human-readable chars, and without the null termination (NULL) byte if the length is exactly 9 chars.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -588,7 +588,7 @@ static inline uint8_t mavlink_msg_cellular_status_get_id(const mavlink_message_t
 /**
  * @brief Get field cell_tower_id from cellular_status message
  *
- * @return  ID of the currently connected cell tower. Zero-fill the unused characters at the end of the array if the ID string is less than 9 chars.
+ * @return  ID of the currently connected cell tower. This must be NULL terminated if the length is less than 9 human-readable chars, and without the null termination (NULL) byte if the length is exactly 9 chars.
  */
 static inline uint16_t mavlink_msg_cellular_status_get_cell_tower_id(const mavlink_message_t* msg, char *cell_tower_id)
 {
