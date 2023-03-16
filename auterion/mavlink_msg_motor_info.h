@@ -5,7 +5,7 @@
 
 
 typedef struct __mavlink_motor_info_t {
- uint64_t total_time; /*< [seconds]  Total accumulated usage time*/
+ uint64_t total_time; /*< [s]  Total accumulated usage time*/
  int16_t temperature; /*< [cdegC] Temperature of motor. INT16_MAX if unknown.*/
  uint8_t index; /*<   Motor index number starting with index 1. 0 if unknown. */
  uint8_t type; /*<   The type of motor, TODO: define an enum */
@@ -52,7 +52,7 @@ typedef struct __mavlink_motor_info_t {
  *
  * @param index   Motor index number starting with index 1. 0 if unknown. 
  * @param type   The type of motor, TODO: define an enum 
- * @param total_time [seconds]  Total accumulated usage time
+ * @param total_time [s]  Total accumulated usage time
  * @param temperature [cdegC] Temperature of motor. INT16_MAX if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
@@ -89,7 +89,7 @@ static inline uint16_t mavlink_msg_motor_info_pack(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param index   Motor index number starting with index 1. 0 if unknown. 
  * @param type   The type of motor, TODO: define an enum 
- * @param total_time [seconds]  Total accumulated usage time
+ * @param total_time [s]  Total accumulated usage time
  * @param temperature [cdegC] Temperature of motor. INT16_MAX if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
@@ -152,7 +152,7 @@ static inline uint16_t mavlink_msg_motor_info_encode_chan(uint8_t system_id, uin
  *
  * @param index   Motor index number starting with index 1. 0 if unknown. 
  * @param type   The type of motor, TODO: define an enum 
- * @param total_time [seconds]  Total accumulated usage time
+ * @param total_time [s]  Total accumulated usage time
  * @param temperature [cdegC] Temperature of motor. INT16_MAX if unknown.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
@@ -250,7 +250,7 @@ static inline uint8_t mavlink_msg_motor_info_get_type(const mavlink_message_t* m
 /**
  * @brief Get field total_time from motor_info message
  *
- * @return [seconds]  Total accumulated usage time
+ * @return [s]  Total accumulated usage time
  */
 static inline uint64_t mavlink_msg_motor_info_get_total_time(const mavlink_message_t* msg)
 {
