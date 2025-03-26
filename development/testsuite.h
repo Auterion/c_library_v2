@@ -25,6 +25,136 @@ static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_me
 #include "../common/testsuite.h"
 
 
+static void mavlink_test_boat_actuator_status(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_boat_actuator_status_t packet_in = {
+        93372036854775807ULL,{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0 },{ 241.0, 242.0, 243.0, 244.0, 245.0, 246.0 },{ 173, 174, 175, 176, 177, 178 },{ 63, 64, 65, 66, 67, 68 }
+    };
+    mavlink_boat_actuator_status_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.time_usec = packet_in.time_usec;
+        
+        mav_array_memcpy(packet1.engine_leg_trim_position, packet_in.engine_leg_trim_position, sizeof(float)*6);
+        mav_array_memcpy(packet1.rudder_position, packet_in.rudder_position, sizeof(float)*6);
+        mav_array_memcpy(packet1.engine_leg_trim_state, packet_in.engine_leg_trim_state, sizeof(uint8_t)*6);
+        mav_array_memcpy(packet1.rudder_state, packet_in.rudder_state, sizeof(uint8_t)*6);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_actuator_status_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_boat_actuator_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_actuator_status_pack(system_id, component_id, &msg , packet1.time_usec , packet1.engine_leg_trim_state , packet1.engine_leg_trim_position , packet1.rudder_state , packet1.rudder_position );
+    mavlink_msg_boat_actuator_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_actuator_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_usec , packet1.engine_leg_trim_state , packet1.engine_leg_trim_position , packet1.rudder_state , packet1.rudder_position );
+    mavlink_msg_boat_actuator_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_boat_actuator_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_actuator_status_send(MAVLINK_COMM_1 , packet1.time_usec , packet1.engine_leg_trim_state , packet1.engine_leg_trim_position , packet1.rudder_state , packet1.rudder_position );
+    mavlink_msg_boat_actuator_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("BOAT_ACTUATOR_STATUS") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS) != NULL);
+#endif
+}
+
+static void mavlink_test_boat_engine_status(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_BOAT_ENGINE_STATUS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_boat_engine_status_t packet_in = {
+        93372036854775807ULL,73.0,{ 101.0, 102.0, 103.0, 104.0, 105.0, 106.0 },{ 269.0, 270.0, 271.0, 272.0, 273.0, 274.0 },{ 20355, 20356, 20357, 20358, 20359, 20360 },{ 221, 222, 223, 224, 225, 226 },{ 111, 112, 113, 114, 115, 116 },{ 1, 2, 3, 4, 5, 6 },{ 147, 148, 149, 150, 151, 152 }
+    };
+    mavlink_boat_engine_status_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.time_usec = packet_in.time_usec;
+        packet1.fuel_consumption_rate = packet_in.fuel_consumption_rate;
+        
+        mav_array_memcpy(packet1.oil_pressure, packet_in.oil_pressure, sizeof(float)*6);
+        mav_array_memcpy(packet1.engine_coolant_temperature, packet_in.engine_coolant_temperature, sizeof(float)*6);
+        mav_array_memcpy(packet1.engine_rpm, packet_in.engine_rpm, sizeof(uint16_t)*6);
+        mav_array_memcpy(packet1.engine_state, packet_in.engine_state, sizeof(uint8_t)*6);
+        mav_array_memcpy(packet1.engine_load, packet_in.engine_load, sizeof(uint8_t)*6);
+        mav_array_memcpy(packet1.throttle_position, packet_in.throttle_position, sizeof(uint8_t)*6);
+        mav_array_memcpy(packet1.transmission_state, packet_in.transmission_state, sizeof(uint8_t)*6);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_engine_status_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_boat_engine_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_engine_status_pack(system_id, component_id, &msg , packet1.time_usec , packet1.engine_state , packet1.engine_load , packet1.engine_rpm , packet1.fuel_consumption_rate , packet1.oil_pressure , packet1.throttle_position , packet1.engine_coolant_temperature , packet1.transmission_state );
+    mavlink_msg_boat_engine_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_engine_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_usec , packet1.engine_state , packet1.engine_load , packet1.engine_rpm , packet1.fuel_consumption_rate , packet1.oil_pressure , packet1.throttle_position , packet1.engine_coolant_temperature , packet1.transmission_state );
+    mavlink_msg_boat_engine_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_boat_engine_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_boat_engine_status_send(MAVLINK_COMM_1 , packet1.time_usec , packet1.engine_state , packet1.engine_load , packet1.engine_rpm , packet1.fuel_consumption_rate , packet1.oil_pressure , packet1.throttle_position , packet1.engine_coolant_temperature , packet1.transmission_state );
+    mavlink_msg_boat_engine_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("BOAT_ENGINE_STATUS") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_BOAT_ENGINE_STATUS) != NULL);
+#endif
+}
+
 static void mavlink_test_airspeed(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -1121,6 +1251,8 @@ static void mavlink_test_control_status(uint8_t system_id, uint8_t component_id,
 
 static void mavlink_test_development(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
+    mavlink_test_boat_actuator_status(system_id, component_id, last_msg);
+    mavlink_test_boat_engine_status(system_id, component_id, last_msg);
     mavlink_test_airspeed(system_id, component_id, last_msg);
     mavlink_test_external_global_position(system_id, component_id, last_msg);
     mavlink_test_cellular_modem_information(system_id, component_id, last_msg);
