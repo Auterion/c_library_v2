@@ -304,10 +304,10 @@
       <field type="char[32]" name="uuid">uuid of the sender.</field>
     </message>
     <!-- AUX_DEVICE specific MAVLink-->
-    <message id="13674" name="AUX_DEVICE_STATUS">
+    <message id="13674" name="DEVICE_UART_STATUS">
       <wip/>
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
-      <description>Status of AUX_DEVICE to GCS.</description>
+      <description>UART status of GPIO_DEVICE to GCS.</description>
       <field type="char[200]" name="status">Status, for human-friendly display in a Ground Control Station</field>
     </message>
     <!-- AUX_DEVICE specific MAVLink End-->
