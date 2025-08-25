@@ -22,7 +22,7 @@
       <entry value="13673" name="MAV_CMD_GPIO_DEVICE" hasLocation="false" isDestination="false">
         <wip/>
         <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
-        <description>Command for AUX_DEVICE.</description>
+        <description>Command for GPIO_DEVICE.</description>
         <param index="1" label="Arm" minValue="0" increment="1" maxValue="1">Boolean indicating arm cmd (1).</param>
         <param index="2" label="Action" minValue="0" increment="1" maxValue="1">Boolean indicating action cmd (1).</param>
         <param index="3">Empty</param>
@@ -303,13 +303,13 @@
       </description>
       <field type="char[32]" name="uuid">uuid of the sender.</field>
     </message>
-    <!-- AUX_DEVICE specific MAVLink-->
-    <message id="13674" name="DEVICE_UART_STATUS">
+    <!-- GPIO_DEVICE specific MAVLink-->
+    <message id="13674" name="GPIO_DEVICE_UART_STATUS">
       <wip/>
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>UART status of GPIO_DEVICE to GCS.</description>
       <field type="char[200]" name="status">Status, for human-friendly display in a Ground Control Station</field>
     </message>
-    <!-- AUX_DEVICE specific MAVLink End-->
+    <!-- GPIO_DEVICE specific MAVLink End-->
   </messages>
 </mavlink>
