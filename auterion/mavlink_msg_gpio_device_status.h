@@ -6,19 +6,19 @@
 
 typedef struct __mavlink_gpio_device_status_t {
  char status[128]; /*<  Status, for human-friendly display in a Ground Control Station*/
- char title[128]; /*<  Title from AOS app for display in Ground Control Station*/
+ char title[64]; /*<  Title from AOS app for display in Ground Control Station*/
 } mavlink_gpio_device_status_t;
 
-#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN 256
-#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN 256
-#define MAVLINK_MSG_ID_13674_LEN 256
-#define MAVLINK_MSG_ID_13674_MIN_LEN 256
+#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN 192
+#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN 192
+#define MAVLINK_MSG_ID_13674_LEN 192
+#define MAVLINK_MSG_ID_13674_MIN_LEN 192
 
-#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC 179
-#define MAVLINK_MSG_ID_13674_CRC 179
+#define MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC 121
+#define MAVLINK_MSG_ID_13674_CRC 121
 
 #define MAVLINK_MSG_GPIO_DEVICE_STATUS_FIELD_STATUS_LEN 128
-#define MAVLINK_MSG_GPIO_DEVICE_STATUS_FIELD_TITLE_LEN 128
+#define MAVLINK_MSG_GPIO_DEVICE_STATUS_FIELD_TITLE_LEN 64
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_GPIO_DEVICE_STATUS { \
@@ -26,7 +26,7 @@ typedef struct __mavlink_gpio_device_status_t {
     "GPIO_DEVICE_STATUS", \
     2, \
     {  { "status", NULL, MAVLINK_TYPE_CHAR, 128, 0, offsetof(mavlink_gpio_device_status_t, status) }, \
-         { "title", NULL, MAVLINK_TYPE_CHAR, 128, 128, offsetof(mavlink_gpio_device_status_t, title) }, \
+         { "title", NULL, MAVLINK_TYPE_CHAR, 64, 128, offsetof(mavlink_gpio_device_status_t, title) }, \
          } \
 }
 #else
@@ -34,7 +34,7 @@ typedef struct __mavlink_gpio_device_status_t {
     "GPIO_DEVICE_STATUS", \
     2, \
     {  { "status", NULL, MAVLINK_TYPE_CHAR, 128, 0, offsetof(mavlink_gpio_device_status_t, status) }, \
-         { "title", NULL, MAVLINK_TYPE_CHAR, 128, 128, offsetof(mavlink_gpio_device_status_t, title) }, \
+         { "title", NULL, MAVLINK_TYPE_CHAR, 64, 128, offsetof(mavlink_gpio_device_status_t, title) }, \
          } \
 }
 #endif
@@ -56,13 +56,13 @@ static inline uint16_t mavlink_msg_gpio_device_status_pack(uint8_t system_id, ui
     char buf[MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN];
 
     _mav_put_char_array(buf, 0, status, 128);
-    _mav_put_char_array(buf, 128, title, 128);
+    _mav_put_char_array(buf, 128, title, 64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #else
     mavlink_gpio_device_status_t packet;
 
     mav_array_assign_char(packet.status, status, 128);
-    mav_array_assign_char(packet.title, title, 128);
+    mav_array_assign_char(packet.title, title, 64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #endif
 
@@ -88,13 +88,13 @@ static inline uint16_t mavlink_msg_gpio_device_status_pack_status(uint8_t system
     char buf[MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN];
 
     _mav_put_char_array(buf, 0, status, 128);
-    _mav_put_char_array(buf, 128, title, 128);
+    _mav_put_char_array(buf, 128, title, 64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #else
     mavlink_gpio_device_status_t packet;
 
     mav_array_memcpy(packet.status, status, sizeof(char)*128);
-    mav_array_memcpy(packet.title, title, sizeof(char)*128);
+    mav_array_memcpy(packet.title, title, sizeof(char)*64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #endif
 
@@ -124,13 +124,13 @@ static inline uint16_t mavlink_msg_gpio_device_status_pack_chan(uint8_t system_i
     char buf[MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN];
 
     _mav_put_char_array(buf, 0, status, 128);
-    _mav_put_char_array(buf, 128, title, 128);
+    _mav_put_char_array(buf, 128, title, 64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #else
     mavlink_gpio_device_status_t packet;
 
     mav_array_assign_char(packet.status, status, 128);
-    mav_array_assign_char(packet.title, title, 128);
+    mav_array_assign_char(packet.title, title, 64);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN);
 #endif
 
@@ -194,13 +194,13 @@ static inline void mavlink_msg_gpio_device_status_send(mavlink_channel_t chan, c
     char buf[MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN];
 
     _mav_put_char_array(buf, 0, status, 128);
-    _mav_put_char_array(buf, 128, title, 128);
+    _mav_put_char_array(buf, 128, title, 64);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS, buf, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC);
 #else
     mavlink_gpio_device_status_t packet;
 
     mav_array_assign_char(packet.status, status, 128);
-    mav_array_assign_char(packet.title, title, 128);
+    mav_array_assign_char(packet.title, title, 64);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS, (const char *)&packet, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC);
 #endif
 }
@@ -233,13 +233,13 @@ static inline void mavlink_msg_gpio_device_status_send_buf(mavlink_message_t *ms
     char *buf = (char *)msgbuf;
 
     _mav_put_char_array(buf, 0, status, 128);
-    _mav_put_char_array(buf, 128, title, 128);
+    _mav_put_char_array(buf, 128, title, 64);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS, buf, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC);
 #else
     mavlink_gpio_device_status_t *packet = (mavlink_gpio_device_status_t *)msgbuf;
 
     mav_array_assign_char(packet->status, status, 128);
-    mav_array_assign_char(packet->title, title, 128);
+    mav_array_assign_char(packet->title, title, 64);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS, (const char *)packet, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_MIN_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_LEN, MAVLINK_MSG_ID_GPIO_DEVICE_STATUS_CRC);
 #endif
 }
@@ -267,7 +267,7 @@ static inline uint16_t mavlink_msg_gpio_device_status_get_status(const mavlink_m
  */
 static inline uint16_t mavlink_msg_gpio_device_status_get_title(const mavlink_message_t* msg, char *title)
 {
-    return _MAV_RETURN_char_array(msg, title, 128,  128);
+    return _MAV_RETURN_char_array(msg, title, 64,  128);
 }
 
 /**
