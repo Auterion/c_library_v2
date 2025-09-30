@@ -515,7 +515,7 @@
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Status of GPIO_DEVICE to GCS.</description>
       <field type="char[128]" name="status">Status, for human-friendly display in a Ground Control Station</field>
-      <field type="char[128]" name="title">Title from AOS app for display in Ground Control Station</field>
+      <field type="char[64]" name="title">Title from AOS app for display in Ground Control Station</field>
     </message>
   </messages>
 </mavlink>
