@@ -82,6 +82,7 @@ typedef struct __mavlink_boat_engine_status_t {
  * @param transmission_state  Transmission state.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, const uint8_t *engine_state, const uint8_t *engine_load, const uint16_t *engine_rpm, float fuel_consumption_rate, const float *oil_pressure, const uint8_t *throttle_position, const float *engine_coolant_temperature, const uint8_t *transmission_state)
 {
@@ -101,13 +102,13 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack(uint8_t system_id, ui
     mavlink_boat_engine_status_t packet;
     packet.time_usec = time_usec;
     packet.fuel_consumption_rate = fuel_consumption_rate;
-    mav_array_assign_float(packet.oil_pressure, oil_pressure, 6);
-    mav_array_assign_float(packet.engine_coolant_temperature, engine_coolant_temperature, 6);
-    mav_array_assign_uint16_t(packet.engine_rpm, engine_rpm, 6);
-    mav_array_assign_uint8_t(packet.engine_state, engine_state, 6);
-    mav_array_assign_uint8_t(packet.engine_load, engine_load, 6);
-    mav_array_assign_uint8_t(packet.throttle_position, throttle_position, 6);
-    mav_array_assign_uint8_t(packet.transmission_state, transmission_state, 6);
+    mav_array_memcpy(packet.oil_pressure, oil_pressure, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_coolant_temperature, engine_coolant_temperature, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_rpm, engine_rpm, sizeof(uint16_t)*6);
+    mav_array_memcpy(packet.engine_state, engine_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.engine_load, engine_load, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.throttle_position, throttle_position, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.transmission_state, transmission_state, sizeof(uint8_t)*6);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_LEN);
 #endif
 
@@ -187,6 +188,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack_status(uint8_t system
  * @param transmission_state  Transmission state.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,const uint8_t *engine_state,const uint8_t *engine_load,const uint16_t *engine_rpm,float fuel_consumption_rate,const float *oil_pressure,const uint8_t *throttle_position,const float *engine_coolant_temperature,const uint8_t *transmission_state)
@@ -207,13 +209,13 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack_chan(uint8_t system_i
     mavlink_boat_engine_status_t packet;
     packet.time_usec = time_usec;
     packet.fuel_consumption_rate = fuel_consumption_rate;
-    mav_array_assign_float(packet.oil_pressure, oil_pressure, 6);
-    mav_array_assign_float(packet.engine_coolant_temperature, engine_coolant_temperature, 6);
-    mav_array_assign_uint16_t(packet.engine_rpm, engine_rpm, 6);
-    mav_array_assign_uint8_t(packet.engine_state, engine_state, 6);
-    mav_array_assign_uint8_t(packet.engine_load, engine_load, 6);
-    mav_array_assign_uint8_t(packet.throttle_position, throttle_position, 6);
-    mav_array_assign_uint8_t(packet.transmission_state, transmission_state, 6);
+    mav_array_memcpy(packet.oil_pressure, oil_pressure, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_coolant_temperature, engine_coolant_temperature, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_rpm, engine_rpm, sizeof(uint16_t)*6);
+    mav_array_memcpy(packet.engine_state, engine_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.engine_load, engine_load, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.throttle_position, throttle_position, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.transmission_state, transmission_state, sizeof(uint8_t)*6);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_LEN);
 #endif
 
@@ -229,6 +231,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param boat_engine_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_boat_engine_status_t* boat_engine_status)
 {
     return mavlink_msg_boat_engine_status_pack(system_id, component_id, msg, boat_engine_status->time_usec, boat_engine_status->engine_state, boat_engine_status->engine_load, boat_engine_status->engine_rpm, boat_engine_status->fuel_consumption_rate, boat_engine_status->oil_pressure, boat_engine_status->throttle_position, boat_engine_status->engine_coolant_temperature, boat_engine_status->transmission_state);
@@ -243,6 +246,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param boat_engine_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_boat_engine_status_t* boat_engine_status)
 {
     return mavlink_msg_boat_engine_status_pack_chan(system_id, component_id, chan, msg, boat_engine_status->time_usec, boat_engine_status->engine_state, boat_engine_status->engine_load, boat_engine_status->engine_rpm, boat_engine_status->fuel_consumption_rate, boat_engine_status->oil_pressure, boat_engine_status->throttle_position, boat_engine_status->engine_coolant_temperature, boat_engine_status->transmission_state);
@@ -278,6 +282,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_encode_status(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_boat_engine_status_send(mavlink_channel_t chan, uint64_t time_usec, const uint8_t *engine_state, const uint8_t *engine_load, const uint16_t *engine_rpm, float fuel_consumption_rate, const float *oil_pressure, const uint8_t *throttle_position, const float *engine_coolant_temperature, const uint8_t *transmission_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -296,13 +301,13 @@ static inline void mavlink_msg_boat_engine_status_send(mavlink_channel_t chan, u
     mavlink_boat_engine_status_t packet;
     packet.time_usec = time_usec;
     packet.fuel_consumption_rate = fuel_consumption_rate;
-    mav_array_assign_float(packet.oil_pressure, oil_pressure, 6);
-    mav_array_assign_float(packet.engine_coolant_temperature, engine_coolant_temperature, 6);
-    mav_array_assign_uint16_t(packet.engine_rpm, engine_rpm, 6);
-    mav_array_assign_uint8_t(packet.engine_state, engine_state, 6);
-    mav_array_assign_uint8_t(packet.engine_load, engine_load, 6);
-    mav_array_assign_uint8_t(packet.throttle_position, throttle_position, 6);
-    mav_array_assign_uint8_t(packet.transmission_state, transmission_state, 6);
+    mav_array_memcpy(packet.oil_pressure, oil_pressure, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_coolant_temperature, engine_coolant_temperature, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_rpm, engine_rpm, sizeof(uint16_t)*6);
+    mav_array_memcpy(packet.engine_state, engine_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.engine_load, engine_load, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.throttle_position, throttle_position, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.transmission_state, transmission_state, sizeof(uint8_t)*6);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS, (const char *)&packet, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_MIN_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_CRC);
 #endif
 }
@@ -312,6 +317,7 @@ static inline void mavlink_msg_boat_engine_status_send(mavlink_channel_t chan, u
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_engine_status_send_struct(mavlink_channel_t chan, const mavlink_boat_engine_status_t* boat_engine_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -329,6 +335,7 @@ static inline void mavlink_msg_boat_engine_status_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_engine_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, const uint8_t *engine_state, const uint8_t *engine_load, const uint16_t *engine_rpm, float fuel_consumption_rate, const float *oil_pressure, const uint8_t *throttle_position, const float *engine_coolant_temperature, const uint8_t *transmission_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -347,13 +354,13 @@ static inline void mavlink_msg_boat_engine_status_send_buf(mavlink_message_t *ms
     mavlink_boat_engine_status_t *packet = (mavlink_boat_engine_status_t *)msgbuf;
     packet->time_usec = time_usec;
     packet->fuel_consumption_rate = fuel_consumption_rate;
-    mav_array_assign_float(packet->oil_pressure, oil_pressure, 6);
-    mav_array_assign_float(packet->engine_coolant_temperature, engine_coolant_temperature, 6);
-    mav_array_assign_uint16_t(packet->engine_rpm, engine_rpm, 6);
-    mav_array_assign_uint8_t(packet->engine_state, engine_state, 6);
-    mav_array_assign_uint8_t(packet->engine_load, engine_load, 6);
-    mav_array_assign_uint8_t(packet->throttle_position, throttle_position, 6);
-    mav_array_assign_uint8_t(packet->transmission_state, transmission_state, 6);
+    mav_array_memcpy(packet->oil_pressure, oil_pressure, sizeof(float)*6);
+    mav_array_memcpy(packet->engine_coolant_temperature, engine_coolant_temperature, sizeof(float)*6);
+    mav_array_memcpy(packet->engine_rpm, engine_rpm, sizeof(uint16_t)*6);
+    mav_array_memcpy(packet->engine_state, engine_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet->engine_load, engine_load, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet->throttle_position, throttle_position, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet->transmission_state, transmission_state, sizeof(uint8_t)*6);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS, (const char *)packet, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_MIN_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_CRC);
 #endif
 }
@@ -369,6 +376,7 @@ static inline void mavlink_msg_boat_engine_status_send_buf(mavlink_message_t *ms
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_boat_engine_status_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -379,6 +387,7 @@ static inline uint64_t mavlink_msg_boat_engine_status_get_time_usec(const mavlin
  *
  * @return  Engine state.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_engine_state(const mavlink_message_t* msg, uint8_t *engine_state)
 {
     return _MAV_RETURN_uint8_t_array(msg, engine_state, 6,  72);
@@ -389,6 +398,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_engine_state(const mav
  *
  * @return [%] Engine load.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_engine_load(const mavlink_message_t* msg, uint8_t *engine_load)
 {
     return _MAV_RETURN_uint8_t_array(msg, engine_load, 6,  78);
@@ -399,6 +409,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_engine_load(const mavl
  *
  * @return [rpm] Engine RPM.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_engine_rpm(const mavlink_message_t* msg, uint16_t *engine_rpm)
 {
     return _MAV_RETURN_uint16_t_array(msg, engine_rpm, 6,  60);
@@ -409,6 +420,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_engine_rpm(const mavli
  *
  * @return [L/h] Fuel consumption rate.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_boat_engine_status_get_fuel_consumption_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  8);
@@ -419,6 +431,7 @@ static inline float mavlink_msg_boat_engine_status_get_fuel_consumption_rate(con
  *
  * @return [kPa] Engine oil pressure.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_oil_pressure(const mavlink_message_t* msg, float *oil_pressure)
 {
     return _MAV_RETURN_float_array(msg, oil_pressure, 6,  12);
@@ -429,6 +442,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_oil_pressure(const mav
  *
  * @return [%] Throttle position.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_throttle_position(const mavlink_message_t* msg, uint8_t *throttle_position)
 {
     return _MAV_RETURN_uint8_t_array(msg, throttle_position, 6,  84);
@@ -439,6 +453,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_throttle_position(cons
  *
  * @return [degC] Engine coolant temperature.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_engine_coolant_temperature(const mavlink_message_t* msg, float *engine_coolant_temperature)
 {
     return _MAV_RETURN_float_array(msg, engine_coolant_temperature, 6,  36);
@@ -449,6 +464,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_engine_coolant_tempera
  *
  * @return  Transmission state.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_get_transmission_state(const mavlink_message_t* msg, uint8_t *transmission_state)
 {
     return _MAV_RETURN_uint8_t_array(msg, transmission_state, 6,  90);
@@ -460,6 +476,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_transmission_state(con
  * @param msg The message to decode
  * @param boat_engine_status C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_engine_status_decode(const mavlink_message_t* msg, mavlink_boat_engine_status_t* boat_engine_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

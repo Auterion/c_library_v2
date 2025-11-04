@@ -89,7 +89,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack(uint8_t system_id, uint
     packet.deployment_status = deployment_status;
     packet.safety_status = safety_status;
     packet.ats_arm_altitude = ats_arm_altitude;
-    mav_array_assign_char(packet.parachute_packed_date, parachute_packed_date, 11);
+    mav_array_memcpy(packet.parachute_packed_date, parachute_packed_date, sizeof(char)*11);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN);
 #endif
 
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack_chan(uint8_t system_id,
     packet.deployment_status = deployment_status;
     packet.safety_status = safety_status;
     packet.ats_arm_altitude = ats_arm_altitude;
-    mav_array_assign_char(packet.parachute_packed_date, parachute_packed_date, 11);
+    mav_array_memcpy(packet.parachute_packed_date, parachute_packed_date, sizeof(char)*11);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN);
 #endif
 
@@ -266,7 +266,7 @@ static inline void mavlink_msg_parachute_status_send(mavlink_channel_t chan, uin
     packet.deployment_status = deployment_status;
     packet.safety_status = safety_status;
     packet.ats_arm_altitude = ats_arm_altitude;
-    mav_array_assign_char(packet.parachute_packed_date, parachute_packed_date, 11);
+    mav_array_memcpy(packet.parachute_packed_date, parachute_packed_date, sizeof(char)*11);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARACHUTE_STATUS, (const char *)&packet, MAVLINK_MSG_ID_PARACHUTE_STATUS_MIN_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_CRC);
 #endif
 }
@@ -313,7 +313,7 @@ static inline void mavlink_msg_parachute_status_send_buf(mavlink_message_t *msgb
     packet->deployment_status = deployment_status;
     packet->safety_status = safety_status;
     packet->ats_arm_altitude = ats_arm_altitude;
-    mav_array_assign_char(packet->parachute_packed_date, parachute_packed_date, 11);
+    mav_array_memcpy(packet->parachute_packed_date, parachute_packed_date, sizeof(char)*11);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARACHUTE_STATUS, (const char *)packet, MAVLINK_MSG_ID_PARACHUTE_STATUS_MIN_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_CRC);
 #endif
 }

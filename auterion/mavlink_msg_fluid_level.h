@@ -60,6 +60,7 @@ typedef struct __mavlink_fluid_level_t {
  * @param capacity [l] Fluid capacity left in tank in liters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_fluid_level_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t instance, uint8_t type, float level, float capacity)
 {
@@ -145,6 +146,7 @@ static inline uint16_t mavlink_msg_fluid_level_pack_status(uint8_t system_id, ui
  * @param capacity [l] Fluid capacity left in tank in liters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_fluid_level_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint8_t instance,uint8_t type,float level,float capacity)
@@ -181,6 +183,7 @@ static inline uint16_t mavlink_msg_fluid_level_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param fluid_level C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_fluid_level_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_fluid_level_t* fluid_level)
 {
     return mavlink_msg_fluid_level_pack(system_id, component_id, msg, fluid_level->time_usec, fluid_level->instance, fluid_level->type, fluid_level->level, fluid_level->capacity);
@@ -195,6 +198,7 @@ static inline uint16_t mavlink_msg_fluid_level_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param fluid_level C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_fluid_level_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_fluid_level_t* fluid_level)
 {
     return mavlink_msg_fluid_level_pack_chan(system_id, component_id, chan, msg, fluid_level->time_usec, fluid_level->instance, fluid_level->type, fluid_level->level, fluid_level->capacity);
@@ -226,6 +230,7 @@ static inline uint16_t mavlink_msg_fluid_level_encode_status(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_fluid_level_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t instance, uint8_t type, float level, float capacity)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -254,6 +259,7 @@ static inline void mavlink_msg_fluid_level_send(mavlink_channel_t chan, uint64_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_fluid_level_send_struct(mavlink_channel_t chan, const mavlink_fluid_level_t* fluid_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -271,6 +277,7 @@ static inline void mavlink_msg_fluid_level_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_fluid_level_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint8_t instance, uint8_t type, float level, float capacity)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -305,6 +312,7 @@ static inline void mavlink_msg_fluid_level_send_buf(mavlink_message_t *msgbuf, m
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_fluid_level_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -315,6 +323,7 @@ static inline uint64_t mavlink_msg_fluid_level_get_time_usec(const mavlink_messa
  *
  * @return  Fluid tank instance.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_fluid_level_get_instance(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  16);
@@ -325,6 +334,7 @@ static inline uint8_t mavlink_msg_fluid_level_get_instance(const mavlink_message
  *
  * @return  Fluid tank type.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_fluid_level_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  17);
@@ -335,6 +345,7 @@ static inline uint8_t mavlink_msg_fluid_level_get_type(const mavlink_message_t* 
  *
  * @return [%] Fluid level in percentage of full tank.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_fluid_level_get_level(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  8);
@@ -345,6 +356,7 @@ static inline float mavlink_msg_fluid_level_get_level(const mavlink_message_t* m
  *
  * @return [l] Fluid capacity left in tank in liters.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_fluid_level_get_capacity(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  12);
@@ -356,6 +368,7 @@ static inline float mavlink_msg_fluid_level_get_capacity(const mavlink_message_t
  * @param msg The message to decode
  * @param fluid_level C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_fluid_level_decode(const mavlink_message_t* msg, mavlink_fluid_level_t* fluid_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

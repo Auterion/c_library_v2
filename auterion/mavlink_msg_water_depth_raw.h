@@ -56,6 +56,7 @@ typedef struct __mavlink_water_depth_raw_t {
  * @param range [m] Max measurement range.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_water_depth_raw_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, float depth, float offset, float range)
 {
@@ -135,6 +136,7 @@ static inline uint16_t mavlink_msg_water_depth_raw_pack_status(uint8_t system_id
  * @param range [m] Max measurement range.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_water_depth_raw_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,float depth,float offset,float range)
@@ -169,6 +171,7 @@ static inline uint16_t mavlink_msg_water_depth_raw_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param water_depth_raw C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_water_depth_raw_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_water_depth_raw_t* water_depth_raw)
 {
     return mavlink_msg_water_depth_raw_pack(system_id, component_id, msg, water_depth_raw->time_usec, water_depth_raw->depth, water_depth_raw->offset, water_depth_raw->range);
@@ -183,6 +186,7 @@ static inline uint16_t mavlink_msg_water_depth_raw_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param water_depth_raw C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_water_depth_raw_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_water_depth_raw_t* water_depth_raw)
 {
     return mavlink_msg_water_depth_raw_pack_chan(system_id, component_id, chan, msg, water_depth_raw->time_usec, water_depth_raw->depth, water_depth_raw->offset, water_depth_raw->range);
@@ -213,6 +217,7 @@ static inline uint16_t mavlink_msg_water_depth_raw_encode_status(uint8_t system_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_water_depth_raw_send(mavlink_channel_t chan, uint64_t time_usec, float depth, float offset, float range)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -239,6 +244,7 @@ static inline void mavlink_msg_water_depth_raw_send(mavlink_channel_t chan, uint
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_water_depth_raw_send_struct(mavlink_channel_t chan, const mavlink_water_depth_raw_t* water_depth_raw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -256,6 +262,7 @@ static inline void mavlink_msg_water_depth_raw_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_water_depth_raw_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float depth, float offset, float range)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -288,6 +295,7 @@ static inline void mavlink_msg_water_depth_raw_send_buf(mavlink_message_t *msgbu
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_water_depth_raw_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -298,6 +306,7 @@ static inline uint64_t mavlink_msg_water_depth_raw_get_time_usec(const mavlink_m
  *
  * @return [m] Depth below transducer.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_water_depth_raw_get_depth(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  8);
@@ -308,6 +317,7 @@ static inline float mavlink_msg_water_depth_raw_get_depth(const mavlink_message_
  *
  * @return [m] Distance between transducer and surface (positive) or keel (negative).
  */
+MAVLINK_WIP
 static inline float mavlink_msg_water_depth_raw_get_offset(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  12);
@@ -318,6 +328,7 @@ static inline float mavlink_msg_water_depth_raw_get_offset(const mavlink_message
  *
  * @return [m] Max measurement range.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_water_depth_raw_get_range(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  16);
@@ -329,6 +340,7 @@ static inline float mavlink_msg_water_depth_raw_get_range(const mavlink_message_
  * @param msg The message to decode
  * @param water_depth_raw C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_water_depth_raw_decode(const mavlink_message_t* msg, mavlink_water_depth_raw_t* water_depth_raw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

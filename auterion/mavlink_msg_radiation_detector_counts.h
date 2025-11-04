@@ -60,6 +60,7 @@ typedef struct __mavlink_radiation_detector_counts_t {
  * @param integration_time_usec [us] Integration period
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_counts_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t serial_no, double timestamp, uint64_t counts, uint32_t rate, uint64_t integration_time_usec)
 {
@@ -145,6 +146,7 @@ static inline uint16_t mavlink_msg_radiation_detector_counts_pack_status(uint8_t
  * @param integration_time_usec [us] Integration period
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_counts_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t serial_no,double timestamp,uint64_t counts,uint32_t rate,uint64_t integration_time_usec)
@@ -181,6 +183,7 @@ static inline uint16_t mavlink_msg_radiation_detector_counts_pack_chan(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param radiation_detector_counts C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_counts_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radiation_detector_counts_t* radiation_detector_counts)
 {
     return mavlink_msg_radiation_detector_counts_pack(system_id, component_id, msg, radiation_detector_counts->serial_no, radiation_detector_counts->timestamp, radiation_detector_counts->counts, radiation_detector_counts->rate, radiation_detector_counts->integration_time_usec);
@@ -195,6 +198,7 @@ static inline uint16_t mavlink_msg_radiation_detector_counts_encode(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param radiation_detector_counts C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_counts_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radiation_detector_counts_t* radiation_detector_counts)
 {
     return mavlink_msg_radiation_detector_counts_pack_chan(system_id, component_id, chan, msg, radiation_detector_counts->serial_no, radiation_detector_counts->timestamp, radiation_detector_counts->counts, radiation_detector_counts->rate, radiation_detector_counts->integration_time_usec);
@@ -226,6 +230,7 @@ static inline uint16_t mavlink_msg_radiation_detector_counts_encode_status(uint8
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_counts_send(mavlink_channel_t chan, uint32_t serial_no, double timestamp, uint64_t counts, uint32_t rate, uint64_t integration_time_usec)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -254,6 +259,7 @@ static inline void mavlink_msg_radiation_detector_counts_send(mavlink_channel_t 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_counts_send_struct(mavlink_channel_t chan, const mavlink_radiation_detector_counts_t* radiation_detector_counts)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -271,6 +277,7 @@ static inline void mavlink_msg_radiation_detector_counts_send_struct(mavlink_cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_counts_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t serial_no, double timestamp, uint64_t counts, uint32_t rate, uint64_t integration_time_usec)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -305,6 +312,7 @@ static inline void mavlink_msg_radiation_detector_counts_send_buf(mavlink_messag
  *
  * @return  Detector serial number
  */
+MAVLINK_WIP
 static inline uint32_t mavlink_msg_radiation_detector_counts_get_serial_no(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  24);
@@ -315,6 +323,7 @@ static inline uint32_t mavlink_msg_radiation_detector_counts_get_serial_no(const
  *
  * @return [s] Timestamp of measurement(UNIX Epoch time or time since detector boot)
  */
+MAVLINK_WIP
 static inline double mavlink_msg_radiation_detector_counts_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_double(msg,  0);
@@ -325,6 +334,7 @@ static inline double mavlink_msg_radiation_detector_counts_get_timestamp(const m
  *
  * @return  Accumulated detector counts
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_radiation_detector_counts_get_counts(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  8);
@@ -335,6 +345,7 @@ static inline uint64_t mavlink_msg_radiation_detector_counts_get_counts(const ma
  *
  * @return   Detector count in the current dt integration period.
  */
+MAVLINK_WIP
 static inline uint32_t mavlink_msg_radiation_detector_counts_get_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  28);
@@ -345,6 +356,7 @@ static inline uint32_t mavlink_msg_radiation_detector_counts_get_rate(const mavl
  *
  * @return [us] Integration period
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_radiation_detector_counts_get_integration_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  16);
@@ -356,6 +368,7 @@ static inline uint64_t mavlink_msg_radiation_detector_counts_get_integration_tim
  * @param msg The message to decode
  * @param radiation_detector_counts C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_counts_decode(const mavlink_message_t* msg, mavlink_radiation_detector_counts_t* radiation_detector_counts)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

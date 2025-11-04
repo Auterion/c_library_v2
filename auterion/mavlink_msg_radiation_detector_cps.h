@@ -56,6 +56,7 @@ typedef struct __mavlink_radiation_detector_cps_t {
  * @param dt [s] delta-t integration period
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_cps_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t serial_no, double timestamp, uint32_t cps, float dt)
 {
@@ -135,6 +136,7 @@ static inline uint16_t mavlink_msg_radiation_detector_cps_pack_status(uint8_t sy
  * @param dt [s] delta-t integration period
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_cps_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t serial_no,double timestamp,uint32_t cps,float dt)
@@ -169,6 +171,7 @@ static inline uint16_t mavlink_msg_radiation_detector_cps_pack_chan(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param radiation_detector_cps C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_cps_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radiation_detector_cps_t* radiation_detector_cps)
 {
     return mavlink_msg_radiation_detector_cps_pack(system_id, component_id, msg, radiation_detector_cps->serial_no, radiation_detector_cps->timestamp, radiation_detector_cps->cps, radiation_detector_cps->dt);
@@ -183,6 +186,7 @@ static inline uint16_t mavlink_msg_radiation_detector_cps_encode(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param radiation_detector_cps C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_radiation_detector_cps_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radiation_detector_cps_t* radiation_detector_cps)
 {
     return mavlink_msg_radiation_detector_cps_pack_chan(system_id, component_id, chan, msg, radiation_detector_cps->serial_no, radiation_detector_cps->timestamp, radiation_detector_cps->cps, radiation_detector_cps->dt);
@@ -213,6 +217,7 @@ static inline uint16_t mavlink_msg_radiation_detector_cps_encode_status(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_cps_send(mavlink_channel_t chan, uint32_t serial_no, double timestamp, uint32_t cps, float dt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -239,6 +244,7 @@ static inline void mavlink_msg_radiation_detector_cps_send(mavlink_channel_t cha
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_cps_send_struct(mavlink_channel_t chan, const mavlink_radiation_detector_cps_t* radiation_detector_cps)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -256,6 +262,7 @@ static inline void mavlink_msg_radiation_detector_cps_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_cps_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t serial_no, double timestamp, uint32_t cps, float dt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -288,6 +295,7 @@ static inline void mavlink_msg_radiation_detector_cps_send_buf(mavlink_message_t
  *
  * @return  Detector serial number
  */
+MAVLINK_WIP
 static inline uint32_t mavlink_msg_radiation_detector_cps_get_serial_no(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  8);
@@ -298,6 +306,7 @@ static inline uint32_t mavlink_msg_radiation_detector_cps_get_serial_no(const ma
  *
  * @return [s] Time of data measurement
  */
+MAVLINK_WIP
 static inline double mavlink_msg_radiation_detector_cps_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_double(msg,  0);
@@ -308,6 +317,7 @@ static inline double mavlink_msg_radiation_detector_cps_get_timestamp(const mavl
  *
  * @return  Detector value scaled by factor
  */
+MAVLINK_WIP
 static inline uint32_t mavlink_msg_radiation_detector_cps_get_cps(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  12);
@@ -318,6 +328,7 @@ static inline uint32_t mavlink_msg_radiation_detector_cps_get_cps(const mavlink_
  *
  * @return [s] delta-t integration period
  */
+MAVLINK_WIP
 static inline float mavlink_msg_radiation_detector_cps_get_dt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  16);
@@ -329,6 +340,7 @@ static inline float mavlink_msg_radiation_detector_cps_get_dt(const mavlink_mess
  * @param msg The message to decode
  * @param radiation_detector_cps C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_radiation_detector_cps_decode(const mavlink_message_t* msg, mavlink_radiation_detector_cps_t* radiation_detector_cps)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

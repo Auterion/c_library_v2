@@ -60,6 +60,7 @@ typedef struct __mavlink_vessel_speed_t {
  * @param speed_direction  Speed direction.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_vessel_speed_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, float speed_water_referenced, float speed_ground_referenced, uint8_t speed_water_referenced_type, uint8_t speed_direction)
 {
@@ -145,6 +146,7 @@ static inline uint16_t mavlink_msg_vessel_speed_pack_status(uint8_t system_id, u
  * @param speed_direction  Speed direction.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_vessel_speed_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,float speed_water_referenced,float speed_ground_referenced,uint8_t speed_water_referenced_type,uint8_t speed_direction)
@@ -181,6 +183,7 @@ static inline uint16_t mavlink_msg_vessel_speed_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param vessel_speed C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_vessel_speed_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vessel_speed_t* vessel_speed)
 {
     return mavlink_msg_vessel_speed_pack(system_id, component_id, msg, vessel_speed->time_usec, vessel_speed->speed_water_referenced, vessel_speed->speed_ground_referenced, vessel_speed->speed_water_referenced_type, vessel_speed->speed_direction);
@@ -195,6 +198,7 @@ static inline uint16_t mavlink_msg_vessel_speed_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param vessel_speed C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_vessel_speed_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vessel_speed_t* vessel_speed)
 {
     return mavlink_msg_vessel_speed_pack_chan(system_id, component_id, chan, msg, vessel_speed->time_usec, vessel_speed->speed_water_referenced, vessel_speed->speed_ground_referenced, vessel_speed->speed_water_referenced_type, vessel_speed->speed_direction);
@@ -226,6 +230,7 @@ static inline uint16_t mavlink_msg_vessel_speed_encode_status(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_vessel_speed_send(mavlink_channel_t chan, uint64_t time_usec, float speed_water_referenced, float speed_ground_referenced, uint8_t speed_water_referenced_type, uint8_t speed_direction)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -254,6 +259,7 @@ static inline void mavlink_msg_vessel_speed_send(mavlink_channel_t chan, uint64_
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_vessel_speed_send_struct(mavlink_channel_t chan, const mavlink_vessel_speed_t* vessel_speed)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -271,6 +277,7 @@ static inline void mavlink_msg_vessel_speed_send_struct(mavlink_channel_t chan, 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_vessel_speed_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float speed_water_referenced, float speed_ground_referenced, uint8_t speed_water_referenced_type, uint8_t speed_direction)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -305,6 +312,7 @@ static inline void mavlink_msg_vessel_speed_send_buf(mavlink_message_t *msgbuf, 
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_vessel_speed_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -315,6 +323,7 @@ static inline uint64_t mavlink_msg_vessel_speed_get_time_usec(const mavlink_mess
  *
  * @return [m/s] Speed water referenced.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_vessel_speed_get_speed_water_referenced(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  8);
@@ -325,6 +334,7 @@ static inline float mavlink_msg_vessel_speed_get_speed_water_referenced(const ma
  *
  * @return [m/s] Speed ground referenced.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_vessel_speed_get_speed_ground_referenced(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  12);
@@ -335,6 +345,7 @@ static inline float mavlink_msg_vessel_speed_get_speed_ground_referenced(const m
  *
  * @return  Speed water referenced type.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_vessel_speed_get_speed_water_referenced_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  16);
@@ -345,6 +356,7 @@ static inline uint8_t mavlink_msg_vessel_speed_get_speed_water_referenced_type(c
  *
  * @return  Speed direction.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_vessel_speed_get_speed_direction(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  17);
@@ -356,6 +368,7 @@ static inline uint8_t mavlink_msg_vessel_speed_get_speed_direction(const mavlink
  * @param msg The message to decode
  * @param vessel_speed C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_vessel_speed_decode(const mavlink_message_t* msg, mavlink_vessel_speed_t* vessel_speed)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

@@ -125,7 +125,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack(uint8_t system_id, ui
     packet.course_type = course_type;
     packet.target_track_status = target_track_status;
     packet.target_track_acquisition_type = target_track_acquisition_type;
-    mav_array_assign_char(packet.target_name, target_name, 20);
+    mav_array_memcpy(packet.target_name, target_name, sizeof(char)*20);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN);
 #endif
 
@@ -255,7 +255,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack_chan(uint8_t system_i
     packet.course_type = course_type;
     packet.target_track_status = target_track_status;
     packet.target_track_acquisition_type = target_track_acquisition_type;
-    mav_array_assign_char(packet.target_name, target_name, 20);
+    mav_array_memcpy(packet.target_name, target_name, sizeof(char)*20);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN);
 #endif
 
@@ -356,7 +356,7 @@ static inline void mavlink_msg_radar_target_track_send(mavlink_channel_t chan, u
     packet.course_type = course_type;
     packet.target_track_status = target_track_status;
     packet.target_track_acquisition_type = target_track_acquisition_type;
-    mav_array_assign_char(packet.target_name, target_name, 20);
+    mav_array_memcpy(packet.target_name, target_name, sizeof(char)*20);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_RADAR_TARGET_TRACK, (const char *)&packet, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_MIN_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_CRC);
 #endif
 }
@@ -415,7 +415,7 @@ static inline void mavlink_msg_radar_target_track_send_buf(mavlink_message_t *ms
     packet->course_type = course_type;
     packet->target_track_status = target_track_status;
     packet->target_track_acquisition_type = target_track_acquisition_type;
-    mav_array_assign_char(packet->target_name, target_name, 20);
+    mav_array_memcpy(packet->target_name, target_name, sizeof(char)*20);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_RADAR_TARGET_TRACK, (const char *)packet, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_MIN_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_CRC);
 #endif
 }

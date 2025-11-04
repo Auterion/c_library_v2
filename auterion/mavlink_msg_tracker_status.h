@@ -52,6 +52,7 @@ typedef struct __mavlink_tracker_status_t {
  * @param tracked_object_id   The UID of the object currently being tracked.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t tracker_status, uint16_t number_objects_detected, uint32_t tracked_object_id)
 {
@@ -125,6 +126,7 @@ static inline uint16_t mavlink_msg_tracker_status_pack_status(uint8_t system_id,
  * @param tracked_object_id   The UID of the object currently being tracked.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t tracker_status,uint16_t number_objects_detected,uint32_t tracked_object_id)
@@ -157,6 +159,7 @@ static inline uint16_t mavlink_msg_tracker_status_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param tracker_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_tracker_status_t* tracker_status)
 {
     return mavlink_msg_tracker_status_pack(system_id, component_id, msg, tracker_status->tracker_status, tracker_status->number_objects_detected, tracker_status->tracked_object_id);
@@ -171,6 +174,7 @@ static inline uint16_t mavlink_msg_tracker_status_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param tracker_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_tracker_status_t* tracker_status)
 {
     return mavlink_msg_tracker_status_pack_chan(system_id, component_id, chan, msg, tracker_status->tracker_status, tracker_status->number_objects_detected, tracker_status->tracked_object_id);
@@ -200,6 +204,7 @@ static inline uint16_t mavlink_msg_tracker_status_encode_status(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_tracker_status_send(mavlink_channel_t chan, uint8_t tracker_status, uint16_t number_objects_detected, uint32_t tracked_object_id)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -224,6 +229,7 @@ static inline void mavlink_msg_tracker_status_send(mavlink_channel_t chan, uint8
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_tracker_status_send_struct(mavlink_channel_t chan, const mavlink_tracker_status_t* tracker_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -241,6 +247,7 @@ static inline void mavlink_msg_tracker_status_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_tracker_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t tracker_status, uint16_t number_objects_detected, uint32_t tracked_object_id)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -271,6 +278,7 @@ static inline void mavlink_msg_tracker_status_send_buf(mavlink_message_t *msgbuf
  *
  * @return   
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_tracker_status_get_tracker_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  6);
@@ -281,6 +289,7 @@ static inline uint8_t mavlink_msg_tracker_status_get_tracker_status(const mavlin
  *
  * @return   Number of objects currently detected.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_status_get_number_objects_detected(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  4);
@@ -291,6 +300,7 @@ static inline uint16_t mavlink_msg_tracker_status_get_number_objects_detected(co
  *
  * @return   The UID of the object currently being tracked.
  */
+MAVLINK_WIP
 static inline uint32_t mavlink_msg_tracker_status_get_tracked_object_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  0);
@@ -302,6 +312,7 @@ static inline uint32_t mavlink_msg_tracker_status_get_tracked_object_id(const ma
  * @param msg The message to decode
  * @param tracker_status C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_tracker_status_decode(const mavlink_message_t* msg, mavlink_tracker_status_t* tracker_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

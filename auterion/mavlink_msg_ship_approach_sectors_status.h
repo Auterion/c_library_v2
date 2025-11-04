@@ -44,6 +44,7 @@ typedef struct __mavlink_ship_approach_sectors_status_t {
  * @param sectors  Bitmap indicating which ship approach sectors are set. In clockwise order.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t sectors)
 {
@@ -105,6 +106,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_status(uint
  * @param sectors  Bitmap indicating which ship approach sectors are set. In clockwise order.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t sectors)
@@ -133,6 +135,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_chan(uint8_
  * @param msg The MAVLink message to compress the data into
  * @param ship_approach_sectors_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
     return mavlink_msg_ship_approach_sectors_status_pack(system_id, component_id, msg, ship_approach_sectors_status->sectors);
@@ -147,6 +150,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param ship_approach_sectors_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
     return mavlink_msg_ship_approach_sectors_status_pack_chan(system_id, component_id, chan, msg, ship_approach_sectors_status->sectors);
@@ -174,6 +178,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_status(ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_ship_approach_sectors_status_send(mavlink_channel_t chan, uint8_t sectors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -194,6 +199,7 @@ static inline void mavlink_msg_ship_approach_sectors_status_send(mavlink_channel
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_ship_approach_sectors_status_send_struct(mavlink_channel_t chan, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -211,6 +217,7 @@ static inline void mavlink_msg_ship_approach_sectors_status_send_struct(mavlink_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_ship_approach_sectors_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t sectors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -237,6 +244,7 @@ static inline void mavlink_msg_ship_approach_sectors_status_send_buf(mavlink_mes
  *
  * @return  Bitmap indicating which ship approach sectors are set. In clockwise order.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_ship_approach_sectors_status_get_sectors(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
@@ -248,6 +256,7 @@ static inline uint8_t mavlink_msg_ship_approach_sectors_status_get_sectors(const
  * @param msg The message to decode
  * @param ship_approach_sectors_status C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_ship_approach_sectors_status_decode(const mavlink_message_t* msg, mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

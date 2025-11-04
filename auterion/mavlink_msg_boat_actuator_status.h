@@ -63,6 +63,7 @@ typedef struct __mavlink_boat_actuator_status_t {
  * @param rudder_position [deg] Rudder position.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, const uint8_t *engine_leg_trim_state, const float *engine_leg_trim_position, const uint8_t *rudder_state, const float *rudder_position)
 {
@@ -77,10 +78,10 @@ static inline uint16_t mavlink_msg_boat_actuator_status_pack(uint8_t system_id, 
 #else
     mavlink_boat_actuator_status_t packet;
     packet.time_usec = time_usec;
-    mav_array_assign_float(packet.engine_leg_trim_position, engine_leg_trim_position, 6);
-    mav_array_assign_float(packet.rudder_position, rudder_position, 6);
-    mav_array_assign_uint8_t(packet.engine_leg_trim_state, engine_leg_trim_state, 6);
-    mav_array_assign_uint8_t(packet.rudder_state, rudder_state, 6);
+    mav_array_memcpy(packet.engine_leg_trim_position, engine_leg_trim_position, sizeof(float)*6);
+    mav_array_memcpy(packet.rudder_position, rudder_position, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_leg_trim_state, engine_leg_trim_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.rudder_state, rudder_state, sizeof(uint8_t)*6);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_LEN);
 #endif
 
@@ -144,6 +145,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_pack_status(uint8_t syst
  * @param rudder_position [deg] Rudder position.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,const uint8_t *engine_leg_trim_state,const float *engine_leg_trim_position,const uint8_t *rudder_state,const float *rudder_position)
@@ -159,10 +161,10 @@ static inline uint16_t mavlink_msg_boat_actuator_status_pack_chan(uint8_t system
 #else
     mavlink_boat_actuator_status_t packet;
     packet.time_usec = time_usec;
-    mav_array_assign_float(packet.engine_leg_trim_position, engine_leg_trim_position, 6);
-    mav_array_assign_float(packet.rudder_position, rudder_position, 6);
-    mav_array_assign_uint8_t(packet.engine_leg_trim_state, engine_leg_trim_state, 6);
-    mav_array_assign_uint8_t(packet.rudder_state, rudder_state, 6);
+    mav_array_memcpy(packet.engine_leg_trim_position, engine_leg_trim_position, sizeof(float)*6);
+    mav_array_memcpy(packet.rudder_position, rudder_position, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_leg_trim_state, engine_leg_trim_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.rudder_state, rudder_state, sizeof(uint8_t)*6);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_LEN);
 #endif
 
@@ -178,6 +180,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param boat_actuator_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_boat_actuator_status_t* boat_actuator_status)
 {
     return mavlink_msg_boat_actuator_status_pack(system_id, component_id, msg, boat_actuator_status->time_usec, boat_actuator_status->engine_leg_trim_state, boat_actuator_status->engine_leg_trim_position, boat_actuator_status->rudder_state, boat_actuator_status->rudder_position);
@@ -192,6 +195,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param boat_actuator_status C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_boat_actuator_status_t* boat_actuator_status)
 {
     return mavlink_msg_boat_actuator_status_pack_chan(system_id, component_id, chan, msg, boat_actuator_status->time_usec, boat_actuator_status->engine_leg_trim_state, boat_actuator_status->engine_leg_trim_position, boat_actuator_status->rudder_state, boat_actuator_status->rudder_position);
@@ -223,6 +227,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_encode_status(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_boat_actuator_status_send(mavlink_channel_t chan, uint64_t time_usec, const uint8_t *engine_leg_trim_state, const float *engine_leg_trim_position, const uint8_t *rudder_state, const float *rudder_position)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -236,10 +241,10 @@ static inline void mavlink_msg_boat_actuator_status_send(mavlink_channel_t chan,
 #else
     mavlink_boat_actuator_status_t packet;
     packet.time_usec = time_usec;
-    mav_array_assign_float(packet.engine_leg_trim_position, engine_leg_trim_position, 6);
-    mav_array_assign_float(packet.rudder_position, rudder_position, 6);
-    mav_array_assign_uint8_t(packet.engine_leg_trim_state, engine_leg_trim_state, 6);
-    mav_array_assign_uint8_t(packet.rudder_state, rudder_state, 6);
+    mav_array_memcpy(packet.engine_leg_trim_position, engine_leg_trim_position, sizeof(float)*6);
+    mav_array_memcpy(packet.rudder_position, rudder_position, sizeof(float)*6);
+    mav_array_memcpy(packet.engine_leg_trim_state, engine_leg_trim_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet.rudder_state, rudder_state, sizeof(uint8_t)*6);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS, (const char *)&packet, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_MIN_LEN, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_LEN, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_CRC);
 #endif
 }
@@ -249,6 +254,7 @@ static inline void mavlink_msg_boat_actuator_status_send(mavlink_channel_t chan,
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_actuator_status_send_struct(mavlink_channel_t chan, const mavlink_boat_actuator_status_t* boat_actuator_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -266,6 +272,7 @@ static inline void mavlink_msg_boat_actuator_status_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_actuator_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, const uint8_t *engine_leg_trim_state, const float *engine_leg_trim_position, const uint8_t *rudder_state, const float *rudder_position)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -279,10 +286,10 @@ static inline void mavlink_msg_boat_actuator_status_send_buf(mavlink_message_t *
 #else
     mavlink_boat_actuator_status_t *packet = (mavlink_boat_actuator_status_t *)msgbuf;
     packet->time_usec = time_usec;
-    mav_array_assign_float(packet->engine_leg_trim_position, engine_leg_trim_position, 6);
-    mav_array_assign_float(packet->rudder_position, rudder_position, 6);
-    mav_array_assign_uint8_t(packet->engine_leg_trim_state, engine_leg_trim_state, 6);
-    mav_array_assign_uint8_t(packet->rudder_state, rudder_state, 6);
+    mav_array_memcpy(packet->engine_leg_trim_position, engine_leg_trim_position, sizeof(float)*6);
+    mav_array_memcpy(packet->rudder_position, rudder_position, sizeof(float)*6);
+    mav_array_memcpy(packet->engine_leg_trim_state, engine_leg_trim_state, sizeof(uint8_t)*6);
+    mav_array_memcpy(packet->rudder_state, rudder_state, sizeof(uint8_t)*6);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS, (const char *)packet, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_MIN_LEN, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_LEN, MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_CRC);
 #endif
 }
@@ -298,6 +305,7 @@ static inline void mavlink_msg_boat_actuator_status_send_buf(mavlink_message_t *
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_boat_actuator_status_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -308,6 +316,7 @@ static inline uint64_t mavlink_msg_boat_actuator_status_get_time_usec(const mavl
  *
  * @return  Engine leg trim state.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_get_engine_leg_trim_state(const mavlink_message_t* msg, uint8_t *engine_leg_trim_state)
 {
     return _MAV_RETURN_uint8_t_array(msg, engine_leg_trim_state, 6,  56);
@@ -318,6 +327,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_get_engine_leg_trim_stat
  *
  * @return [deg] Engine leg trim position.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_get_engine_leg_trim_position(const mavlink_message_t* msg, float *engine_leg_trim_position)
 {
     return _MAV_RETURN_float_array(msg, engine_leg_trim_position, 6,  8);
@@ -328,6 +338,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_get_engine_leg_trim_posi
  *
  * @return  Rudder state.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_get_rudder_state(const mavlink_message_t* msg, uint8_t *rudder_state)
 {
     return _MAV_RETURN_uint8_t_array(msg, rudder_state, 6,  62);
@@ -338,6 +349,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_get_rudder_state(const m
  *
  * @return [deg] Rudder position.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_get_rudder_position(const mavlink_message_t* msg, float *rudder_position)
 {
     return _MAV_RETURN_float_array(msg, rudder_position, 6,  32);
@@ -349,6 +361,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_get_rudder_position(cons
  * @param msg The message to decode
  * @param boat_actuator_status C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_boat_actuator_status_decode(const mavlink_message_t* msg, mavlink_boat_actuator_status_t* boat_actuator_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS

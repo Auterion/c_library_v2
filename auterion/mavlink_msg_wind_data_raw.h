@@ -56,6 +56,7 @@ typedef struct __mavlink_wind_data_raw_t {
  * @param wind_angle [rad] Wind angle.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_wind_data_raw_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t reference, float wind_speed, float wind_angle)
 {
@@ -135,6 +136,7 @@ static inline uint16_t mavlink_msg_wind_data_raw_pack_status(uint8_t system_id, 
  * @param wind_angle [rad] Wind angle.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_wind_data_raw_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint8_t reference,float wind_speed,float wind_angle)
@@ -169,6 +171,7 @@ static inline uint16_t mavlink_msg_wind_data_raw_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param wind_data_raw C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_wind_data_raw_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wind_data_raw_t* wind_data_raw)
 {
     return mavlink_msg_wind_data_raw_pack(system_id, component_id, msg, wind_data_raw->time_usec, wind_data_raw->reference, wind_data_raw->wind_speed, wind_data_raw->wind_angle);
@@ -183,6 +186,7 @@ static inline uint16_t mavlink_msg_wind_data_raw_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param wind_data_raw C-struct to read the message contents from
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_wind_data_raw_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wind_data_raw_t* wind_data_raw)
 {
     return mavlink_msg_wind_data_raw_pack_chan(system_id, component_id, chan, msg, wind_data_raw->time_usec, wind_data_raw->reference, wind_data_raw->wind_speed, wind_data_raw->wind_angle);
@@ -213,6 +217,7 @@ static inline uint16_t mavlink_msg_wind_data_raw_encode_status(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_wind_data_raw_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t reference, float wind_speed, float wind_angle)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -239,6 +244,7 @@ static inline void mavlink_msg_wind_data_raw_send(mavlink_channel_t chan, uint64
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_wind_data_raw_send_struct(mavlink_channel_t chan, const mavlink_wind_data_raw_t* wind_data_raw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -256,6 +262,7 @@ static inline void mavlink_msg_wind_data_raw_send_struct(mavlink_channel_t chan,
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_wind_data_raw_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint8_t reference, float wind_speed, float wind_angle)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -288,6 +295,7 @@ static inline void mavlink_msg_wind_data_raw_send_buf(mavlink_message_t *msgbuf,
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
+MAVLINK_WIP
 static inline uint64_t mavlink_msg_wind_data_raw_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -298,6 +306,7 @@ static inline uint64_t mavlink_msg_wind_data_raw_get_time_usec(const mavlink_mes
  *
  * @return  Wind reference.
  */
+MAVLINK_WIP
 static inline uint8_t mavlink_msg_wind_data_raw_get_reference(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  16);
@@ -308,6 +317,7 @@ static inline uint8_t mavlink_msg_wind_data_raw_get_reference(const mavlink_mess
  *
  * @return [m/s] Wind speed.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_wind_data_raw_get_wind_speed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  8);
@@ -318,6 +328,7 @@ static inline float mavlink_msg_wind_data_raw_get_wind_speed(const mavlink_messa
  *
  * @return [rad] Wind angle.
  */
+MAVLINK_WIP
 static inline float mavlink_msg_wind_data_raw_get_wind_angle(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  12);
@@ -329,6 +340,7 @@ static inline float mavlink_msg_wind_data_raw_get_wind_angle(const mavlink_messa
  * @param msg The message to decode
  * @param wind_data_raw C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_wind_data_raw_decode(const mavlink_message_t* msg, mavlink_wind_data_raw_t* wind_data_raw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
