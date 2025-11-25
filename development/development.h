@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_DEVELOPMENT.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_DEVELOPMENT_XML_HASH 8027705870433624887
+#define MAVLINK_DEVELOPMENT_XML_HASH 5649259007127093909
 
 #ifdef __cplusplus
 extern "C" {
@@ -280,7 +280,6 @@ typedef enum GLOBAL_POSITION_FLAGS
 #include "./mavlink_msg_cellular_modem_information.h"
 #include "./mavlink_msg_set_velocity_limits.h"
 #include "./mavlink_msg_velocity_limits.h"
-#include "./mavlink_msg_figure_eight_execution_status.h"
 #include "./mavlink_msg_battery_status_v2.h"
 #include "./mavlink_msg_group_start.h"
 #include "./mavlink_msg_group_end.h"
