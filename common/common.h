@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_COMMON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_COMMON_XML_HASH -1407473463267907640
+#define MAVLINK_COMMON_XML_HASH 3819592819118648211
 
 #ifdef __cplusplus
 extern "C" {
@@ -1591,6 +1591,16 @@ typedef enum RC_SUB_TYPE
    RC_SUB_TYPE_SPEKTRUM_DSMX8=2, /* Spektrum DSMX8 | */
    RC_SUB_TYPE_ENUM_END=3, /*  | */
 } RC_SUB_TYPE;
+#endif
+
+/** @brief Engine control options */
+#ifndef HAVE_ENUM_ENGINE_CONTROL_OPTIONS
+#define HAVE_ENUM_ENGINE_CONTROL_OPTIONS
+typedef enum ENGINE_CONTROL_OPTIONS
+{
+   ENGINE_CONTROL_OPTIONS_ALLOW_START_WHILE_DISARMED=1, /* Allow starting the engine while disarmed (without changing the vehicle's armed state). This effectively arms just the ICE, without arming the vehicle to start other motors or propellers. | */
+   ENGINE_CONTROL_OPTIONS_ENUM_END=2, /*  | */
+} ENGINE_CONTROL_OPTIONS;
 #endif
 
 /** @brief Bitmap to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 9 is set the floats afx afy afz should be interpreted as force instead of acceleration. */
