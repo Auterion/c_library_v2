@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE BOAT_ACTUATOR_STATUS PACKING
 
-#define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS 13666
+#define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS 666
 
 
 typedef struct __mavlink_boat_actuator_status_t {
@@ -14,11 +14,11 @@ typedef struct __mavlink_boat_actuator_status_t {
 
 #define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_LEN 68
 #define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_MIN_LEN 68
-#define MAVLINK_MSG_ID_13666_LEN 68
-#define MAVLINK_MSG_ID_13666_MIN_LEN 68
+#define MAVLINK_MSG_ID_666_LEN 68
+#define MAVLINK_MSG_ID_666_MIN_LEN 68
 
 #define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_CRC 246
-#define MAVLINK_MSG_ID_13666_CRC 246
+#define MAVLINK_MSG_ID_666_CRC 246
 
 #define MAVLINK_MSG_BOAT_ACTUATOR_STATUS_FIELD_ENGINE_LEG_TRIM_POSITION_LEN 6
 #define MAVLINK_MSG_BOAT_ACTUATOR_STATUS_FIELD_RUDDER_POSITION_LEN 6
@@ -27,7 +27,7 @@ typedef struct __mavlink_boat_actuator_status_t {
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_BOAT_ACTUATOR_STATUS { \
-    13666, \
+    666, \
     "BOAT_ACTUATOR_STATUS", \
     5, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_boat_actuator_status_t, time_usec) }, \

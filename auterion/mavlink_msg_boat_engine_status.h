@@ -1,12 +1,12 @@
 #pragma once
 // MESSAGE BOAT_ENGINE_STATUS PACKING
 
-#define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS 13667
+#define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS 667
 
 
 typedef struct __mavlink_boat_engine_status_t {
  uint64_t time_usec; /*< [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.*/
- float fuel_consumption_rate; /*< [L/h] Fuel consumption rate.*/
+ float fuel_consumption_rate; /*< [l/h] Fuel consumption rate.*/
  float oil_pressure[6]; /*< [kPa] Engine oil pressure.*/
  float engine_coolant_temperature[6]; /*< [degC] Engine coolant temperature.*/
  uint16_t engine_rpm[6]; /*< [rpm] Engine RPM.*/
@@ -18,11 +18,11 @@ typedef struct __mavlink_boat_engine_status_t {
 
 #define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_LEN 96
 #define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_MIN_LEN 96
-#define MAVLINK_MSG_ID_13667_LEN 96
-#define MAVLINK_MSG_ID_13667_MIN_LEN 96
+#define MAVLINK_MSG_ID_667_LEN 96
+#define MAVLINK_MSG_ID_667_MIN_LEN 96
 
 #define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_CRC 208
-#define MAVLINK_MSG_ID_13667_CRC 208
+#define MAVLINK_MSG_ID_667_CRC 208
 
 #define MAVLINK_MSG_BOAT_ENGINE_STATUS_FIELD_OIL_PRESSURE_LEN 6
 #define MAVLINK_MSG_BOAT_ENGINE_STATUS_FIELD_ENGINE_COOLANT_TEMPERATURE_LEN 6
@@ -34,7 +34,7 @@ typedef struct __mavlink_boat_engine_status_t {
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_BOAT_ENGINE_STATUS { \
-    13667, \
+    667, \
     "BOAT_ENGINE_STATUS", \
     9, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_boat_engine_status_t, time_usec) }, \
@@ -75,7 +75,7 @@ typedef struct __mavlink_boat_engine_status_t {
  * @param engine_state  Engine state.
  * @param engine_load [%] Engine load.
  * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
+ * @param fuel_consumption_rate [l/h] Fuel consumption rate.
  * @param oil_pressure [kPa] Engine oil pressure.
  * @param throttle_position [%] Throttle position.
  * @param engine_coolant_temperature [degC] Engine coolant temperature.
@@ -127,7 +127,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack(uint8_t system_id, ui
  * @param engine_state  Engine state.
  * @param engine_load [%] Engine load.
  * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
+ * @param fuel_consumption_rate [l/h] Fuel consumption rate.
  * @param oil_pressure [kPa] Engine oil pressure.
  * @param throttle_position [%] Throttle position.
  * @param engine_coolant_temperature [degC] Engine coolant temperature.
@@ -181,7 +181,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_pack_status(uint8_t system
  * @param engine_state  Engine state.
  * @param engine_load [%] Engine load.
  * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
+ * @param fuel_consumption_rate [l/h] Fuel consumption rate.
  * @param oil_pressure [kPa] Engine oil pressure.
  * @param throttle_position [%] Throttle position.
  * @param engine_coolant_temperature [degC] Engine coolant temperature.
@@ -274,7 +274,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_encode_status(uint8_t syst
  * @param engine_state  Engine state.
  * @param engine_load [%] Engine load.
  * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
+ * @param fuel_consumption_rate [l/h] Fuel consumption rate.
  * @param oil_pressure [kPa] Engine oil pressure.
  * @param throttle_position [%] Throttle position.
  * @param engine_coolant_temperature [degC] Engine coolant temperature.
@@ -418,7 +418,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_get_engine_rpm(const mavli
 /**
  * @brief Get field fuel_consumption_rate from boat_engine_status message
  *
- * @return [L/h] Fuel consumption rate.
+ * @return [l/h] Fuel consumption rate.
  */
 MAVLINK_WIP
 static inline float mavlink_msg_boat_engine_status_get_fuel_consumption_rate(const mavlink_message_t* msg)
