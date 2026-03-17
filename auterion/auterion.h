@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_AUTERION.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_AUTERION_XML_HASH 1243886092115703836
+#define MAVLINK_AUTERION_XML_HASH 9113543962862165213
 
 #ifdef __cplusplus
 extern "C" {
@@ -693,7 +693,8 @@ typedef enum MAV_PAYLOAD_STATE
    MAV_PAYLOAD_STATE_ARMED=3, /* Device is armed and ready. | */
    MAV_PAYLOAD_STATE_TRIGGERED=4, /* Device has been triggered and payload has been released. | */
    MAV_PAYLOAD_STATE_ABORTED=5, /* Device is in a safe state due to abort command. This may require a power cycle before it can be re-enabled. | */
-   MAV_PAYLOAD_STATE_ENUM_END=6, /*  | */
+   MAV_PAYLOAD_STATE_FAULT=6, /* Device has reported an error. Requires an explicit reset before it can be re-enabled. | */
+   MAV_PAYLOAD_STATE_ENUM_END=7, /*  | */
 } MAV_PAYLOAD_STATE;
 #endif
 
