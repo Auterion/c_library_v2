@@ -6,7 +6,7 @@
 
 typedef struct __mavlink_estimator_sensor_fusion_status_t {
  float test_ratio[9]; /*<  Per-source normalized innovation test ratio. NaN if not available.*/
- uint8_t intended[9]; /*<  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).*/
+ uint8_t intended[9]; /*<  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).*/
  uint8_t active[9]; /*<  Per-source instance bitmask of sensors the estimator is actively fusing.*/
 } mavlink_estimator_sensor_fusion_status_t;
 
@@ -49,7 +49,7 @@ typedef struct __mavlink_estimator_sensor_fusion_status_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).
+ * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).
  * @param active  Per-source instance bitmask of sensors the estimator is actively fusing.
  * @param test_ratio  Per-source normalized innovation test ratio. NaN if not available.
  * @return length of the message in bytes (excluding serial stream start sign)
@@ -84,7 +84,7 @@ static inline uint16_t mavlink_msg_estimator_sensor_fusion_status_pack(uint8_t s
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).
+ * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).
  * @param active  Per-source instance bitmask of sensors the estimator is actively fusing.
  * @param test_ratio  Per-source normalized innovation test ratio. NaN if not available.
  * @return length of the message in bytes (excluding serial stream start sign)
@@ -122,7 +122,7 @@ static inline uint16_t mavlink_msg_estimator_sensor_fusion_status_pack_status(ui
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).
+ * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).
  * @param active  Per-source instance bitmask of sensors the estimator is actively fusing.
  * @param test_ratio  Per-source normalized innovation test ratio. NaN if not available.
  * @return length of the message in bytes (excluding serial stream start sign)
@@ -196,7 +196,7 @@ static inline uint16_t mavlink_msg_estimator_sensor_fusion_status_encode_status(
  * @brief Send a estimator_sensor_fusion_status message
  * @param chan MAVLink channel to send the message
  *
- * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).
+ * @param intended  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).
  * @param active  Per-source instance bitmask of sensors the estimator is actively fusing.
  * @param test_ratio  Per-source normalized innovation test ratio. NaN if not available.
  */
@@ -271,7 +271,7 @@ static inline void mavlink_msg_estimator_sensor_fusion_status_send_buf(mavlink_m
 /**
  * @brief Get field intended from estimator_sensor_fusion_status message
  *
- * @return  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_SET_ESTIMATOR_SENSOR_FUSION).
+ * @return  Per-source instance bitmask of sensors the estimator intends to fuse (reflects CTRL params with runtime overrides via MAV_CMD_ESTIMATOR_SENSOR_ENABLE).
  */
 static inline uint16_t mavlink_msg_estimator_sensor_fusion_status_get_intended(const mavlink_message_t* msg, uint8_t *intended)
 {
