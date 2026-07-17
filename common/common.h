@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_COMMON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_COMMON_XML_HASH 4694489676527507669
+#define MAVLINK_COMMON_XML_HASH 4759388431901497510
 
 #ifdef __cplusplus
 extern "C" {
@@ -257,8 +257,7 @@ typedef enum MAV_MOUNT_MODE
    MAV_MOUNT_MODE_GPS_POINT=4, /* Load neutral position and start to point to Lat,Lon,Alt | */
    MAV_MOUNT_MODE_SYSID_TARGET=5, /* Gimbal tracks system with specified system ID | */
    MAV_MOUNT_MODE_HOME_LOCATION=6, /* Gimbal tracks home position | */
-   MAV_MOUNT_MODE_WPNEXT_OFFSET=7, /* Gimbal tracks next waypoint location with offset | */
-   MAV_MOUNT_MODE_ENUM_END=8, /*  | */
+   MAV_MOUNT_MODE_ENUM_END=7, /*  | */
 } MAV_MOUNT_MODE;
 #endif
 
@@ -917,17 +916,7 @@ typedef enum SERIAL_CONTROL_DEV
    SERIAL_CONTROL_DEV_TELEM2=1, /* Second telemetry port | */
    SERIAL_CONTROL_DEV_GPS1=2, /* First GPS port | */
    SERIAL_CONTROL_DEV_GPS2=3, /* Second GPS port | */
-   SERIAL_CONTROL_DEV_TELEM3=4, /* Third telemetry port | */
-   SERIAL_CONTROL_DEV_TELEM4=5, /* Fourth telemetry port | */
    SERIAL_CONTROL_DEV_SHELL=10, /* system shell | */
-   SERIAL_CONTROL_DEV_ESC0=20, /* Electronic Speed Controller 0 | */
-   SERIAL_CONTROL_DEV_ESC1=21, /* Electronic Speed Controller 1 | */
-   SERIAL_CONTROL_DEV_ESC2=22, /* Electronic Speed Controller 2 | */
-   SERIAL_CONTROL_DEV_ESC3=23, /* Electronic Speed Controller 3 | */
-   SERIAL_CONTROL_DEV_ESC4=24, /* Electronic Speed Controller 4 | */
-   SERIAL_CONTROL_DEV_ESC5=25, /* Electronic Speed Controller 5 | */
-   SERIAL_CONTROL_DEV_ESC6=26, /* Electronic Speed Controller 6 | */
-   SERIAL_CONTROL_DEV_ESC7=27, /* Electronic Speed Controller 7 | */
    SERIAL_CONTROL_SERIAL0=100, /* SERIAL0 | */
    SERIAL_CONTROL_SERIAL1=101, /* SERIAL1 | */
    SERIAL_CONTROL_SERIAL2=102, /* SERIAL2 | */
@@ -1282,18 +1271,6 @@ typedef enum SPEED_TYPE
 } SPEED_TYPE;
 #endif
 
-/** @brief Heading setpoint types used in MAV_CMD_GUIDED_CHANGE_HEADING */
-#ifndef HAVE_ENUM_HEADING_TYPE
-#define HAVE_ENUM_HEADING_TYPE
-typedef enum HEADING_TYPE
-{
-   HEADING_TYPE_COURSE_OVER_GROUND=0, /* Course over ground. | */
-   HEADING_TYPE_HEADING=1, /* Raw vehicle heading. | */
-   HEADING_TYPE_DEFAULT=2, /* Default heading. | */
-   HEADING_TYPE_ENUM_END=3, /*  | */
-} HEADING_TYPE;
-#endif
-
 /** @brief Flags in ESTIMATOR_STATUS message */
 #ifndef HAVE_ENUM_ESTIMATOR_STATUS_FLAGS
 #define HAVE_ENUM_ESTIMATOR_STATUS_FLAGS
@@ -1496,8 +1473,7 @@ typedef enum VIDEO_STREAM_TYPE
    VIDEO_STREAM_TYPE_RTPUDP=1, /* Stream is RTP UDP (URI gives the port number) | */
    VIDEO_STREAM_TYPE_TCP_MPEG=2, /* Stream is MPEG on TCP | */
    VIDEO_STREAM_TYPE_MPEG_TS=3, /* Stream is MPEG TS (URI gives the port number) | */
-   VIDEO_STREAM_TYPE_WHEP=4, /* Stream is WHEP (WebRTC-HTTP Egress Protocol) | */
-   VIDEO_STREAM_TYPE_ENUM_END=5, /*  | */
+   VIDEO_STREAM_TYPE_ENUM_END=4, /*  | */
 } VIDEO_STREAM_TYPE;
 #endif
 
@@ -2254,13 +2230,12 @@ typedef enum FAILURE_UNIT
    FAILURE_UNIT_SENSOR_DISTANCE_SENSOR=7, /*  | */
    FAILURE_UNIT_SENSOR_AIRSPEED=8, /*  | */
    FAILURE_UNIT_SYSTEM_BATTERY=100, /*  | */
-   FAILURE_UNIT_SYSTEM_MOTOR=101, /* Interrupts the commanded output to the motor. | */
+   FAILURE_UNIT_SYSTEM_MOTOR=101, /*  | */
    FAILURE_UNIT_SYSTEM_SERVO=102, /*  | */
    FAILURE_UNIT_SYSTEM_AVOIDANCE=103, /*  | */
    FAILURE_UNIT_SYSTEM_RC_SIGNAL=104, /*  | */
    FAILURE_UNIT_SYSTEM_MAVLINK_SIGNAL=105, /*  | */
-   FAILURE_UNIT_SYSTEM_ESC=106, /* Interrupts the telemetry reported by the ESC. | */
-   FAILURE_UNIT_ENUM_END=107, /*  | */
+   FAILURE_UNIT_ENUM_END=106, /*  | */
 } FAILURE_UNIT;
 #endif
 
@@ -2327,12 +2302,9 @@ typedef enum MAG_CAL_STATUS
    MAG_CAL_RUNNING_STEP_TWO=3, /*  | */
    MAG_CAL_SUCCESS=4, /*  | */
    MAG_CAL_FAILED=5, /*  | */
-   MAG_CAL_FAILED_ORIENTATION=6, /* Compass calibration failed: the vehicle orientation is outside the required tolerance. | */
-   MAG_CAL_FAILED_RADIUS=7, /* Compass calibration failed: the radius of the fitted sphere is unrealistically small or large. | */
-   MAG_CAL_FAILED_OFFSETS=8, /* Compass calibration failed: offset magnitude too large. | */
-   MAG_CAL_FAILED_DIAG_SCALING=9, /* Compass calibration failed: diagonal or off-diagonal scaling values out of valid range. | */
-   MAG_CAL_FAILED_RESIDUALS_HIGH=10, /* Compass calibration failed: fitness (RMS residual) exceeds tolerance. | */
-   MAG_CAL_STATUS_ENUM_END=11, /*  | */
+   MAG_CAL_BAD_ORIENTATION=6, /*  | */
+   MAG_CAL_BAD_RADIUS=7, /*  | */
+   MAG_CAL_STATUS_ENUM_END=8, /*  | */
 } MAG_CAL_STATUS;
 #endif
 
@@ -2455,7 +2427,6 @@ typedef enum MAV_FTP_OPCODE
    MAV_FTP_OPCODE_RENAME=13, /* Rename: Rename path1 to path2 | */
    MAV_FTP_OPCODE_CALCFILECRC=14, /* CalcFileCRC32: Calculate CRC32 for file at path | */
    MAV_FTP_OPCODE_BURSTREADFILE=15, /* BurstReadFile: Burst download session file | */
-   MAV_FTP_OPCODE_LISTDIRECTORYWITHTIME=16, /* ListDirectoryWithTime: List files and directories, along with last-modification timestamps, in path from offset. This is the same as ListDirectory except for the addition of timestamps. Servers that do not support this opcode respond with a NAK (MAV_FTP_ERR_UNKNOWNCOMMAND). | */
    MAV_FTP_OPCODE_ACK=128, /* ACK: ACK response | */
    MAV_FTP_OPCODE_NAK=129, /* NAK: NAK response | */
    MAV_FTP_OPCODE_ENUM_END=130, /*  | */
@@ -2881,8 +2852,6 @@ typedef enum GLOBAL_POSITION_FLAGS
 #include "./mavlink_msg_time_estimate_to_target.h"
 #include "./mavlink_msg_tunnel.h"
 #include "./mavlink_msg_can_frame.h"
-#include "./mavlink_msg_canfd_frame.h"
-#include "./mavlink_msg_can_filter_modify.h"
 #include "./mavlink_msg_onboard_computer_status.h"
 #include "./mavlink_msg_component_information.h"
 #include "./mavlink_msg_component_information_basic.h"
@@ -2897,6 +2866,8 @@ typedef enum GLOBAL_POSITION_FLAGS
 #include "./mavlink_msg_current_mode.h"
 #include "./mavlink_msg_available_modes_monitor.h"
 #include "./mavlink_msg_illuminator_status.h"
+#include "./mavlink_msg_canfd_frame.h"
+#include "./mavlink_msg_can_filter_modify.h"
 #include "./mavlink_msg_wheel_distance.h"
 #include "./mavlink_msg_winch_status.h"
 #include "./mavlink_msg_open_drone_id_basic_id.h"
