@@ -1,0 +1,396 @@
+#pragma once
+// MESSAGE AOS_BUNDLED_APP_HEALTH PACKING
+
+#define MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH 13802
+
+
+typedef struct __mavlink_aos_bundled_app_health_t {
+ char app_name[128]; /*<  
+        Name of the application
+      */
+ uint8_t failure_flags; /*<  
+        Bitmask of failure reasons for this application (0 = healthy)
+      */
+ char expected_version[32]; /*<  
+        Expected bundled version
+      */
+ char actual_version[32]; /*<  
+        Actual installed/running version
+      */
+} mavlink_aos_bundled_app_health_t;
+
+#define MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN 193
+#define MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN 193
+#define MAVLINK_MSG_ID_13802_LEN 193
+#define MAVLINK_MSG_ID_13802_MIN_LEN 193
+
+#define MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC 164
+#define MAVLINK_MSG_ID_13802_CRC 164
+
+#define MAVLINK_MSG_AOS_BUNDLED_APP_HEALTH_FIELD_APP_NAME_LEN 128
+#define MAVLINK_MSG_AOS_BUNDLED_APP_HEALTH_FIELD_EXPECTED_VERSION_LEN 32
+#define MAVLINK_MSG_AOS_BUNDLED_APP_HEALTH_FIELD_ACTUAL_VERSION_LEN 32
+
+#if MAVLINK_COMMAND_24BIT
+#define MAVLINK_MESSAGE_INFO_AOS_BUNDLED_APP_HEALTH { \
+    13802, \
+    "AOS_BUNDLED_APP_HEALTH", \
+    4, \
+    {  { "app_name", NULL, MAVLINK_TYPE_CHAR, 128, 0, offsetof(mavlink_aos_bundled_app_health_t, app_name) }, \
+         { "failure_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 128, offsetof(mavlink_aos_bundled_app_health_t, failure_flags) }, \
+         { "expected_version", NULL, MAVLINK_TYPE_CHAR, 32, 129, offsetof(mavlink_aos_bundled_app_health_t, expected_version) }, \
+         { "actual_version", NULL, MAVLINK_TYPE_CHAR, 32, 161, offsetof(mavlink_aos_bundled_app_health_t, actual_version) }, \
+         } \
+}
+#else
+#define MAVLINK_MESSAGE_INFO_AOS_BUNDLED_APP_HEALTH { \
+    "AOS_BUNDLED_APP_HEALTH", \
+    4, \
+    {  { "app_name", NULL, MAVLINK_TYPE_CHAR, 128, 0, offsetof(mavlink_aos_bundled_app_health_t, app_name) }, \
+         { "failure_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 128, offsetof(mavlink_aos_bundled_app_health_t, failure_flags) }, \
+         { "expected_version", NULL, MAVLINK_TYPE_CHAR, 32, 129, offsetof(mavlink_aos_bundled_app_health_t, expected_version) }, \
+         { "actual_version", NULL, MAVLINK_TYPE_CHAR, 32, 161, offsetof(mavlink_aos_bundled_app_health_t, actual_version) }, \
+         } \
+}
+#endif
+
+/**
+ * @brief Pack a aos_bundled_app_health message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param app_name  
+        Name of the application
+      
+ * @param failure_flags  
+        Bitmask of failure reasons for this application (0 = healthy)
+      
+ * @param expected_version  
+        Expected bundled version
+      
+ * @param actual_version  
+        Actual installed/running version
+      
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               const char *app_name, uint8_t failure_flags, const char *expected_version, const char *actual_version)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN];
+    _mav_put_uint8_t(buf, 128, failure_flags);
+    _mav_put_char_array(buf, 0, app_name, 128);
+    _mav_put_char_array(buf, 129, expected_version, 32);
+    _mav_put_char_array(buf, 161, actual_version, 32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#else
+    mavlink_aos_bundled_app_health_t packet;
+    packet.failure_flags = failure_flags;
+    mav_array_memcpy(packet.app_name, app_name, sizeof(char)*128);
+    mav_array_memcpy(packet.expected_version, expected_version, sizeof(char)*32);
+    mav_array_memcpy(packet.actual_version, actual_version, sizeof(char)*32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH;
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+}
+
+/**
+ * @brief Pack a aos_bundled_app_health message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param app_name  
+        Name of the application
+      
+ * @param failure_flags  
+        Bitmask of failure reasons for this application (0 = healthy)
+      
+ * @param expected_version  
+        Expected bundled version
+      
+ * @param actual_version  
+        Actual installed/running version
+      
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_aos_bundled_app_health_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               const char *app_name, uint8_t failure_flags, const char *expected_version, const char *actual_version)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN];
+    _mav_put_uint8_t(buf, 128, failure_flags);
+    _mav_put_char_array(buf, 0, app_name, 128);
+    _mav_put_char_array(buf, 129, expected_version, 32);
+    _mav_put_char_array(buf, 161, actual_version, 32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#else
+    mavlink_aos_bundled_app_health_t packet;
+    packet.failure_flags = failure_flags;
+    mav_array_memcpy(packet.app_name, app_name, sizeof(char)*128);
+    mav_array_memcpy(packet.expected_version, expected_version, sizeof(char)*32);
+    mav_array_memcpy(packet.actual_version, actual_version, sizeof(char)*32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#endif
+}
+
+/**
+ * @brief Pack a aos_bundled_app_health message on a channel
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param chan The MAVLink channel this message will be sent over
+ * @param msg The MAVLink message to compress the data into
+ * @param app_name  
+        Name of the application
+      
+ * @param failure_flags  
+        Bitmask of failure reasons for this application (0 = healthy)
+      
+ * @param expected_version  
+        Expected bundled version
+      
+ * @param actual_version  
+        Actual installed/running version
+      
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   const char *app_name,uint8_t failure_flags,const char *expected_version,const char *actual_version)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN];
+    _mav_put_uint8_t(buf, 128, failure_flags);
+    _mav_put_char_array(buf, 0, app_name, 128);
+    _mav_put_char_array(buf, 129, expected_version, 32);
+    _mav_put_char_array(buf, 161, actual_version, 32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#else
+    mavlink_aos_bundled_app_health_t packet;
+    packet.failure_flags = failure_flags;
+    mav_array_memcpy(packet.app_name, app_name, sizeof(char)*128);
+    mav_array_memcpy(packet.expected_version, expected_version, sizeof(char)*32);
+    mav_array_memcpy(packet.actual_version, actual_version, sizeof(char)*32);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH;
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+}
+
+/**
+ * @brief Encode a aos_bundled_app_health struct
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param msg The MAVLink message to compress the data into
+ * @param aos_bundled_app_health C-struct to read the message contents from
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_t* aos_bundled_app_health)
+{
+    return mavlink_msg_aos_bundled_app_health_pack(system_id, component_id, msg, aos_bundled_app_health->app_name, aos_bundled_app_health->failure_flags, aos_bundled_app_health->expected_version, aos_bundled_app_health->actual_version);
+}
+
+/**
+ * @brief Encode a aos_bundled_app_health struct on a channel
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param chan The MAVLink channel this message will be sent over
+ * @param msg The MAVLink message to compress the data into
+ * @param aos_bundled_app_health C-struct to read the message contents from
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_t* aos_bundled_app_health)
+{
+    return mavlink_msg_aos_bundled_app_health_pack_chan(system_id, component_id, chan, msg, aos_bundled_app_health->app_name, aos_bundled_app_health->failure_flags, aos_bundled_app_health->expected_version, aos_bundled_app_health->actual_version);
+}
+
+/**
+ * @brief Encode a aos_bundled_app_health struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param aos_bundled_app_health C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_aos_bundled_app_health_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_t* aos_bundled_app_health)
+{
+    return mavlink_msg_aos_bundled_app_health_pack_status(system_id, component_id, _status, msg,  aos_bundled_app_health->app_name, aos_bundled_app_health->failure_flags, aos_bundled_app_health->expected_version, aos_bundled_app_health->actual_version);
+}
+
+/**
+ * @brief Send a aos_bundled_app_health message
+ * @param chan MAVLink channel to send the message
+ *
+ * @param app_name  
+        Name of the application
+      
+ * @param failure_flags  
+        Bitmask of failure reasons for this application (0 = healthy)
+      
+ * @param expected_version  
+        Expected bundled version
+      
+ * @param actual_version  
+        Actual installed/running version
+      
+ */
+#ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
+
+MAVLINK_WIP
+static inline void mavlink_msg_aos_bundled_app_health_send(mavlink_channel_t chan, const char *app_name, uint8_t failure_flags, const char *expected_version, const char *actual_version)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN];
+    _mav_put_uint8_t(buf, 128, failure_flags);
+    _mav_put_char_array(buf, 0, app_name, 128);
+    _mav_put_char_array(buf, 129, expected_version, 32);
+    _mav_put_char_array(buf, 161, actual_version, 32);
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH, buf, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#else
+    mavlink_aos_bundled_app_health_t packet;
+    packet.failure_flags = failure_flags;
+    mav_array_memcpy(packet.app_name, app_name, sizeof(char)*128);
+    mav_array_memcpy(packet.expected_version, expected_version, sizeof(char)*32);
+    mav_array_memcpy(packet.actual_version, actual_version, sizeof(char)*32);
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH, (const char *)&packet, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#endif
+}
+
+/**
+ * @brief Send a aos_bundled_app_health message
+ * @param chan MAVLink channel to send the message
+ * @param struct The MAVLink struct to serialize
+ */
+MAVLINK_WIP
+static inline void mavlink_msg_aos_bundled_app_health_send_struct(mavlink_channel_t chan, const mavlink_aos_bundled_app_health_t* aos_bundled_app_health)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    mavlink_msg_aos_bundled_app_health_send(chan, aos_bundled_app_health->app_name, aos_bundled_app_health->failure_flags, aos_bundled_app_health->expected_version, aos_bundled_app_health->actual_version);
+#else
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH, (const char *)aos_bundled_app_health, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#endif
+}
+
+#if MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN <= MAVLINK_MAX_PAYLOAD_LEN
+/*
+  This variant of _send() can be used to save stack space by reusing
+  memory from the receive buffer.  The caller provides a
+  mavlink_message_t which is the size of a full mavlink message. This
+  is usually the receive buffer for the channel, and allows a reply to an
+  incoming message with minimum stack space usage.
+ */
+MAVLINK_WIP
+static inline void mavlink_msg_aos_bundled_app_health_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const char *app_name, uint8_t failure_flags, const char *expected_version, const char *actual_version)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char *buf = (char *)msgbuf;
+    _mav_put_uint8_t(buf, 128, failure_flags);
+    _mav_put_char_array(buf, 0, app_name, 128);
+    _mav_put_char_array(buf, 129, expected_version, 32);
+    _mav_put_char_array(buf, 161, actual_version, 32);
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH, buf, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#else
+    mavlink_aos_bundled_app_health_t *packet = (mavlink_aos_bundled_app_health_t *)msgbuf;
+    packet->failure_flags = failure_flags;
+    mav_array_memcpy(packet->app_name, app_name, sizeof(char)*128);
+    mav_array_memcpy(packet->expected_version, expected_version, sizeof(char)*32);
+    mav_array_memcpy(packet->actual_version, actual_version, sizeof(char)*32);
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH, (const char *)packet, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_CRC);
+#endif
+}
+#endif
+
+#endif
+
+// MESSAGE AOS_BUNDLED_APP_HEALTH UNPACKING
+
+
+/**
+ * @brief Get field app_name from aos_bundled_app_health message
+ *
+ * @return  
+        Name of the application
+      
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_get_app_name(const mavlink_message_t* msg, char *app_name)
+{
+    return _MAV_RETURN_char_array(msg, app_name, 128,  0);
+}
+
+/**
+ * @brief Get field failure_flags from aos_bundled_app_health message
+ *
+ * @return  
+        Bitmask of failure reasons for this application (0 = healthy)
+      
+ */
+MAVLINK_WIP
+static inline uint8_t mavlink_msg_aos_bundled_app_health_get_failure_flags(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  128);
+}
+
+/**
+ * @brief Get field expected_version from aos_bundled_app_health message
+ *
+ * @return  
+        Expected bundled version
+      
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_get_expected_version(const mavlink_message_t* msg, char *expected_version)
+{
+    return _MAV_RETURN_char_array(msg, expected_version, 32,  129);
+}
+
+/**
+ * @brief Get field actual_version from aos_bundled_app_health message
+ *
+ * @return  
+        Actual installed/running version
+      
+ */
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_aos_bundled_app_health_get_actual_version(const mavlink_message_t* msg, char *actual_version)
+{
+    return _MAV_RETURN_char_array(msg, actual_version, 32,  161);
+}
+
+/**
+ * @brief Decode a aos_bundled_app_health message into a struct
+ *
+ * @param msg The message to decode
+ * @param aos_bundled_app_health C-struct to decode the message contents into
+ */
+MAVLINK_WIP
+static inline void mavlink_msg_aos_bundled_app_health_decode(const mavlink_message_t* msg, mavlink_aos_bundled_app_health_t* aos_bundled_app_health)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    mavlink_msg_aos_bundled_app_health_get_app_name(msg, aos_bundled_app_health->app_name);
+    aos_bundled_app_health->failure_flags = mavlink_msg_aos_bundled_app_health_get_failure_flags(msg);
+    mavlink_msg_aos_bundled_app_health_get_expected_version(msg, aos_bundled_app_health->expected_version);
+    mavlink_msg_aos_bundled_app_health_get_actual_version(msg, aos_bundled_app_health->actual_version);
+#else
+        uint8_t len = msg->len < MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN? msg->len : MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN;
+        memset(aos_bundled_app_health, 0, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_LEN);
+    memcpy(aos_bundled_app_health, _MAV_PAYLOAD(msg), len);
+#endif
+}
