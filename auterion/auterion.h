@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_AUTERION.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_AUTERION_XML_HASH -1614203423544867319
+#define MAVLINK_AUTERION_XML_HASH 1133191096419767568
 
 #ifdef __cplusplus
 extern "C" {
@@ -520,12 +520,13 @@ typedef enum RUDDER_STATE
 #define HAVE_ENUM_ENGINE_STATE
 typedef enum ENGINE_STATE
 {
-   ENGINE_NONE=0, /* ENGINE_NONE indicates engine is not running and ignition is off. | */
+   ENGINE_NONE=0, /* ENGINE_NONE indicates the engine is not present, or is present but not reporting: it is not running and its ignition is off. | */
    ENGINE_STOPPED=1, /* ENGINE_STOPPED indicates the engine is not running, but ignition is on. | */
    ENGINE_STARTING=2, /* ENGINE_STARTING indicates the engine is starting. | */
    ENGINE_RUNNING=3, /* ENGINE_RUNNING indicates the engine is running. | */
-   ENGINE_FAULT=4, /* ENGINE_FAULT indicates a fault in the engine system. | */
-   ENGINE_STATE_ENUM_END=5, /*  | */
+   ENGINE_FAULT=4, /* ENGINE_FAULT indicates a fault in the engine system, including a fault in its ignition or keyswitch system. | */
+   ENGINE_UNKNOWN=5, /* ENGINE_UNKNOWN indicates no data: the sender has no engine at this index, or has never received a report from it, or its last report is too old to be trusted. Distinct from ENGINE_NONE, which is a positive statement that the engine is off. Receivers must not display any other per-engine field for an index reporting ENGINE_UNKNOWN. | */
+   ENGINE_STATE_ENUM_END=6, /*  | */
 } ENGINE_STATE;
 #endif
 
@@ -539,7 +540,8 @@ typedef enum TRANSMISSION_STATE
    TRANSMISSION_FORWARD=2, /* TRANSMISSION_FORWARD indicates the transmission is in forward. | */
    TRANSMISSION_REVERSE=3, /* TRANSMISSION_REVERSE indicates the transmission is in reverse. | */
    TRANSMISSION_FAULT=4, /* TRANSMISSION_FAULT indicates a fault in the transmission system. | */
-   TRANSMISSION_STATE_ENUM_END=5, /*  | */
+   TRANSMISSION_UNKNOWN=5, /* TRANSMISSION_UNKNOWN indicates no data: the sender cannot observe the transmission. Distinct from TRANSMISSION_NONE, which is a positive statement that no transmission system is fitted. | */
+   TRANSMISSION_STATE_ENUM_END=6, /*  | */
 } TRANSMISSION_STATE;
 #endif
 

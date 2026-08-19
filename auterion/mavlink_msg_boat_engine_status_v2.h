@@ -6,14 +6,14 @@
 
 typedef struct __mavlink_boat_engine_status_v2_t {
  uint64_t time_usec; /*< [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.*/
- float fuel_consumption_rate; /*< [L/h] Fuel consumption rate.*/
- float oil_pressure[6]; /*< [kPa] Engine oil pressure.*/
- float engine_coolant_temperature[6]; /*< [degC] Engine coolant temperature.*/
- uint16_t engine_rpm[6]; /*< [rpm] Engine RPM.*/
- uint8_t engine_state[6]; /*<  Engine state.*/
- uint8_t engine_load[6]; /*< [%] Engine load.*/
- uint8_t throttle_position[6]; /*< [%] Throttle position.*/
- uint8_t transmission_state[6]; /*<  Transmission state.*/
+ float fuel_consumption_rate; /*< [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.*/
+ float oil_pressure[6]; /*< [kPa] Engine oil pressure. NaN if unknown.*/
+ float engine_coolant_temperature[6]; /*< [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".*/
+ uint16_t engine_rpm[6]; /*< [rpm] Engine RPM. UINT16_MAX if unknown.*/
+ uint8_t engine_state[6]; /*<  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.*/
+ uint8_t engine_load[6]; /*< [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.*/
+ uint8_t throttle_position[6]; /*< [%] Throttle position. UINT8_MAX if unknown.*/
+ uint8_t transmission_state[6]; /*<  Transmission state. TRANSMISSION_UNKNOWN if unknown.*/
 } mavlink_boat_engine_status_v2_t;
 
 #define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_LEN 96
@@ -72,14 +72,14 @@ typedef struct __mavlink_boat_engine_status_v2_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
- * @param engine_state  Engine state.
- * @param engine_load [%] Engine load.
- * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
- * @param oil_pressure [kPa] Engine oil pressure.
- * @param throttle_position [%] Throttle position.
- * @param engine_coolant_temperature [degC] Engine coolant temperature.
- * @param transmission_state  Transmission state.
+ * @param engine_state  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.
+ * @param engine_load [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.
+ * @param engine_rpm [rpm] Engine RPM. UINT16_MAX if unknown.
+ * @param fuel_consumption_rate [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.
+ * @param oil_pressure [kPa] Engine oil pressure. NaN if unknown.
+ * @param throttle_position [%] Throttle position. UINT8_MAX if unknown.
+ * @param engine_coolant_temperature [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".
+ * @param transmission_state  Transmission state. TRANSMISSION_UNKNOWN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
@@ -124,14 +124,14 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
- * @param engine_state  Engine state.
- * @param engine_load [%] Engine load.
- * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
- * @param oil_pressure [kPa] Engine oil pressure.
- * @param throttle_position [%] Throttle position.
- * @param engine_coolant_temperature [degC] Engine coolant temperature.
- * @param transmission_state  Transmission state.
+ * @param engine_state  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.
+ * @param engine_load [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.
+ * @param engine_rpm [rpm] Engine RPM. UINT16_MAX if unknown.
+ * @param fuel_consumption_rate [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.
+ * @param oil_pressure [kPa] Engine oil pressure. NaN if unknown.
+ * @param throttle_position [%] Throttle position. UINT8_MAX if unknown.
+ * @param engine_coolant_temperature [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".
+ * @param transmission_state  Transmission state. TRANSMISSION_UNKNOWN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -178,14 +178,14 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint8_t sys
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
- * @param engine_state  Engine state.
- * @param engine_load [%] Engine load.
- * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
- * @param oil_pressure [kPa] Engine oil pressure.
- * @param throttle_position [%] Throttle position.
- * @param engine_coolant_temperature [degC] Engine coolant temperature.
- * @param transmission_state  Transmission state.
+ * @param engine_state  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.
+ * @param engine_load [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.
+ * @param engine_rpm [rpm] Engine RPM. UINT16_MAX if unknown.
+ * @param fuel_consumption_rate [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.
+ * @param oil_pressure [kPa] Engine oil pressure. NaN if unknown.
+ * @param throttle_position [%] Throttle position. UINT8_MAX if unknown.
+ * @param engine_coolant_temperature [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".
+ * @param transmission_state  Transmission state. TRANSMISSION_UNKNOWN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
@@ -271,14 +271,14 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_status(uint8_t s
  * @param chan MAVLink channel to send the message
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
- * @param engine_state  Engine state.
- * @param engine_load [%] Engine load.
- * @param engine_rpm [rpm] Engine RPM.
- * @param fuel_consumption_rate [L/h] Fuel consumption rate.
- * @param oil_pressure [kPa] Engine oil pressure.
- * @param throttle_position [%] Throttle position.
- * @param engine_coolant_temperature [degC] Engine coolant temperature.
- * @param transmission_state  Transmission state.
+ * @param engine_state  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.
+ * @param engine_load [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.
+ * @param engine_rpm [rpm] Engine RPM. UINT16_MAX if unknown.
+ * @param fuel_consumption_rate [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.
+ * @param oil_pressure [kPa] Engine oil pressure. NaN if unknown.
+ * @param throttle_position [%] Throttle position. UINT8_MAX if unknown.
+ * @param engine_coolant_temperature [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".
+ * @param transmission_state  Transmission state. TRANSMISSION_UNKNOWN if unknown.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -385,7 +385,7 @@ static inline uint64_t mavlink_msg_boat_engine_status_v2_get_time_usec(const mav
 /**
  * @brief Get field engine_state from boat_engine_status_v2 message
  *
- * @return  Engine state.
+ * @return  Engine state. Index i reports the engine with instance number i; indexes with no engine, no report yet, or a stale report are ENGINE_UNKNOWN, and every other per-engine field at that index carries its own unknown value and must be ignored. Senders collapse any finer-grained internal state onto this enum as follows: a transient start attempt, including a failed crank that will be retried, reports ENGINE_STARTING, and only giving up reports ENGINE_FAULT; a stop in progress reports ENGINE_RUNNING for as long as the shaft is still turning, so a stopped engine is never reported while it moves; a fault in the ignition or keyswitch system reports ENGINE_FAULT rather than ENGINE_NONE, so it cannot be confused with an absent engine.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_state(const mavlink_message_t* msg, uint8_t *engine_state)
@@ -396,7 +396,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_state(const 
 /**
  * @brief Get field engine_load from boat_engine_status_v2 message
  *
- * @return [%] Engine load.
+ * @return [%] Engine load. May exceed 100% where the underlying sensor allows it (J1939 SPN 92 ranges 0-125%). UINT8_MAX if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_load(const mavlink_message_t* msg, uint8_t *engine_load)
@@ -407,7 +407,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_load(const m
 /**
  * @brief Get field engine_rpm from boat_engine_status_v2 message
  *
- * @return [rpm] Engine RPM.
+ * @return [rpm] Engine RPM. UINT16_MAX if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_rpm(const mavlink_message_t* msg, uint16_t *engine_rpm)
@@ -418,7 +418,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_rpm(const ma
 /**
  * @brief Get field fuel_consumption_rate from boat_engine_status_v2 message
  *
- * @return [L/h] Fuel consumption rate.
+ * @return [L/h] Fuel consumption rate, summed over all engines reporting a rate: this is a vessel total, not a per-engine value. NaN if unknown.
  */
 MAVLINK_WIP
 static inline float mavlink_msg_boat_engine_status_v2_get_fuel_consumption_rate(const mavlink_message_t* msg)
@@ -429,7 +429,7 @@ static inline float mavlink_msg_boat_engine_status_v2_get_fuel_consumption_rate(
 /**
  * @brief Get field oil_pressure from boat_engine_status_v2 message
  *
- * @return [kPa] Engine oil pressure.
+ * @return [kPa] Engine oil pressure. NaN if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_oil_pressure(const mavlink_message_t* msg, float *oil_pressure)
@@ -440,7 +440,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_oil_pressure(const 
 /**
  * @brief Get field throttle_position from boat_engine_status_v2 message
  *
- * @return [%] Throttle position.
+ * @return [%] Throttle position. UINT8_MAX if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_throttle_position(const mavlink_message_t* msg, uint8_t *throttle_position)
@@ -451,7 +451,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_throttle_position(c
 /**
  * @brief Get field engine_coolant_temperature from boat_engine_status_v2 message
  *
- * @return [degC] Engine coolant temperature.
+ * @return [degC] Engine coolant temperature. NaN if unknown — note that 0 is a valid temperature and must not be used to mean "no data".
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_coolant_temperature(const mavlink_message_t* msg, float *engine_coolant_temperature)
@@ -462,7 +462,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_get_engine_coolant_temp
 /**
  * @brief Get field transmission_state from boat_engine_status_v2 message
  *
- * @return  Transmission state.
+ * @return  Transmission state. TRANSMISSION_UNKNOWN if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_engine_status_v2_get_transmission_state(const mavlink_message_t* msg, uint8_t *transmission_state)
