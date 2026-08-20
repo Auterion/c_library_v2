@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE WIND_DATA_RAW PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_WIND_DATA_RAW 13671
 
 

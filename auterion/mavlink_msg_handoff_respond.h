@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE HANDOFF_RESPOND PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_HANDOFF_RESPOND 13446
 
 

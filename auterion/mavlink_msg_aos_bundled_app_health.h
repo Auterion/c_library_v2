@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE AOS_BUNDLED_APP_HEALTH PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH 13802
 
 

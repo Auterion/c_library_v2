@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE PARACHUTE_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_PARACHUTE_STATUS 430
 
 

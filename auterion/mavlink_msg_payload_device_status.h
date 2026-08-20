@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE PAYLOAD_DEVICE_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_PAYLOAD_DEVICE_STATUS 13800
 
 

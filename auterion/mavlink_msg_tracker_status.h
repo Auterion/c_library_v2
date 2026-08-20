@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE TRACKER_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_TRACKER_STATUS 500
 
 

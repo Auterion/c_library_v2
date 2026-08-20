@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE BOAT_ENGINE_STATUS_V2 PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2 13667
 
 

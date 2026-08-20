@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE TRACKER_DETECTION_2D PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_TRACKER_DETECTION_2D 501
 
 

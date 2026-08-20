@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE PIXEL_TO_LLA_REQUEST PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST 600
 
 

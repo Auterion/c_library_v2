@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE REQUEST_CONTROL_ACK PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_REQUEST_CONTROL_ACK 13443
 
 

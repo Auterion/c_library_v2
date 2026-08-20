@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE FLUID_LEVEL PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_FLUID_LEVEL 13668
 
 

@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE MOTOR_INFO PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_MOTOR_INFO 13000
 
 

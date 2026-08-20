@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE RELEASE_CONTROL PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_RELEASE_CONTROL 13444
 
 

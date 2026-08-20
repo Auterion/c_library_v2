@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE UNIQUE_IDENTIFIER PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_UNIQUE_IDENTIFIER 13470
 
 

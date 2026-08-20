@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE RADAR_TARGET_TRACK PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_RADAR_TARGET_TRACK 13672
 
 

@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE REQUEST_HANDOFF PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_REQUEST_HANDOFF 13445
 
 

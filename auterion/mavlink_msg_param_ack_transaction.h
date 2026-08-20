@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE PARAM_ACK_TRANSACTION PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION 19
 
 

@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE BEACON_POSITION PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_BEACON_POSITION 447
 
 

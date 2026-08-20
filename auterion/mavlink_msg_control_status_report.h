@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE CONTROL_STATUS_REPORT PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_CONTROL_STATUS_REPORT 13441
 
 

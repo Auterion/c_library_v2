@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE RADIATION_DETECTOR_CPS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_RADIATION_DETECTOR_CPS 462
 
 

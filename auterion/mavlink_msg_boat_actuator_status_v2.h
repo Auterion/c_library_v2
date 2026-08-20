@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE BOAT_ACTUATOR_STATUS_V2 PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_BOAT_ACTUATOR_STATUS_V2 13666
 
 

@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE VESSEL_SPEED PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_VESSEL_SPEED 13669
 
 
