@@ -106,7 +106,6 @@ typedef struct __mavlink_tracker_detection_2d_t {
  * @param vel_up [m/s]  Up velocity of the object in global frame. NAN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t img_ts, uint64_t img_id, uint32_t object_id, uint32_t class_id, uint8_t tracking_status, uint8_t confidence, uint16_t bbox_top_left_x, uint16_t bbox_top_left_y, uint16_t bbox_bot_right_x, uint16_t bbox_bot_right_y, int32_t lat, int32_t lon, float alt, float vel_n, float vel_e, float vel_up)
 {
@@ -258,7 +257,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_pack_status(uint8_t syst
  * @param vel_up [m/s]  Up velocity of the object in global frame. NAN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t img_ts,uint64_t img_id,uint32_t object_id,uint32_t class_id,uint8_t tracking_status,uint8_t confidence,uint16_t bbox_top_left_x,uint16_t bbox_top_left_y,uint16_t bbox_bot_right_x,uint16_t bbox_bot_right_y,int32_t lat,int32_t lon,float alt,float vel_n,float vel_e,float vel_up)
@@ -317,7 +315,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param tracker_detection_2d C-struct to read the message contents from
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_tracker_detection_2d_t* tracker_detection_2d)
 {
     return mavlink_msg_tracker_detection_2d_pack(system_id, component_id, msg, tracker_detection_2d->img_ts, tracker_detection_2d->img_id, tracker_detection_2d->object_id, tracker_detection_2d->class_id, tracker_detection_2d->tracking_status, tracker_detection_2d->confidence, tracker_detection_2d->bbox_top_left_x, tracker_detection_2d->bbox_top_left_y, tracker_detection_2d->bbox_bot_right_x, tracker_detection_2d->bbox_bot_right_y, tracker_detection_2d->lat, tracker_detection_2d->lon, tracker_detection_2d->alt, tracker_detection_2d->vel_n, tracker_detection_2d->vel_e, tracker_detection_2d->vel_up);
@@ -332,7 +329,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param tracker_detection_2d C-struct to read the message contents from
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_tracker_detection_2d_t* tracker_detection_2d)
 {
     return mavlink_msg_tracker_detection_2d_pack_chan(system_id, component_id, chan, msg, tracker_detection_2d->img_ts, tracker_detection_2d->img_id, tracker_detection_2d->object_id, tracker_detection_2d->class_id, tracker_detection_2d->tracking_status, tracker_detection_2d->confidence, tracker_detection_2d->bbox_top_left_x, tracker_detection_2d->bbox_top_left_y, tracker_detection_2d->bbox_bot_right_x, tracker_detection_2d->bbox_bot_right_y, tracker_detection_2d->lat, tracker_detection_2d->lon, tracker_detection_2d->alt, tracker_detection_2d->vel_n, tracker_detection_2d->vel_e, tracker_detection_2d->vel_up);
@@ -375,7 +371,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_encode_status(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-MAVLINK_WIP
 static inline void mavlink_msg_tracker_detection_2d_send(mavlink_channel_t chan, uint64_t img_ts, uint64_t img_id, uint32_t object_id, uint32_t class_id, uint8_t tracking_status, uint8_t confidence, uint16_t bbox_top_left_x, uint16_t bbox_top_left_y, uint16_t bbox_bot_right_x, uint16_t bbox_bot_right_y, int32_t lat, int32_t lon, float alt, float vel_n, float vel_e, float vel_up)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -426,7 +421,6 @@ static inline void mavlink_msg_tracker_detection_2d_send(mavlink_channel_t chan,
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-MAVLINK_WIP
 static inline void mavlink_msg_tracker_detection_2d_send_struct(mavlink_channel_t chan, const mavlink_tracker_detection_2d_t* tracker_detection_2d)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -444,7 +438,6 @@ static inline void mavlink_msg_tracker_detection_2d_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-MAVLINK_WIP
 static inline void mavlink_msg_tracker_detection_2d_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t img_ts, uint64_t img_id, uint32_t object_id, uint32_t class_id, uint8_t tracking_status, uint8_t confidence, uint16_t bbox_top_left_x, uint16_t bbox_top_left_y, uint16_t bbox_bot_right_x, uint16_t bbox_bot_right_y, int32_t lat, int32_t lon, float alt, float vel_n, float vel_e, float vel_up)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -501,7 +494,6 @@ static inline void mavlink_msg_tracker_detection_2d_send_buf(mavlink_message_t *
  *
  * @return [us]  Time stamp of the image.
  */
-MAVLINK_WIP
 static inline uint64_t mavlink_msg_tracker_detection_2d_get_img_ts(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
@@ -512,7 +504,6 @@ static inline uint64_t mavlink_msg_tracker_detection_2d_get_img_ts(const mavlink
  *
  * @return   Unique ID specifiying the video frame (image) in the message sender video stream.
  */
-MAVLINK_WIP
 static inline uint64_t mavlink_msg_tracker_detection_2d_get_img_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  8);
@@ -523,7 +514,6 @@ static inline uint64_t mavlink_msg_tracker_detection_2d_get_img_id(const mavlink
  *
  * @return   Unique ID representing the object. 
  */
-MAVLINK_WIP
 static inline uint32_t mavlink_msg_tracker_detection_2d_get_object_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  16);
@@ -534,7 +524,6 @@ static inline uint32_t mavlink_msg_tracker_detection_2d_get_object_id(const mavl
  *
  * @return   Unique ID specifiying the class of the object.
  */
-MAVLINK_WIP
 static inline uint32_t mavlink_msg_tracker_detection_2d_get_class_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  20);
@@ -545,7 +534,6 @@ static inline uint32_t mavlink_msg_tracker_detection_2d_get_class_id(const mavli
  *
  * @return   0: not tracked, 1: tracked.
  */
-MAVLINK_WIP
 static inline uint8_t mavlink_msg_tracker_detection_2d_get_tracking_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  56);
@@ -556,7 +544,6 @@ static inline uint8_t mavlink_msg_tracker_detection_2d_get_tracking_status(const
  *
  * @return [%]  Confidence score in the range of [0, 100] for the classifcation.
  */
-MAVLINK_WIP
 static inline uint8_t mavlink_msg_tracker_detection_2d_get_confidence(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  57);
@@ -567,7 +554,6 @@ static inline uint8_t mavlink_msg_tracker_detection_2d_get_confidence(const mavl
  *
  * @return [c%]  Relative image x coordinate (left to right axis) in the range of [0.00, 100.00] describing the top left corner of the bounding box .
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_top_left_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  48);
@@ -578,7 +564,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_top_left_x(cons
  *
  * @return [c%]  Relative image y coordinate (top to bottom axis) in the range of [0.00, 100.00] describing the top left corner of the bounding box.
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_top_left_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  50);
@@ -589,7 +574,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_top_left_y(cons
  *
  * @return [c%]  Relative image x coordinate (left to right axis) in the range of [0.00, 100.00] describing the bottom right corner of the bounding box.
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_bot_right_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  52);
@@ -600,7 +584,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_bot_right_x(con
  *
  * @return [c%]  Relative image y coordinate (top to bottom axis) in the range of [0.00, 100.00] describing the bottom right corner of the bounding box.
  */
-MAVLINK_WIP
 static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_bot_right_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  54);
@@ -611,7 +594,6 @@ static inline uint16_t mavlink_msg_tracker_detection_2d_get_bbox_bot_right_y(con
  *
  * @return [degE7]  Latitude in WGS84 coordinate frame of the detected object. INT32_MAX if unknown.
  */
-MAVLINK_WIP
 static inline int32_t mavlink_msg_tracker_detection_2d_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg,  24);
@@ -622,7 +604,6 @@ static inline int32_t mavlink_msg_tracker_detection_2d_get_lat(const mavlink_mes
  *
  * @return [degE7]  Longitude in WGS84 coordinate frame of the detected object. INT32_MAX if unknown.
  */
-MAVLINK_WIP
 static inline int32_t mavlink_msg_tracker_detection_2d_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg,  28);
@@ -633,7 +614,6 @@ static inline int32_t mavlink_msg_tracker_detection_2d_get_lon(const mavlink_mes
  *
  * @return [m]  Altitude in EGM96 coordinate frame of the detected object. NAN if unknown.
  */
-MAVLINK_WIP
 static inline float mavlink_msg_tracker_detection_2d_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  32);
@@ -644,7 +624,6 @@ static inline float mavlink_msg_tracker_detection_2d_get_alt(const mavlink_messa
  *
  * @return [m/s]  North velocity of the object in global frame. NAN if unknown.
  */
-MAVLINK_WIP
 static inline float mavlink_msg_tracker_detection_2d_get_vel_n(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  36);
@@ -655,7 +634,6 @@ static inline float mavlink_msg_tracker_detection_2d_get_vel_n(const mavlink_mes
  *
  * @return [m/s]  East velocity of the object in global frame. NAN if unknown.
  */
-MAVLINK_WIP
 static inline float mavlink_msg_tracker_detection_2d_get_vel_e(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  40);
@@ -666,7 +644,6 @@ static inline float mavlink_msg_tracker_detection_2d_get_vel_e(const mavlink_mes
  *
  * @return [m/s]  Up velocity of the object in global frame. NAN if unknown.
  */
-MAVLINK_WIP
 static inline float mavlink_msg_tracker_detection_2d_get_vel_up(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  44);
@@ -678,7 +655,6 @@ static inline float mavlink_msg_tracker_detection_2d_get_vel_up(const mavlink_me
  * @param msg The message to decode
  * @param tracker_detection_2d C-struct to decode the message contents into
  */
-MAVLINK_WIP
 static inline void mavlink_msg_tracker_detection_2d_decode(const mavlink_message_t* msg, mavlink_tracker_detection_2d_t* tracker_detection_2d)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
