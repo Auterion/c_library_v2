@@ -677,7 +677,8 @@ typedef enum REBOOT_SHUTDOWN_ACTION
    REBOOT_SHUTDOWN_ACTION_SHUTDOWN=2, /* Shutdown component. | */
    REBOOT_SHUTDOWN_ACTION_REBOOT_TO_BOOTLOADER=3, /* Reboot component and keep it in the bootloader until upgraded. | */
    REBOOT_SHUTDOWN_ACTION_POWER_ON=4, /* Power on component. Do nothing if component is already powered (ACK command with MAV_RESULT_ACCEPTED). | */
-   REBOOT_SHUTDOWN_ACTION_ENUM_END=5, /*  | */
+   REBOOT_SHUTDOWN_ACTION_REBOOT_TO_MASS_STORAGE=5, /* Reboot component into a mass storage mode. | */
+   REBOOT_SHUTDOWN_ACTION_ENUM_END=6, /*  | */
 } REBOOT_SHUTDOWN_ACTION;
 #endif
 
@@ -2252,7 +2253,12 @@ typedef enum FAILURE_UNIT
    FAILURE_UNIT_SYSTEM_MAVLINK_SIGNAL=105, /*  | */
    FAILURE_UNIT_SYSTEM_ESC=106, /* Interrupts the telemetry reported by the ESC. | */
    FAILURE_UNIT_SYSTEM_TRAFFIC_AVOIDANCE=107, /* Traffic avoidance system like ADS-B or FLARM. | */
-   FAILURE_UNIT_ENUM_END=108, /*  | */
+   FAILURE_UNIT_DATALINK_LTE=150, /* Data link over a cellular (LTE) connection. | */
+   FAILURE_UNIT_DATALINK_WIFI=151, /* Data link over a Wi-Fi connection. | */
+   FAILURE_UNIT_DATALINK_TELEM_RADIO=152, /* Data link over a telemetry radio, e.g. a SiK radio. | */
+   FAILURE_UNIT_BUS_CAN=200, /* CAN bus. Instance is the bus number, e.g. 1 for CAN1. | */
+   FAILURE_UNIT_BUS_I2C=201, /* I2C bus. Instance is the bus number, e.g. 1 for I2C1. | */
+   FAILURE_UNIT_ENUM_END=202, /*  | */
 } FAILURE_UNIT;
 #endif
 
