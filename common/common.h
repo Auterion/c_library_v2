@@ -285,7 +285,7 @@ typedef enum GIMBAL_DEVICE_CAP_FLAGS
    GIMBAL_DEVICE_CAP_FLAGS_HAS_YAW_FOLLOW=512, /* Gimbal device supports to follow a yaw angle relative to the vehicle (generally that's the default). | */
    GIMBAL_DEVICE_CAP_FLAGS_HAS_YAW_LOCK=1024, /* Gimbal device supports locking to an absolute heading, i.e., yaw angle relative to North (earth frame, often this is an option available). | */
    GIMBAL_DEVICE_CAP_FLAGS_SUPPORTS_INFINITE_YAW=2048, /* Gimbal device supports yawing/panning infinitely (e.g. using slip disk). | */
-   GIMBAL_DEVICE_CAP_FLAGS_SUPPORTS_YAW_IN_EARTH_FRAME=4096, /* Gimbal device supports yaw angles and angular velocities relative to North (earth frame). This usually requires support by an autopilot via AUTOPILOT_STATE_FOR_GIMBAL_DEVICE. Support can go on and off during runtime, which is reported by the flag GIMBAL_DEVICE_FLAGS_CAN_ACCEPT_YAW_IN_EARTH_FRAME. | */
+   GIMBAL_DEVICE_CAP_FLAGS_SUPPORTS_YAW_IN_EARTH_FRAME=4096, /* Gimbal device supports yaw angles and angular velocities relative to North (earth frame). This usually requires support by an autopilot via AUTOPILOT_STATE_FOR_GIMBAL_DEVICE. Support can go on and off during runtime, which is reported by the flag GIMBAL_DEVICE_FLAGS_ACCEPTS_YAW_IN_EARTH_FRAME. | */
    GIMBAL_DEVICE_CAP_FLAGS_HAS_RC_INPUTS=8192, /* Gimbal device supports radio control inputs as an alternative input for controlling the gimbal orientation. | */
    GIMBAL_DEVICE_CAP_FLAGS_CAN_POINT_LOCATION_LOCAL=65536, /* Gimbal device supports to point to a local position. | */
    GIMBAL_DEVICE_CAP_FLAGS_CAN_POINT_LOCATION_GLOBAL=131072, /* Gimbal device supports to point to a global latitude, longitude, altitude position. | */
@@ -1108,7 +1108,7 @@ typedef enum MAV_BATTERY_FAULT
 {
    MAV_BATTERY_FAULT_DEEP_DISCHARGE=1, /* Battery has deep discharged. | */
    MAV_BATTERY_FAULT_SPIKES=2, /* Voltage spikes. | */
-   MAV_BATTERY_FAULT_CELL_FAIL=4, /* One or more cells have failed. Battery should also report MAV_BATTERY_CHARGE_STATE_FAILE (and should not be used). | */
+   MAV_BATTERY_FAULT_CELL_FAIL=4, /* One or more cells have failed. Battery should also report MAV_BATTERY_CHARGE_STATE_FAILED (and should not be used). | */
    MAV_BATTERY_FAULT_OVER_CURRENT=8, /* Over-current fault. | */
    MAV_BATTERY_FAULT_OVER_TEMPERATURE=16, /* Over-temperature fault. | */
    MAV_BATTERY_FAULT_UNDER_TEMPERATURE=32, /* Under-temperature fault. | */
@@ -2300,7 +2300,7 @@ typedef enum MAV_WINCH_STATUS_FLAG
    MAV_WINCH_STATUS_HEALTHY=1, /* Winch is healthy | */
    MAV_WINCH_STATUS_FULLY_RETRACTED=2, /* Winch line is fully retracted | */
    MAV_WINCH_STATUS_MOVING=4, /* Winch motor is moving | */
-   MAV_WINCH_STATUS_CLUTCH_ENGAGED=8, /* Winch clutch is engaged allowing motor to move freely. | */
+   MAV_WINCH_STATUS_CLUTCH_DISENGAGED=8, /* Winch clutch is disengaged. The motor is moving freely and not driving the winch. | */
    MAV_WINCH_STATUS_LOCKED=16, /* Winch is locked by locking mechanism. | */
    MAV_WINCH_STATUS_DROPPING=32, /* Winch is gravity dropping payload. | */
    MAV_WINCH_STATUS_ARRESTING=64, /* Winch is arresting payload descent. | */
@@ -2609,7 +2609,10 @@ typedef enum MAV_MODE_PROPERTY
    MAV_MODE_PROPERTY_NOT_USER_SELECTABLE=2, /* If set, this mode should not be added to the list of selectable modes.
           The mode might still be selected by the FC directly (for example as part of a failsafe).
          | */
-   MAV_MODE_PROPERTY_ENUM_END=3, /*  | */
+   MAV_MODE_PROPERTY_AUTO_MODE=4, /* If set, this mode is automatically controlled (it may use but does not require a manual controller).
+          If unset the mode is a assumed to require user input (be a manual mode).
+         | */
+   MAV_MODE_PROPERTY_ENUM_END=5, /*  | */
 } MAV_MODE_PROPERTY;
 #endif
 
@@ -2663,6 +2666,19 @@ typedef enum GLOBAL_POSITION_FLAGS
    GLOBAL_POSITION_PRIMARY=2, /* True if the data originates from or is consumed by the primary estimator. | */
    GLOBAL_POSITION_FLAGS_ENUM_END=3, /*  | */
 } GLOBAL_POSITION_FLAGS;
+#endif
+
+/** @brief Bitmask indicating which fields contain valid data in a FOLLOW_TARGET message (lat/lon/alt, vel, acc, attitude_q, rates). If a bit is unset, the corresponding field(s) are zero-filled and should be ignored. */
+#ifndef HAVE_ENUM_FOLLOW_TARGET_CAP_FLAGS
+#define HAVE_ENUM_FOLLOW_TARGET_CAP_FLAGS
+typedef enum FOLLOW_TARGET_CAP_FLAGS
+{
+   FOLLOW_TARGET_CAP_FLAGS_POS=1, /* Position estimate is valid (lat/lon/alt). | */
+   FOLLOW_TARGET_CAP_FLAGS_VEL=2, /* Velocity estimate is valid (vel field). | */
+   FOLLOW_TARGET_CAP_FLAGS_ACCEL=4, /* Acceleration estimate is valid (acc field). | */
+   FOLLOW_TARGET_CAP_FLAGS_ATT_RATES=8, /* Attitude and angular rate estimates are valid (attitude_q and rates fields). | */
+   FOLLOW_TARGET_CAP_FLAGS_ENUM_END=9, /*  | */
+} FOLLOW_TARGET_CAP_FLAGS;
 #endif
 
 // MAVLINK VERSION
