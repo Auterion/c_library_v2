@@ -50,7 +50,7 @@ typedef struct __mavlink_handoff_respond_t {
  * @param handoff_decision  Control target decision.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_handoff_respond_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_handoff_respond_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t control_target, uint8_t handoff_decision)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -82,7 +82,7 @@ static inline uint16_t mavlink_msg_handoff_respond_pack(uint8_t system_id, uint8
  * @param handoff_decision  Control target decision.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_handoff_respond_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_handoff_respond_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t control_target, uint8_t handoff_decision)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -103,7 +103,7 @@ static inline uint16_t mavlink_msg_handoff_respond_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_HANDOFF_RESPOND_MIN_LEN, MAVLINK_MSG_ID_HANDOFF_RESPOND_LEN, MAVLINK_MSG_ID_HANDOFF_RESPOND_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_HANDOFF_RESPOND_MIN_LEN, MAVLINK_MSG_ID_HANDOFF_RESPOND_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_HANDOFF_RESPOND_MIN_LEN, MAVLINK_MSG_ID_HANDOFF_RESPOND_LEN, 0);
 #endif
 }
 
@@ -117,7 +117,7 @@ static inline uint16_t mavlink_msg_handoff_respond_pack_status(uint8_t system_id
  * @param handoff_decision  Control target decision.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_handoff_respond_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_handoff_respond_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t control_target,uint8_t handoff_decision)
 {
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_handoff_respond_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param handoff_respond C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_handoff_respond_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
+static inline uint16_t mavlink_msg_handoff_respond_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
 {
     return mavlink_msg_handoff_respond_pack(system_id, component_id, msg, handoff_respond->control_target, handoff_respond->handoff_decision);
 }
@@ -161,7 +161,7 @@ static inline uint16_t mavlink_msg_handoff_respond_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param handoff_respond C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_handoff_respond_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
+static inline uint16_t mavlink_msg_handoff_respond_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
 {
     return mavlink_msg_handoff_respond_pack_chan(system_id, component_id, chan, msg, handoff_respond->control_target, handoff_respond->handoff_decision);
 }
@@ -175,7 +175,7 @@ static inline uint16_t mavlink_msg_handoff_respond_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param handoff_respond C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_handoff_respond_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
+static inline uint16_t mavlink_msg_handoff_respond_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_handoff_respond_t* handoff_respond)
 {
     return mavlink_msg_handoff_respond_pack_status(system_id, component_id, _status, msg,  handoff_respond->control_target, handoff_respond->handoff_decision);
 }
@@ -287,4 +287,5 @@ static inline void mavlink_msg_handoff_respond_decode(const mavlink_message_t* m
         memset(handoff_respond, 0, MAVLINK_MSG_ID_HANDOFF_RESPOND_LEN);
     memcpy(handoff_respond, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

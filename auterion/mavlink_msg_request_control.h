@@ -63,7 +63,7 @@ typedef struct __mavlink_request_control_t {
  * @param reason  Reason for taking ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_control_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_request_control_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t control_target, uint8_t request_priority, const char *requester_id, const char *reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ static inline uint16_t mavlink_msg_request_control_pack(uint8_t system_id, uint8
  * @param reason  Reason for taking ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_control_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_request_control_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t control_target, uint8_t request_priority, const char *requester_id, const char *reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -124,7 +124,7 @@ static inline uint16_t mavlink_msg_request_control_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_CONTROL_MIN_LEN, MAVLINK_MSG_ID_REQUEST_CONTROL_LEN, MAVLINK_MSG_ID_REQUEST_CONTROL_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_CONTROL_MIN_LEN, MAVLINK_MSG_ID_REQUEST_CONTROL_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_CONTROL_MIN_LEN, MAVLINK_MSG_ID_REQUEST_CONTROL_LEN, 0);
 #endif
 }
 
@@ -142,7 +142,7 @@ static inline uint16_t mavlink_msg_request_control_pack_status(uint8_t system_id
  * @param reason  Reason for taking ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_control_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_request_control_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t control_target,uint8_t request_priority,const char *requester_id,const char *reason)
 {
@@ -174,7 +174,7 @@ static inline uint16_t mavlink_msg_request_control_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param request_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_control_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
+static inline uint16_t mavlink_msg_request_control_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
 {
     return mavlink_msg_request_control_pack(system_id, component_id, msg, request_control->control_target, request_control->request_priority, request_control->requester_id, request_control->reason);
 }
@@ -188,7 +188,7 @@ static inline uint16_t mavlink_msg_request_control_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param request_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_control_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
+static inline uint16_t mavlink_msg_request_control_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
 {
     return mavlink_msg_request_control_pack_chan(system_id, component_id, chan, msg, request_control->control_target, request_control->request_priority, request_control->requester_id, request_control->reason);
 }
@@ -202,7 +202,7 @@ static inline uint16_t mavlink_msg_request_control_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param request_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_control_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
+static inline uint16_t mavlink_msg_request_control_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_request_control_t* request_control)
 {
     return mavlink_msg_request_control_pack_status(system_id, component_id, _status, msg,  request_control->control_target, request_control->request_priority, request_control->requester_id, request_control->reason);
 }
@@ -346,4 +346,5 @@ static inline void mavlink_msg_request_control_decode(const mavlink_message_t* m
         memset(request_control, 0, MAVLINK_MSG_ID_REQUEST_CONTROL_LEN);
     memcpy(request_control, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

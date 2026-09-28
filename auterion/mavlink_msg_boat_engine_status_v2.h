@@ -85,7 +85,7 @@ typedef struct __mavlink_boat_engine_status_v2_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_boat_engine_status_v2_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_boat_engine_status_v2_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, const uint8_t *engine_state, const uint8_t *engine_load, const uint16_t *engine_rpm, float fuel_consumption_rate, const float *oil_pressure, const uint8_t *throttle_position, const float *engine_coolant_temperature, const uint8_t *transmission_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack(uint8_t system_id,
  * @param transmission_state  Transmission state.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, const uint8_t *engine_state, const uint8_t *engine_load, const uint16_t *engine_rpm, float fuel_consumption_rate, const float *oil_pressure, const uint8_t *throttle_position, const float *engine_coolant_temperature, const uint8_t *transmission_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -169,7 +169,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint8_t sys
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_MIN_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_MIN_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_MIN_LEN, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_LEN, 0);
 #endif
 }
 
@@ -191,7 +191,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_status(uint8_t sys
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,const uint8_t *engine_state,const uint8_t *engine_load,const uint16_t *engine_rpm,float fuel_consumption_rate,const float *oil_pressure,const uint8_t *throttle_position,const float *engine_coolant_temperature,const uint8_t *transmission_state)
 {
@@ -234,7 +234,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_pack_chan(uint8_t syste
  * @param boat_engine_status_v2 C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_boat_engine_status_v2_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
+static inline uint16_t mavlink_msg_boat_engine_status_v2_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
 {
     return mavlink_msg_boat_engine_status_v2_pack(system_id, component_id, msg, boat_engine_status_v2->time_usec, boat_engine_status_v2->engine_state, boat_engine_status_v2->engine_load, boat_engine_status_v2->engine_rpm, boat_engine_status_v2->fuel_consumption_rate, boat_engine_status_v2->oil_pressure, boat_engine_status_v2->throttle_position, boat_engine_status_v2->engine_coolant_temperature, boat_engine_status_v2->transmission_state);
 }
@@ -249,7 +249,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_encode(uint8_t system_i
  * @param boat_engine_status_v2 C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
+static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
 {
     return mavlink_msg_boat_engine_status_v2_pack_chan(system_id, component_id, chan, msg, boat_engine_status_v2->time_usec, boat_engine_status_v2->engine_state, boat_engine_status_v2->engine_load, boat_engine_status_v2->engine_rpm, boat_engine_status_v2->fuel_consumption_rate, boat_engine_status_v2->oil_pressure, boat_engine_status_v2->throttle_position, boat_engine_status_v2->engine_coolant_temperature, boat_engine_status_v2->transmission_state);
 }
@@ -263,7 +263,7 @@ static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param boat_engine_status_v2 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
+static inline uint16_t mavlink_msg_boat_engine_status_v2_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_boat_engine_status_v2_t* boat_engine_status_v2)
 {
     return mavlink_msg_boat_engine_status_v2_pack_status(system_id, component_id, _status, msg,  boat_engine_status_v2->time_usec, boat_engine_status_v2->engine_state, boat_engine_status_v2->engine_load, boat_engine_status_v2->engine_rpm, boat_engine_status_v2->fuel_consumption_rate, boat_engine_status_v2->oil_pressure, boat_engine_status_v2->throttle_position, boat_engine_status_v2->engine_coolant_temperature, boat_engine_status_v2->transmission_state);
 }
@@ -496,4 +496,5 @@ static inline void mavlink_msg_boat_engine_status_v2_decode(const mavlink_messag
         memset(boat_engine_status_v2, 0, MAVLINK_MSG_ID_BOAT_ENGINE_STATUS_V2_LEN);
     memcpy(boat_engine_status_v2, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

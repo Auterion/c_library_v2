@@ -55,7 +55,7 @@ typedef struct __mavlink_request_handoff_t {
  * @param reason  Reason from the control entity requesting ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_handoff_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_request_handoff_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t control_target, const char *requester_id, const char *reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -88,7 +88,7 @@ static inline uint16_t mavlink_msg_request_handoff_pack(uint8_t system_id, uint8
  * @param reason  Reason from the control entity requesting ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_handoff_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_request_handoff_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t control_target, const char *requester_id, const char *reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_request_handoff_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_HANDOFF_MIN_LEN, MAVLINK_MSG_ID_REQUEST_HANDOFF_LEN, MAVLINK_MSG_ID_REQUEST_HANDOFF_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_HANDOFF_MIN_LEN, MAVLINK_MSG_ID_REQUEST_HANDOFF_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REQUEST_HANDOFF_MIN_LEN, MAVLINK_MSG_ID_REQUEST_HANDOFF_LEN, 0);
 #endif
 }
 
@@ -124,7 +124,7 @@ static inline uint16_t mavlink_msg_request_handoff_pack_status(uint8_t system_id
  * @param reason  Reason from the control entity requesting ownership.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_request_handoff_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_request_handoff_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t control_target,const char *requester_id,const char *reason)
 {
@@ -154,7 +154,7 @@ static inline uint16_t mavlink_msg_request_handoff_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param request_handoff C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_handoff_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
+static inline uint16_t mavlink_msg_request_handoff_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
 {
     return mavlink_msg_request_handoff_pack(system_id, component_id, msg, request_handoff->control_target, request_handoff->requester_id, request_handoff->reason);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_request_handoff_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param request_handoff C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_handoff_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
+static inline uint16_t mavlink_msg_request_handoff_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
 {
     return mavlink_msg_request_handoff_pack_chan(system_id, component_id, chan, msg, request_handoff->control_target, request_handoff->requester_id, request_handoff->reason);
 }
@@ -182,7 +182,7 @@ static inline uint16_t mavlink_msg_request_handoff_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param request_handoff C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_request_handoff_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
+static inline uint16_t mavlink_msg_request_handoff_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_request_handoff_t* request_handoff)
 {
     return mavlink_msg_request_handoff_pack_status(system_id, component_id, _status, msg,  request_handoff->control_target, request_handoff->requester_id, request_handoff->reason);
 }
@@ -306,4 +306,5 @@ static inline void mavlink_msg_request_handoff_decode(const mavlink_message_t* m
         memset(request_handoff, 0, MAVLINK_MSG_ID_REQUEST_HANDOFF_LEN);
     memcpy(request_handoff, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

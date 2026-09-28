@@ -59,7 +59,7 @@ typedef struct __mavlink_radiation_detector_spectrum_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t serial_no, uint8_t msg_no, uint8_t seq_no, const uint8_t *segment)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -95,7 +95,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack(uint8_t syst
  * @param segment  One segment of a spectrum PDU
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t serial_no, uint8_t msg_no, uint8_t seq_no, const uint8_t *segment)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -118,7 +118,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_status(uint8
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_MIN_LEN, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_LEN, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_MIN_LEN, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_MIN_LEN, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_LEN, 0);
 #endif
 }
 
@@ -135,7 +135,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_status(uint8
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t serial_no,uint8_t msg_no,uint8_t seq_no,const uint8_t *segment)
 {
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_pack_chan(uint8_t
  * @param radiation_detector_spectrum C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
 {
     return mavlink_msg_radiation_detector_spectrum_pack(system_id, component_id, msg, radiation_detector_spectrum->serial_no, radiation_detector_spectrum->msg_no, radiation_detector_spectrum->seq_no, radiation_detector_spectrum->segment);
 }
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode(uint8_t sy
  * @param radiation_detector_spectrum C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
 {
     return mavlink_msg_radiation_detector_spectrum_pack_chan(system_id, component_id, chan, msg, radiation_detector_spectrum->serial_no, radiation_detector_spectrum->msg_no, radiation_detector_spectrum->seq_no, radiation_detector_spectrum->segment);
 }
@@ -197,7 +197,7 @@ static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode_chan(uint8
  * @param msg The MAVLink message to compress the data into
  * @param radiation_detector_spectrum C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
+static inline uint16_t mavlink_msg_radiation_detector_spectrum_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_radiation_detector_spectrum_t* radiation_detector_spectrum)
 {
     return mavlink_msg_radiation_detector_spectrum_pack_status(system_id, component_id, _status, msg,  radiation_detector_spectrum->serial_no, radiation_detector_spectrum->msg_no, radiation_detector_spectrum->seq_no, radiation_detector_spectrum->segment);
 }
@@ -345,4 +345,5 @@ static inline void mavlink_msg_radiation_detector_spectrum_decode(const mavlink_
         memset(radiation_detector_spectrum, 0, MAVLINK_MSG_ID_RADIATION_DETECTOR_SPECTRUM_LEN);
     memcpy(radiation_detector_spectrum, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

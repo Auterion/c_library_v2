@@ -54,7 +54,7 @@ typedef struct __mavlink_pixel_to_lla_ack_t {
  * @param error_message   Optional error message in case of rejection. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t uid, uint8_t status, const char *error_message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -87,7 +87,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack(uint8_t system_id, uint
  * @param error_message   Optional error message in case of rejection. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t uid, uint8_t status, const char *error_message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -108,7 +108,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_status(uint8_t system_i
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_LEN, 0);
 #endif
 }
 
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_status(uint8_t system_i
  * @param error_message   Optional error message in case of rejection. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t uid,uint8_t status,const char *error_message)
 {
@@ -153,7 +153,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_ack C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
 {
     return mavlink_msg_pixel_to_lla_ack_pack(system_id, component_id, msg, pixel_to_lla_ack->uid, pixel_to_lla_ack->status, pixel_to_lla_ack->error_message);
 }
@@ -167,7 +167,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_ack C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
 {
     return mavlink_msg_pixel_to_lla_ack_pack_chan(system_id, component_id, chan, msg, pixel_to_lla_ack->uid, pixel_to_lla_ack->status, pixel_to_lla_ack->error_message);
 }
@@ -181,7 +181,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_ack C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
+static inline uint16_t mavlink_msg_pixel_to_lla_ack_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_ack_t* pixel_to_lla_ack)
 {
     return mavlink_msg_pixel_to_lla_ack_pack_status(system_id, component_id, _status, msg,  pixel_to_lla_ack->uid, pixel_to_lla_ack->status, pixel_to_lla_ack->error_message);
 }
@@ -305,4 +305,5 @@ static inline void mavlink_msg_pixel_to_lla_ack_decode(const mavlink_message_t* 
         memset(pixel_to_lla_ack, 0, MAVLINK_MSG_ID_PIXEL_TO_LLA_ACK_LEN);
     memcpy(pixel_to_lla_ack, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

@@ -69,7 +69,7 @@ typedef struct __mavlink_aos_bundled_app_health_summary_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t overall_health, uint8_t failure_flags, uint8_t total_apps_count)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -111,7 +111,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack(uint8_t s
       
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t overall_health, uint8_t failure_flags, uint8_t total_apps_count)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -134,7 +134,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_status(ui
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_MIN_LEN, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_LEN, 0);
 #endif
 }
 
@@ -157,7 +157,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_status(ui
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t overall_health,uint8_t failure_flags,uint8_t total_apps_count)
 {
@@ -190,7 +190,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_pack_chan(uint
  * @param aos_bundled_app_health_summary C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
 {
     return mavlink_msg_aos_bundled_app_health_summary_pack(system_id, component_id, msg, aos_bundled_app_health_summary->overall_health, aos_bundled_app_health_summary->failure_flags, aos_bundled_app_health_summary->total_apps_count);
 }
@@ -205,7 +205,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode(uint8_t
  * @param aos_bundled_app_health_summary C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
 {
     return mavlink_msg_aos_bundled_app_health_summary_pack_chan(system_id, component_id, chan, msg, aos_bundled_app_health_summary->overall_health, aos_bundled_app_health_summary->failure_flags, aos_bundled_app_health_summary->total_apps_count);
 }
@@ -219,7 +219,7 @@ static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode_chan(ui
  * @param msg The MAVLink message to compress the data into
  * @param aos_bundled_app_health_summary C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
+static inline uint16_t mavlink_msg_aos_bundled_app_health_summary_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_aos_bundled_app_health_summary_t* aos_bundled_app_health_summary)
 {
     return mavlink_msg_aos_bundled_app_health_summary_pack_status(system_id, component_id, _status, msg,  aos_bundled_app_health_summary->overall_health, aos_bundled_app_health_summary->failure_flags, aos_bundled_app_health_summary->total_apps_count);
 }
@@ -368,4 +368,5 @@ static inline void mavlink_msg_aos_bundled_app_health_summary_decode(const mavli
         memset(aos_bundled_app_health_summary, 0, MAVLINK_MSG_ID_AOS_BUNDLED_APP_HEALTH_SUMMARY_LEN);
     memcpy(aos_bundled_app_health_summary, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

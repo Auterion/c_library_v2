@@ -71,7 +71,7 @@ typedef struct __mavlink_pixel_to_lla_result_t {
  * @param error_message  Optional error message in case of failure. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_result_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t uid, uint8_t status, double latitude, double longitude, double altitude, const float *ned_homography_matrix, const char *error_message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -116,7 +116,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_pack(uint8_t system_id, u
  * @param error_message  Optional error message in case of failure. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t uid, uint8_t status, double latitude, double longitude, double altitude, const float *ned_homography_matrix, const char *error_message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -145,7 +145,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_status(uint8_t syste
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_LEN, 0);
 #endif
 }
 
@@ -164,7 +164,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_status(uint8_t syste
  * @param error_message  Optional error message in case of failure. Max length 100 characters.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t uid,uint8_t status,double latitude,double longitude,double altitude,const float *ned_homography_matrix,const char *error_message)
 {
@@ -202,7 +202,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_result C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
+static inline uint16_t mavlink_msg_pixel_to_lla_result_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
 {
     return mavlink_msg_pixel_to_lla_result_pack(system_id, component_id, msg, pixel_to_lla_result->uid, pixel_to_lla_result->status, pixel_to_lla_result->latitude, pixel_to_lla_result->longitude, pixel_to_lla_result->altitude, pixel_to_lla_result->ned_homography_matrix, pixel_to_lla_result->error_message);
 }
@@ -216,7 +216,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_result C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
+static inline uint16_t mavlink_msg_pixel_to_lla_result_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
 {
     return mavlink_msg_pixel_to_lla_result_pack_chan(system_id, component_id, chan, msg, pixel_to_lla_result->uid, pixel_to_lla_result->status, pixel_to_lla_result->latitude, pixel_to_lla_result->longitude, pixel_to_lla_result->altitude, pixel_to_lla_result->ned_homography_matrix, pixel_to_lla_result->error_message);
 }
@@ -230,7 +230,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_result_encode_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_result C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_result_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
+static inline uint16_t mavlink_msg_pixel_to_lla_result_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_result_t* pixel_to_lla_result)
 {
     return mavlink_msg_pixel_to_lla_result_pack_status(system_id, component_id, _status, msg,  pixel_to_lla_result->uid, pixel_to_lla_result->status, pixel_to_lla_result->latitude, pixel_to_lla_result->longitude, pixel_to_lla_result->altitude, pixel_to_lla_result->ned_homography_matrix, pixel_to_lla_result->error_message);
 }
@@ -418,4 +418,5 @@ static inline void mavlink_msg_pixel_to_lla_result_decode(const mavlink_message_
         memset(pixel_to_lla_result, 0, MAVLINK_MSG_ID_PIXEL_TO_LLA_RESULT_LEN);
     memcpy(pixel_to_lla_result, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

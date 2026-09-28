@@ -74,7 +74,7 @@ typedef struct __mavlink_beacon_position_t {
  * @param link_quality  Value indicating the Signal to noise ratio (in units of dB)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_beacon_position_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_beacon_position_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t beacon_id, int32_t latitude, int32_t longitude, float altitude, float distance, int32_t delay, uint8_t gps_status, int32_t link_quality)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -124,7 +124,7 @@ static inline uint16_t mavlink_msg_beacon_position_pack(uint8_t system_id, uint8
  * @param link_quality  Value indicating the Signal to noise ratio (in units of dB)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_beacon_position_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_beacon_position_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t beacon_id, int32_t latitude, int32_t longitude, float altitude, float distance, int32_t delay, uint8_t gps_status, int32_t link_quality)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -157,7 +157,7 @@ static inline uint16_t mavlink_msg_beacon_position_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BEACON_POSITION_MIN_LEN, MAVLINK_MSG_ID_BEACON_POSITION_LEN, MAVLINK_MSG_ID_BEACON_POSITION_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BEACON_POSITION_MIN_LEN, MAVLINK_MSG_ID_BEACON_POSITION_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_BEACON_POSITION_MIN_LEN, MAVLINK_MSG_ID_BEACON_POSITION_LEN, 0);
 #endif
 }
 
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_beacon_position_pack_status(uint8_t system_id
  * @param link_quality  Value indicating the Signal to noise ratio (in units of dB)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_beacon_position_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_beacon_position_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t beacon_id,int32_t latitude,int32_t longitude,float altitude,float distance,int32_t delay,uint8_t gps_status,int32_t link_quality)
 {
@@ -219,7 +219,7 @@ static inline uint16_t mavlink_msg_beacon_position_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param beacon_position C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_beacon_position_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
+static inline uint16_t mavlink_msg_beacon_position_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
 {
     return mavlink_msg_beacon_position_pack(system_id, component_id, msg, beacon_position->beacon_id, beacon_position->latitude, beacon_position->longitude, beacon_position->altitude, beacon_position->distance, beacon_position->delay, beacon_position->gps_status, beacon_position->link_quality);
 }
@@ -233,7 +233,7 @@ static inline uint16_t mavlink_msg_beacon_position_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param beacon_position C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_beacon_position_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
+static inline uint16_t mavlink_msg_beacon_position_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
 {
     return mavlink_msg_beacon_position_pack_chan(system_id, component_id, chan, msg, beacon_position->beacon_id, beacon_position->latitude, beacon_position->longitude, beacon_position->altitude, beacon_position->distance, beacon_position->delay, beacon_position->gps_status, beacon_position->link_quality);
 }
@@ -247,7 +247,7 @@ static inline uint16_t mavlink_msg_beacon_position_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param beacon_position C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_beacon_position_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
+static inline uint16_t mavlink_msg_beacon_position_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_beacon_position_t* beacon_position)
 {
     return mavlink_msg_beacon_position_pack_status(system_id, component_id, _status, msg,  beacon_position->beacon_id, beacon_position->latitude, beacon_position->longitude, beacon_position->altitude, beacon_position->distance, beacon_position->delay, beacon_position->gps_status, beacon_position->link_quality);
 }
@@ -455,4 +455,5 @@ static inline void mavlink_msg_beacon_position_decode(const mavlink_message_t* m
         memset(beacon_position, 0, MAVLINK_MSG_ID_BEACON_POSITION_LEN);
     memcpy(beacon_position, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

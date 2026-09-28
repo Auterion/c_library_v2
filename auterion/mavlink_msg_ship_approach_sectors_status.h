@@ -47,7 +47,7 @@ typedef struct __mavlink_ship_approach_sectors_status_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t sectors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -76,7 +76,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack(uint8_t sys
  * @param sectors  Bitmap indicating which ship approach sectors are set. In clockwise order.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t sectors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -95,7 +95,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_status(uint
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_MIN_LEN, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_LEN, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_MIN_LEN, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_MIN_LEN, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_LEN, 0);
 #endif
 }
 
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_status(uint
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t sectors)
 {
@@ -138,7 +138,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_pack_chan(uint8_
  * @param ship_approach_sectors_status C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
     return mavlink_msg_ship_approach_sectors_status_pack(system_id, component_id, msg, ship_approach_sectors_status->sectors);
 }
@@ -153,7 +153,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode(uint8_t s
  * @param ship_approach_sectors_status C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
     return mavlink_msg_ship_approach_sectors_status_pack_chan(system_id, component_id, chan, msg, ship_approach_sectors_status->sectors);
 }
@@ -167,7 +167,7 @@ static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_chan(uint
  * @param msg The MAVLink message to compress the data into
  * @param ship_approach_sectors_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
+static inline uint16_t mavlink_msg_ship_approach_sectors_status_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_ship_approach_sectors_status_t* ship_approach_sectors_status)
 {
     return mavlink_msg_ship_approach_sectors_status_pack_status(system_id, component_id, _status, msg,  ship_approach_sectors_status->sectors);
 }
@@ -268,4 +268,5 @@ static inline void mavlink_msg_ship_approach_sectors_status_decode(const mavlink
         memset(ship_approach_sectors_status, 0, MAVLINK_MSG_ID_SHIP_APPROACH_SECTORS_STATUS_LEN);
     memcpy(ship_approach_sectors_status, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

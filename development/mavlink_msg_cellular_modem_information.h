@@ -74,7 +74,7 @@ typedef struct __mavlink_cellular_modem_information_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_cellular_modem_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_cellular_modem_information_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t id, uint64_t imei, uint64_t imsi, const char *modem_id, const char *iccid, const char *firmware, const char *modem_model)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -119,7 +119,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_pack(uint8_t syste
  * @param modem_model  Modem model name.  This must be NULL terminated if the length is less than 50 human-readable chars, and without the null termination (NULL) byte if the length is exactly 50 chars.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_cellular_modem_information_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_cellular_modem_information_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t id, uint64_t imei, uint64_t imsi, const char *modem_id, const char *iccid, const char *firmware, const char *modem_model)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -148,7 +148,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_pack_status(uint8_
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_MIN_LEN, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_LEN, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_MIN_LEN, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_MIN_LEN, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_LEN, 0);
 #endif
 }
 
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_pack_status(uint8_
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_cellular_modem_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_cellular_modem_information_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t id,uint64_t imei,uint64_t imsi,const char *modem_id,const char *iccid,const char *firmware,const char *modem_model)
 {
@@ -207,7 +207,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_pack_chan(uint8_t 
  * @param cellular_modem_information C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_cellular_modem_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
+static inline uint16_t mavlink_msg_cellular_modem_information_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
 {
     return mavlink_msg_cellular_modem_information_pack(system_id, component_id, msg, cellular_modem_information->id, cellular_modem_information->imei, cellular_modem_information->imsi, cellular_modem_information->modem_id, cellular_modem_information->iccid, cellular_modem_information->firmware, cellular_modem_information->modem_model);
 }
@@ -222,7 +222,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_encode(uint8_t sys
  * @param cellular_modem_information C-struct to read the message contents from
  */
 MAVLINK_WIP
-static inline uint16_t mavlink_msg_cellular_modem_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
+static inline uint16_t mavlink_msg_cellular_modem_information_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
 {
     return mavlink_msg_cellular_modem_information_pack_chan(system_id, component_id, chan, msg, cellular_modem_information->id, cellular_modem_information->imei, cellular_modem_information->imsi, cellular_modem_information->modem_id, cellular_modem_information->iccid, cellular_modem_information->firmware, cellular_modem_information->modem_model);
 }
@@ -236,7 +236,7 @@ static inline uint16_t mavlink_msg_cellular_modem_information_encode_chan(uint8_
  * @param msg The MAVLink message to compress the data into
  * @param cellular_modem_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_cellular_modem_information_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
+static inline uint16_t mavlink_msg_cellular_modem_information_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_cellular_modem_information_t* cellular_modem_information)
 {
     return mavlink_msg_cellular_modem_information_pack_status(system_id, component_id, _status, msg,  cellular_modem_information->id, cellular_modem_information->imei, cellular_modem_information->imsi, cellular_modem_information->modem_id, cellular_modem_information->iccid, cellular_modem_information->firmware, cellular_modem_information->modem_model);
 }
@@ -435,4 +435,5 @@ static inline void mavlink_msg_cellular_modem_information_decode(const mavlink_m
         memset(cellular_modem_information, 0, MAVLINK_MSG_ID_CELLULAR_MODEM_INFORMATION_LEN);
     memcpy(cellular_modem_information, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

@@ -94,7 +94,7 @@ typedef struct __mavlink_radar_target_track_t {
  * @param target_track_acquisition_type   Type of target acquisition.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_radar_target_track_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_radar_target_track_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint16_t target_number, float distance_to_target, float bearing_to_target, uint8_t bearing_type, float target_speed, float target_course, uint8_t course_type, float distance_to_closest_point_of_approach, float time_to_closest_point_of_approach, const char *target_name, uint8_t target_track_status, uint8_t target_track_acquisition_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -157,7 +157,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack(uint8_t system_id, ui
  * @param target_track_acquisition_type   Type of target acquisition.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_radar_target_track_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_radar_target_track_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, uint16_t target_number, float distance_to_target, float bearing_to_target, uint8_t bearing_type, float target_speed, float target_course, uint8_t course_type, float distance_to_closest_point_of_approach, float time_to_closest_point_of_approach, const char *target_name, uint8_t target_track_status, uint8_t target_track_acquisition_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -198,7 +198,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack_status(uint8_t system
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_MIN_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_MIN_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_MIN_LEN, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN, 0);
 #endif
 }
 
@@ -223,7 +223,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack_status(uint8_t system
  * @param target_track_acquisition_type   Type of target acquisition.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_radar_target_track_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_radar_target_track_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint16_t target_number,float distance_to_target,float bearing_to_target,uint8_t bearing_type,float target_speed,float target_course,uint8_t course_type,float distance_to_closest_point_of_approach,float time_to_closest_point_of_approach,const char *target_name,uint8_t target_track_status,uint8_t target_track_acquisition_type)
 {
@@ -273,7 +273,7 @@ static inline uint16_t mavlink_msg_radar_target_track_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param radar_target_track C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_radar_target_track_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
+static inline uint16_t mavlink_msg_radar_target_track_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
 {
     return mavlink_msg_radar_target_track_pack(system_id, component_id, msg, radar_target_track->time_usec, radar_target_track->target_number, radar_target_track->distance_to_target, radar_target_track->bearing_to_target, radar_target_track->bearing_type, radar_target_track->target_speed, radar_target_track->target_course, radar_target_track->course_type, radar_target_track->distance_to_closest_point_of_approach, radar_target_track->time_to_closest_point_of_approach, radar_target_track->target_name, radar_target_track->target_track_status, radar_target_track->target_track_acquisition_type);
 }
@@ -287,7 +287,7 @@ static inline uint16_t mavlink_msg_radar_target_track_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param radar_target_track C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_radar_target_track_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
+static inline uint16_t mavlink_msg_radar_target_track_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
 {
     return mavlink_msg_radar_target_track_pack_chan(system_id, component_id, chan, msg, radar_target_track->time_usec, radar_target_track->target_number, radar_target_track->distance_to_target, radar_target_track->bearing_to_target, radar_target_track->bearing_type, radar_target_track->target_speed, radar_target_track->target_course, radar_target_track->course_type, radar_target_track->distance_to_closest_point_of_approach, radar_target_track->time_to_closest_point_of_approach, radar_target_track->target_name, radar_target_track->target_track_status, radar_target_track->target_track_acquisition_type);
 }
@@ -301,7 +301,7 @@ static inline uint16_t mavlink_msg_radar_target_track_encode_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param radar_target_track C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_radar_target_track_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
+static inline uint16_t mavlink_msg_radar_target_track_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_radar_target_track_t* radar_target_track)
 {
     return mavlink_msg_radar_target_track_pack_status(system_id, component_id, _status, msg,  radar_target_track->time_usec, radar_target_track->target_number, radar_target_track->distance_to_target, radar_target_track->bearing_to_target, radar_target_track->bearing_type, radar_target_track->target_speed, radar_target_track->target_course, radar_target_track->course_type, radar_target_track->distance_to_closest_point_of_approach, radar_target_track->time_to_closest_point_of_approach, radar_target_track->target_name, radar_target_track->target_track_status, radar_target_track->target_track_acquisition_type);
 }
@@ -585,4 +585,5 @@ static inline void mavlink_msg_radar_target_track_decode(const mavlink_message_t
         memset(radar_target_track, 0, MAVLINK_MSG_ID_RADAR_TARGET_TRACK_LEN);
     memcpy(radar_target_track, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

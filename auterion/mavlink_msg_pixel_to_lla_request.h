@@ -62,7 +62,7 @@ typedef struct __mavlink_pixel_to_lla_request_t {
  * @param img_rel_y   Relative image y coordinate (top to bottom axis) in the range of [0.0, 1.0].
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_request_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t camera_id, uint64_t uid, uint64_t img_unix_ts, float img_rel_x, float img_rel_y)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -103,7 +103,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_pack(uint8_t system_id, 
  * @param img_rel_y   Relative image y coordinate (top to bottom axis) in the range of [0.0, 1.0].
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t camera_id, uint64_t uid, uint64_t img_unix_ts, float img_rel_x, float img_rel_y)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -130,7 +130,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_status(uint8_t syst
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_MIN_LEN, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_LEN, 0);
 #endif
 }
 
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_status(uint8_t syst
  * @param img_rel_y   Relative image y coordinate (top to bottom axis) in the range of [0.0, 1.0].
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t camera_id,uint64_t uid,uint64_t img_unix_ts,float img_rel_x,float img_rel_y)
 {
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_request C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
+static inline uint16_t mavlink_msg_pixel_to_lla_request_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
 {
     return mavlink_msg_pixel_to_lla_request_pack(system_id, component_id, msg, pixel_to_lla_request->camera_id, pixel_to_lla_request->uid, pixel_to_lla_request->img_unix_ts, pixel_to_lla_request->img_rel_x, pixel_to_lla_request->img_rel_y);
 }
@@ -197,7 +197,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_request C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
+static inline uint16_t mavlink_msg_pixel_to_lla_request_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
 {
     return mavlink_msg_pixel_to_lla_request_pack_chan(system_id, component_id, chan, msg, pixel_to_lla_request->camera_id, pixel_to_lla_request->uid, pixel_to_lla_request->img_unix_ts, pixel_to_lla_request->img_rel_x, pixel_to_lla_request->img_rel_y);
 }
@@ -211,7 +211,7 @@ static inline uint16_t mavlink_msg_pixel_to_lla_request_encode_chan(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param pixel_to_lla_request C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_pixel_to_lla_request_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
+static inline uint16_t mavlink_msg_pixel_to_lla_request_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_pixel_to_lla_request_t* pixel_to_lla_request)
 {
     return mavlink_msg_pixel_to_lla_request_pack_status(system_id, component_id, _status, msg,  pixel_to_lla_request->camera_id, pixel_to_lla_request->uid, pixel_to_lla_request->img_unix_ts, pixel_to_lla_request->img_rel_x, pixel_to_lla_request->img_rel_y);
 }
@@ -371,4 +371,5 @@ static inline void mavlink_msg_pixel_to_lla_request_decode(const mavlink_message
         memset(pixel_to_lla_request, 0, MAVLINK_MSG_ID_PIXEL_TO_LLA_REQUEST_LEN);
     memcpy(pixel_to_lla_request, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

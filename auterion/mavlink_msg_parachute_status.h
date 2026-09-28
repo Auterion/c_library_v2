@@ -70,7 +70,7 @@ typedef struct __mavlink_parachute_status_t {
  * @param parachute_packed_date  Parachute packed date (YYYY-MM-DD) in ASCII characters, 0 terminated. All 0: field not provided.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_parachute_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_parachute_status_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint32_t error_status, uint8_t arm_status, uint8_t deployment_status, uint8_t safety_status, uint8_t ats_arm_altitude, const char *parachute_packed_date)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -115,7 +115,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack(uint8_t system_id, uint
  * @param parachute_packed_date  Parachute packed date (YYYY-MM-DD) in ASCII characters, 0 terminated. All 0: field not provided.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_parachute_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_parachute_status_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint32_t error_status, uint8_t arm_status, uint8_t deployment_status, uint8_t safety_status, uint8_t ats_arm_altitude, const char *parachute_packed_date)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -144,7 +144,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack_status(uint8_t system_i
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARACHUTE_STATUS_MIN_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARACHUTE_STATUS_MIN_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARACHUTE_STATUS_MIN_LEN, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN, 0);
 #endif
 }
 
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack_status(uint8_t system_i
  * @param parachute_packed_date  Parachute packed date (YYYY-MM-DD) in ASCII characters, 0 terminated. All 0: field not provided.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_parachute_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_parachute_status_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,uint32_t error_status,uint8_t arm_status,uint8_t deployment_status,uint8_t safety_status,uint8_t ats_arm_altitude,const char *parachute_packed_date)
 {
@@ -201,7 +201,7 @@ static inline uint16_t mavlink_msg_parachute_status_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param parachute_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_parachute_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
+static inline uint16_t mavlink_msg_parachute_status_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
 {
     return mavlink_msg_parachute_status_pack(system_id, component_id, msg, parachute_status->time_boot_ms, parachute_status->error_status, parachute_status->arm_status, parachute_status->deployment_status, parachute_status->safety_status, parachute_status->ats_arm_altitude, parachute_status->parachute_packed_date);
 }
@@ -215,7 +215,7 @@ static inline uint16_t mavlink_msg_parachute_status_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param parachute_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_parachute_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
+static inline uint16_t mavlink_msg_parachute_status_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
 {
     return mavlink_msg_parachute_status_pack_chan(system_id, component_id, chan, msg, parachute_status->time_boot_ms, parachute_status->error_status, parachute_status->arm_status, parachute_status->deployment_status, parachute_status->safety_status, parachute_status->ats_arm_altitude, parachute_status->parachute_packed_date);
 }
@@ -229,7 +229,7 @@ static inline uint16_t mavlink_msg_parachute_status_encode_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param parachute_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_parachute_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
+static inline uint16_t mavlink_msg_parachute_status_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_parachute_status_t* parachute_status)
 {
     return mavlink_msg_parachute_status_pack_status(system_id, component_id, _status, msg,  parachute_status->time_boot_ms, parachute_status->error_status, parachute_status->arm_status, parachute_status->deployment_status, parachute_status->safety_status, parachute_status->ats_arm_altitude, parachute_status->parachute_packed_date);
 }
@@ -417,4 +417,5 @@ static inline void mavlink_msg_parachute_status_decode(const mavlink_message_t* 
         memset(parachute_status, 0, MAVLINK_MSG_ID_PARACHUTE_STATUS_LEN);
     memcpy(parachute_status, _MAV_PAYLOAD(msg), len);
 #endif
+
 }

@@ -66,13 +66,13 @@ typedef struct __mavlink_param_ack_transaction_t {
  * @param param_result  Result code.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
+static inline uint16_t mavlink_msg_param_ack_transaction_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN];
     _mav_put_float(buf, 0, param_value);
-    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 4, mavlink_msg_target_field(target_system));
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 22, param_type);
     _mav_put_uint8_t(buf, 23, param_result);
@@ -81,7 +81,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack(uint8_t system_id,
 #else
     mavlink_param_ack_transaction_t packet;
     packet.param_value = param_value;
-    packet.target_system = target_system;
+    packet.target_system = mavlink_msg_target_field(target_system);
     packet.target_component = target_component;
     packet.param_type = param_type;
     packet.param_result = param_result;
@@ -90,7 +90,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    return mavlink_finalize_message_target(msg, system_id, component_id, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 }
 
 /**
@@ -108,13 +108,13 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack(uint8_t system_id,
  * @param param_result  Result code.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
+static inline uint16_t mavlink_msg_param_ack_transaction_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint32_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN];
     _mav_put_float(buf, 0, param_value);
-    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 4, mavlink_msg_target_field(target_system));
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 22, param_type);
     _mav_put_uint8_t(buf, 23, param_result);
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_status(uint8_t sys
 #else
     mavlink_param_ack_transaction_t packet;
     packet.param_value = param_value;
-    packet.target_system = target_system;
+    packet.target_system = mavlink_msg_target_field(target_system);
     packet.target_component = target_component;
     packet.param_type = param_type;
     packet.param_result = param_result;
@@ -133,9 +133,9 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_status(uint8_t sys
 
     msg->msgid = MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION;
 #if MAVLINK_CRC_EXTRA
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    return mavlink_finalize_message_buffer_target(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN);
+    return mavlink_finalize_message_buffer_target(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, 0, target_system);
 #endif
 }
 
@@ -153,14 +153,14 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_status(uint8_t sys
  * @param param_result  Result code.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_param_ack_transaction_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const char *param_id,float param_value,uint8_t param_type,uint8_t param_result)
+                                   uint32_t target_system,uint8_t target_component,const char *param_id,float param_value,uint8_t param_type,uint8_t param_result)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN];
     _mav_put_float(buf, 0, param_value);
-    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 4, mavlink_msg_target_field(target_system));
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 22, param_type);
     _mav_put_uint8_t(buf, 23, param_result);
@@ -169,7 +169,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_chan(uint8_t syste
 #else
     mavlink_param_ack_transaction_t packet;
     packet.param_value = param_value;
-    packet.target_system = target_system;
+    packet.target_system = mavlink_msg_target_field(target_system);
     packet.target_component = target_component;
     packet.param_type = param_type;
     packet.param_result = param_result;
@@ -178,7 +178,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_chan(uint8_t syste
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    return mavlink_finalize_message_chan_target(msg, system_id, component_id, chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 }
 
 /**
@@ -189,7 +189,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param param_ack_transaction C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
+static inline uint16_t mavlink_msg_param_ack_transaction_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
 {
     return mavlink_msg_param_ack_transaction_pack(system_id, component_id, msg, param_ack_transaction->target_system, param_ack_transaction->target_component, param_ack_transaction->param_id, param_ack_transaction->param_value, param_ack_transaction->param_type, param_ack_transaction->param_result);
 }
@@ -203,7 +203,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param param_ack_transaction C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
+static inline uint16_t mavlink_msg_param_ack_transaction_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
 {
     return mavlink_msg_param_ack_transaction_pack_chan(system_id, component_id, chan, msg, param_ack_transaction->target_system, param_ack_transaction->target_component, param_ack_transaction->param_id, param_ack_transaction->param_value, param_ack_transaction->param_type, param_ack_transaction->param_result);
 }
@@ -217,7 +217,7 @@ static inline uint16_t mavlink_msg_param_ack_transaction_encode_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param param_ack_transaction C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ack_transaction_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
+static inline uint16_t mavlink_msg_param_ack_transaction_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_param_ack_transaction_t* param_ack_transaction)
 {
     return mavlink_msg_param_ack_transaction_pack_status(system_id, component_id, _status, msg,  param_ack_transaction->target_system, param_ack_transaction->target_component, param_ack_transaction->param_id, param_ack_transaction->param_value, param_ack_transaction->param_type, param_ack_transaction->param_result);
 }
@@ -235,26 +235,26 @@ static inline uint16_t mavlink_msg_param_ack_transaction_encode_status(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_param_ack_transaction_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
+static inline void mavlink_msg_param_ack_transaction_send(mavlink_channel_t chan, uint32_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN];
     _mav_put_float(buf, 0, param_value);
-    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 4, mavlink_msg_target_field(target_system));
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 22, param_type);
     _mav_put_uint8_t(buf, 23, param_result);
     _mav_put_char_array(buf, 6, param_id, 16);
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, buf, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, buf, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 #else
     mavlink_param_ack_transaction_t packet;
     packet.param_value = param_value;
-    packet.target_system = target_system;
+    packet.target_system = mavlink_msg_target_field(target_system);
     packet.target_component = target_component;
     packet.param_type = param_type;
     packet.param_result = param_result;
     mav_array_memcpy(packet.param_id, param_id, sizeof(char)*16);
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, (const char *)&packet, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, (const char *)&packet, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 #endif
 }
 
@@ -280,26 +280,26 @@ static inline void mavlink_msg_param_ack_transaction_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_param_ack_transaction_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
+static inline void mavlink_msg_param_ack_transaction_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type, uint8_t param_result)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_float(buf, 0, param_value);
-    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 4, mavlink_msg_target_field(target_system));
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 22, param_type);
     _mav_put_uint8_t(buf, 23, param_result);
     _mav_put_char_array(buf, 6, param_id, 16);
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, buf, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, buf, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 #else
     mavlink_param_ack_transaction_t *packet = (mavlink_param_ack_transaction_t *)msgbuf;
     packet->param_value = param_value;
-    packet->target_system = target_system;
+    packet->target_system = mavlink_msg_target_field(target_system);
     packet->target_component = target_component;
     packet->param_type = param_type;
     packet->param_result = param_result;
     mav_array_memcpy(packet->param_id, param_id, sizeof(char)*16);
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, (const char *)packet, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION, (const char *)packet, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_MIN_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_CRC, target_system);
 #endif
 }
 #endif
@@ -308,16 +308,6 @@ static inline void mavlink_msg_param_ack_transaction_send_buf(mavlink_message_t 
 
 // MESSAGE PARAM_ACK_TRANSACTION UNPACKING
 
-
-/**
- * @brief Get field target_system from param_ack_transaction message
- *
- * @return  Id of system that sent PARAM_SET message.
- */
-static inline uint8_t mavlink_msg_param_ack_transaction_get_target_system(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint8_t(msg,  4);
-}
 
 /**
  * @brief Get field target_component from param_ack_transaction message
@@ -379,7 +369,7 @@ static inline void mavlink_msg_param_ack_transaction_decode(const mavlink_messag
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     param_ack_transaction->param_value = mavlink_msg_param_ack_transaction_get_param_value(msg);
-    param_ack_transaction->target_system = mavlink_msg_param_ack_transaction_get_target_system(msg);
+    param_ack_transaction->target_system = _MAV_RETURN_uint8_t(msg, 4);
     param_ack_transaction->target_component = mavlink_msg_param_ack_transaction_get_target_component(msg);
     mavlink_msg_param_ack_transaction_get_param_id(msg, param_ack_transaction->param_id);
     param_ack_transaction->param_type = mavlink_msg_param_ack_transaction_get_param_type(msg);
@@ -389,4 +379,11 @@ static inline void mavlink_msg_param_ack_transaction_decode(const mavlink_messag
         memset(param_ack_transaction, 0, MAVLINK_MSG_ID_PARAM_ACK_TRANSACTION_LEN);
     memcpy(param_ack_transaction, _MAV_PAYLOAD(msg), len);
 #endif
+    if (msg->incompat_flags & MAVLINK_IFLAG_TARGET32) {
+        // This uint8_t field cannot retain a wide target. The sentinel is NOT reserved.
+        // For routing use mavlink_msg_get_target_sysid(msg, mavlink_get_msg_entry(msg->msgid)).
+        // To relay after edits, pass that full target to _pack*(); _encode*() loses it.
+        param_ack_transaction->target_system = mavlink_msg_target_field(msg->target_sysid);
+    }
+
 }

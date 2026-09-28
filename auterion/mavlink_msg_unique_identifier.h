@@ -46,7 +46,7 @@ typedef struct __mavlink_unique_identifier_t {
  * @param uuid  uuid of the sender.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_unique_identifier_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_unique_identifier_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                const char *uuid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -75,7 +75,7 @@ static inline uint16_t mavlink_msg_unique_identifier_pack(uint8_t system_id, uin
  * @param uuid  uuid of the sender.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_unique_identifier_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_unique_identifier_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                const char *uuid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ static inline uint16_t mavlink_msg_unique_identifier_pack_status(uint8_t system_
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_MIN_LEN, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_LEN, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_MIN_LEN, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_MIN_LEN, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_LEN, 0);
 #endif
 }
 
@@ -107,7 +107,7 @@ static inline uint16_t mavlink_msg_unique_identifier_pack_status(uint8_t system_
  * @param uuid  uuid of the sender.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_unique_identifier_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_unique_identifier_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const char *uuid)
 {
@@ -135,7 +135,7 @@ static inline uint16_t mavlink_msg_unique_identifier_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param unique_identifier C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_unique_identifier_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
+static inline uint16_t mavlink_msg_unique_identifier_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
 {
     return mavlink_msg_unique_identifier_pack(system_id, component_id, msg, unique_identifier->uuid);
 }
@@ -149,7 +149,7 @@ static inline uint16_t mavlink_msg_unique_identifier_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param unique_identifier C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_unique_identifier_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
+static inline uint16_t mavlink_msg_unique_identifier_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
 {
     return mavlink_msg_unique_identifier_pack_chan(system_id, component_id, chan, msg, unique_identifier->uuid);
 }
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_unique_identifier_encode_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param unique_identifier C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_unique_identifier_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
+static inline uint16_t mavlink_msg_unique_identifier_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_unique_identifier_t* unique_identifier)
 {
     return mavlink_msg_unique_identifier_pack_status(system_id, component_id, _status, msg,  unique_identifier->uuid);
 }
@@ -259,4 +259,5 @@ static inline void mavlink_msg_unique_identifier_decode(const mavlink_message_t*
         memset(unique_identifier, 0, MAVLINK_MSG_ID_UNIQUE_IDENTIFIER_LEN);
     memcpy(unique_identifier, _MAV_PAYLOAD(msg), len);
 #endif
+
 }
