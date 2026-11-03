@@ -1921,16 +1921,14 @@ static void mavlink_test_video_stream_receiver_report(uint8_t system_id, uint8_t
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_video_stream_receiver_report_t packet_in = {
-        5,72,139,206,17,84
+        5,72,139,206
     };
     mavlink_video_stream_receiver_report_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.target_system = packet_in.target_system;
         packet1.target_component = packet_in.target_component;
         packet1.stream_id = packet_in.stream_id;
-        packet1.health = packet_in.health;
-        packet1.request = packet_in.request;
-        packet1.request_count = packet_in.request_count;
+        packet1.profile = packet_in.profile;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -1945,12 +1943,12 @@ static void mavlink_test_video_stream_receiver_report(uint8_t system_id, uint8_t
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_video_stream_receiver_report_pack(system_id, component_id, &msg , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.health , packet1.request , packet1.request_count );
+    mavlink_msg_video_stream_receiver_report_pack(system_id, component_id, &msg , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.profile );
     mavlink_msg_video_stream_receiver_report_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_video_stream_receiver_report_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.health , packet1.request , packet1.request_count );
+    mavlink_msg_video_stream_receiver_report_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.profile );
     mavlink_msg_video_stream_receiver_report_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -1963,7 +1961,7 @@ static void mavlink_test_video_stream_receiver_report(uint8_t system_id, uint8_t
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_video_stream_receiver_report_send(MAVLINK_COMM_1 , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.health , packet1.request , packet1.request_count );
+    mavlink_msg_video_stream_receiver_report_send(MAVLINK_COMM_1 , packet1.target_system , packet1.target_component , packet1.stream_id , packet1.profile );
     mavlink_msg_video_stream_receiver_report_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
