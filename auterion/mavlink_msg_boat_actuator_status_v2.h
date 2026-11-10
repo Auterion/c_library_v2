@@ -8,8 +8,8 @@
 
 typedef struct __mavlink_boat_actuator_status_v2_t {
  uint64_t time_usec; /*< [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.*/
- float engine_leg_trim_position[6]; /*< [deg] Engine leg trim position.*/
- float rudder_position[6]; /*< [deg] Rudder position.*/
+ float engine_leg_trim_position[6]; /*< [deg] Engine leg trim position. NaN if unknown.*/
+ float rudder_position[6]; /*< [deg] Rudder position. NaN if unknown.*/
  uint8_t engine_leg_trim_state[6]; /*<  Engine leg trim state.*/
  uint8_t rudder_state[6]; /*<  Rudder state.*/
 } mavlink_boat_actuator_status_v2_t;
@@ -60,9 +60,9 @@ typedef struct __mavlink_boat_actuator_status_v2_t {
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @param engine_leg_trim_state  Engine leg trim state.
- * @param engine_leg_trim_position [deg] Engine leg trim position.
+ * @param engine_leg_trim_position [deg] Engine leg trim position. NaN if unknown.
  * @param rudder_state  Rudder state.
- * @param rudder_position [deg] Rudder position.
+ * @param rudder_position [deg] Rudder position. NaN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
@@ -100,9 +100,9 @@ static inline uint16_t mavlink_msg_boat_actuator_status_v2_pack(uint32_t system_
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @param engine_leg_trim_state  Engine leg trim state.
- * @param engine_leg_trim_position [deg] Engine leg trim position.
+ * @param engine_leg_trim_position [deg] Engine leg trim position. NaN if unknown.
  * @param rudder_state  Rudder state.
- * @param rudder_position [deg] Rudder position.
+ * @param rudder_position [deg] Rudder position. NaN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_boat_actuator_status_v2_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -142,9 +142,9 @@ static inline uint16_t mavlink_msg_boat_actuator_status_v2_pack_status(uint32_t 
  * @param msg The MAVLink message to compress the data into
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @param engine_leg_trim_state  Engine leg trim state.
- * @param engine_leg_trim_position [deg] Engine leg trim position.
+ * @param engine_leg_trim_position [deg] Engine leg trim position. NaN if unknown.
  * @param rudder_state  Rudder state.
- * @param rudder_position [deg] Rudder position.
+ * @param rudder_position [deg] Rudder position. NaN if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 MAVLINK_WIP
@@ -223,9 +223,9 @@ static inline uint16_t mavlink_msg_boat_actuator_status_v2_encode_status(uint32_
  *
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @param engine_leg_trim_state  Engine leg trim state.
- * @param engine_leg_trim_position [deg] Engine leg trim position.
+ * @param engine_leg_trim_position [deg] Engine leg trim position. NaN if unknown.
  * @param rudder_state  Rudder state.
- * @param rudder_position [deg] Rudder position.
+ * @param rudder_position [deg] Rudder position. NaN if unknown.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -327,7 +327,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_v2_get_engine_leg_trim_s
 /**
  * @brief Get field engine_leg_trim_position from boat_actuator_status_v2 message
  *
- * @return [deg] Engine leg trim position.
+ * @return [deg] Engine leg trim position. NaN if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_v2_get_engine_leg_trim_position(const mavlink_message_t* msg, float *engine_leg_trim_position)
@@ -349,7 +349,7 @@ static inline uint16_t mavlink_msg_boat_actuator_status_v2_get_rudder_state(cons
 /**
  * @brief Get field rudder_position from boat_actuator_status_v2 message
  *
- * @return [deg] Rudder position.
+ * @return [deg] Rudder position. NaN if unknown.
  */
 MAVLINK_WIP
 static inline uint16_t mavlink_msg_boat_actuator_status_v2_get_rudder_position(const mavlink_message_t* msg, float *rudder_position)

@@ -338,8 +338,8 @@ typedef enum MAV_CMD
           See https://mavlink.io/en/services/opendroneid.html for more information.
          |Set/unset emergency 0: unset, 1: set| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
    MAV_CMD_DO_CONTROL_TAKEOVER=13670, /* Commands to take over control from the safety driver. This command cannot give control to safety driver. |Empty| Empty| Empty| Empty| Empty| Empty| Empty|  */
-   MAV_CMD_DO_ENGINE_LEG_TRIM=13671, /* Set engine leg trim position. Can execute trim for individual legs or all legs at once. |Engine leg selection bitmask.| Executes engine leg trimming for all selected engines(0: Down, 1:up)| Empty| Empty| Empty| Empty| Empty|  */
-   MAV_CMD_DO_SET_ENGINE_STATE=13672, /* Commands the desired state for vehicle engines. |Engine selection bitmask.| Commanded engine state for the selected engines.| Empty| Empty| Empty| Empty| Empty|  */
+   MAV_CMD_DO_ENGINE_LEG_TRIM=13671, /* Move the engine leg trim of individual legs or of all legs at once. The motion is commanded as a target position (param3), a target preset (param4), or a rate (param2), and param2 additionally sets the rate used to reach a target when one is commanded. At most one target may be given: param3 and param4 are mutually exclusive. A rate on its own moves the leg for as long as the command keeps being sent and is the way to drive a leg that has no position feedback. |Engine leg selection bitmask. 0: all legs.| Rate at which to move the selected engine legs, signed in the direction of increasing reported position (BOAT_ACTUATOR_STATUS_V2.engine_leg_trim_position), and clamped to what the actuator can achieve: a leg driven by a fixed-speed motor moves at its one speed for any non-zero magnitude. With a target commanded in param3 or param4 this is the rate used to reach it. On its own it moves the leg until the command stops being sent, a travel limit is reached, or 0 is commanded. NaN: move a commanded target at the vehicle's default rate; not a target on its own.| Target trim position for all selected engine legs, in the same frame and units as BOAT_ACTUATOR_STATUS_V2.engine_leg_trim_position. NaN: no position target.| Target trim state for all selected engine legs. ENGINE_LEG_TRIM_FAULT is report-only and is not a valid target. 0 (ENGINE_LEG_TRIM_NONE) or NaN: no state target.| Empty| Empty| Empty|  */
+   MAV_CMD_DO_SET_ENGINE_STATE=13672, /* Commands the desired state for vehicle engines. |Engine selection bitmask. 0 or 255 means all engines.| Action commanded on the selected engines.| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_DO_SET_SHIP_APPROACH_SECTORS=13673, /* Set the user defined ship approach sectors. These sector represent approach vectors for the drone's landing sequence, with a 360/8 degree arc. |Approach sector bitmask.| Empty| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_PAYLOAD_DEVICE_TRIGGER=13800, /* Commands the payload device to trigger its payload. |Set to 1 to trigger the payload device.| Empty| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_PAYLOAD_PREPARE_DEPLOY=30001, /* Deploy payload on a Lat / Lon / Alt position. This includes the navigation to reach the required release position and velocity. |Operation mode. 0: prepare single payload deploy (overwriting previous requests), but do not execute it. 1: execute payload deploy immediately (rejecting further deploy commands during execution, but allowing abort). 2: add payload deploy to existing deployment list.| Desired approach vector in compass heading. A negative value indicates the system can define the approach vector at will.| Desired ground speed at release time. This can be overridden by the airframe in case it needs to meet minimum airspeed. A negative value indicates the system can define the ground speed at will.| Minimum altitude clearance to the release position. A negative value indicates the system can define the clearance at will.| Latitude.| Longitude.| Altitude (MSL)|  */
@@ -519,13 +519,29 @@ typedef enum RUDDER_STATE
 #define HAVE_ENUM_ENGINE_STATE
 typedef enum ENGINE_STATE
 {
-   ENGINE_NONE=0, /* ENGINE_NONE indicates engine is not running and ignition is off. | */
-   ENGINE_STOPPED=1, /* ENGINE_STOPPED indicates the engine is not running, but ignition is on. | */
+   ENGINE_OFF=0, /* ENGINE_OFF indicates the engine is not running and its ignition or keyswitch circuit is de-energized. This is a statement about an engine the sender can see; an engine that is absent or not reporting is ENGINE_UNKNOWN, not ENGINE_OFF. | */
+   ENGINE_STOPPED=1, /* ENGINE_STOPPED indicates the engine is not running while its ignition or keyswitch circuit is energized. This is where ENGINE_CMD_STOP leaves a running engine; ENGINE_CMD_IGNITION_OFF then moves it to ENGINE_OFF. | */
    ENGINE_STARTING=2, /* ENGINE_STARTING indicates the engine is starting. | */
    ENGINE_RUNNING=3, /* ENGINE_RUNNING indicates the engine is running. | */
-   ENGINE_FAULT=4, /* ENGINE_FAULT indicates a fault in the engine system. | */
-   ENGINE_STATE_ENUM_END=5, /*  | */
+   ENGINE_FAULT=4, /* ENGINE_FAULT indicates a fault in the engine system, including a fault in its ignition or keyswitch system. | */
+   ENGINE_UNKNOWN=5, /* ENGINE_UNKNOWN indicates no data: the sender has no engine at this index, or has never received a report from it, or its last report is too old to be trusted. Distinct from ENGINE_OFF, which is a statement about an engine the sender can see: present, not running, ignition de-energized. Receivers must not display any other per-engine field for an index reporting ENGINE_UNKNOWN. | */
+   ENGINE_STATE_ENUM_END=6, /*  | */
 } ENGINE_STATE;
+#endif
+
+/** @brief Action commanded on an engine, carried in MAV_CMD_DO_SET_ENGINE_STATE param2. This is a command vocabulary and is deliberately not the ENGINE_STATE numbering, which reports observed state: several ENGINE_STATE values (ENGINE_STARTING, ENGINE_FAULT) are observations that cannot be commanded, and the two numberings must never be cast into one another. A receiver that cannot carry out a commanded action must reject the command rather than silently ignore it. */
+#ifndef HAVE_ENUM_ENGINE_CMD
+#define HAVE_ENUM_ENGINE_CMD
+typedef enum ENGINE_CMD
+{
+   ENGINE_CMD_STOP=0, /* Stop a running engine. The ignition or keyswitch circuit is left as it is; use ENGINE_CMD_IGNITION_OFF to de-energize it. | */
+   ENGINE_CMD_IGNITION_ON=1, /* Energize the ignition or keyswitch circuit without cranking. The engine is left not running. | */
+   ENGINE_CMD_START=2, /* Crank and start the engine, energizing the ignition first if that is not already done. | */
+   ENGINE_CMD_RESERVED_3=3, /* Reserved, never to be allocated. Some existing senders (AMC, USV_POWER_CMD::UNDEFINED) send 3 to mean "no request"; giving this value a real action would make every such no-op execute that action. Receivers must reject this value (MAV_RESULT_DENIED) and take no action. | */
+   ENGINE_CMD_IGNITION_OFF=4, /* De-energize the ignition or keyswitch circuit.. | */
+   ENGINE_CMD_CLEAR_FAULT=5, /* Clear latched engine faults. Does not change whether the engine is running or whether ignition is energized. A fault whose underlying cause is still present is expected to latch again. | */
+   ENGINE_CMD_ENUM_END=6, /*  | */
+} ENGINE_CMD;
 #endif
 
 /** @brief Defines the operation state of a transmission. */
@@ -538,7 +554,8 @@ typedef enum TRANSMISSION_STATE
    TRANSMISSION_FORWARD=2, /* TRANSMISSION_FORWARD indicates the transmission is in forward. | */
    TRANSMISSION_REVERSE=3, /* TRANSMISSION_REVERSE indicates the transmission is in reverse. | */
    TRANSMISSION_FAULT=4, /* TRANSMISSION_FAULT indicates a fault in the transmission system. | */
-   TRANSMISSION_STATE_ENUM_END=5, /*  | */
+   TRANSMISSION_UNKNOWN=5, /* TRANSMISSION_UNKNOWN indicates no data: the sender cannot observe the transmission. Distinct from TRANSMISSION_NONE, which is a positive statement that no transmission system is fitted. | */
+   TRANSMISSION_STATE_ENUM_END=6, /*  | */
 } TRANSMISSION_STATE;
 #endif
 
