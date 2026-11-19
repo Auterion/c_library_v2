@@ -1214,6 +1214,69 @@ static void mavlink_test_unique_identifier(uint8_t system_id, uint8_t component_
 #endif
 }
 
+static void mavlink_test_corridor_status(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_CORRIDOR_STATUS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_corridor_status_t packet_in = {
+        963497464,17443,17547,17651,{ 17755, 17756, 17757, 17758, 17759, 17760, 17761, 17762, 17763, 17764, 17765, 17766, 17767, 17768, 17769, 17770, 17771, 17772, 17773, 17774, 17775, 17776, 17777, 17778, 17779, 17780, 17781, 17782, 17783, 17784, 17785, 17786 }
+    };
+    mavlink_corridor_status_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.corridor_id = packet_in.corridor_id;
+        packet1.destination_node = packet_in.destination_node;
+        packet1.previous_node = packet_in.previous_node;
+        packet1.state = packet_in.state;
+        
+        mav_array_memcpy(packet1.route, packet_in.route, sizeof(uint16_t)*32);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_CORRIDOR_STATUS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_CORRIDOR_STATUS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_corridor_status_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_corridor_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_corridor_status_pack(system_id, component_id, &msg , packet1.corridor_id , packet1.destination_node , packet1.previous_node , packet1.state , packet1.route );
+    mavlink_msg_corridor_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_corridor_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.corridor_id , packet1.destination_node , packet1.previous_node , packet1.state , packet1.route );
+    mavlink_msg_corridor_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_corridor_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_corridor_status_send(MAVLINK_COMM_1 , packet1.corridor_id , packet1.destination_node , packet1.previous_node , packet1.state , packet1.route );
+    mavlink_msg_corridor_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("CORRIDOR_STATUS") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_CORRIDOR_STATUS) != NULL);
+#endif
+}
+
 static void mavlink_test_boat_actuator_status_v2(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -1992,6 +2055,7 @@ static void mavlink_test_auterion(uint8_t system_id, uint8_t component_id, mavli
     mavlink_test_request_handoff(system_id, component_id, last_msg);
     mavlink_test_handoff_respond(system_id, component_id, last_msg);
     mavlink_test_unique_identifier(system_id, component_id, last_msg);
+    mavlink_test_corridor_status(system_id, component_id, last_msg);
     mavlink_test_boat_actuator_status_v2(system_id, component_id, last_msg);
     mavlink_test_boat_engine_status_v2(system_id, component_id, last_msg);
     mavlink_test_fluid_level(system_id, component_id, last_msg);
